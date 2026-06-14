@@ -1,0 +1,860 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>STRATOS AI | Decentralized Sports Oracle</title>
+<meta name="description" content="STRATOS AI — The World's First Decentralized Sports Oracle. AI predictive modeling on-chain. Presale Q4 2026." />
+
+<!-- Open Graph / social preview -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="STRATOS AI | The World's First Decentralized Sports Oracle" />
+<meta property="og:description" content="On-chain AI predictive modeling fused with tamper-proof decentralized data feeds. $STRAT presale launching Q4 2026." />
+<meta property="og:site_name" content="STRATOS AI" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="STRATOS AI | Decentralized Sports Oracle" />
+<meta name="twitter:description" content="AI predictive modeling on-chain. $STRAT presale launching Q4 2026. Join the whitelist." />
+<meta name="theme-color" content="#000000" />
+
+<!-- Favicon (inline SVG, neon chip mark) -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300E5FF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='24' height='24' fill='%23000000' stroke='none'/%3E%3Crect x='4' y='4' width='16' height='16' rx='2'/%3E%3Crect x='9' y='9' width='6' height='6'/%3E%3Cpath d='M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2'/%3E%3C/svg%3E" />
+<style>
+  /* ===== Minimal utility CSS (self-contained, no external CDN) ===== */
+  *{ box-sizing:border-box; }
+  .relative{ position:relative; } .absolute{ position:absolute; } .fixed{ position:fixed; }
+  .inset-0{ inset:0; } .top-0{ top:0; } .left-0{ left:0; } .right-0{ right:0; } .bottom-0{ bottom:0; }
+  .z-10{ z-index:10; } .z-50{ z-index:50; }
+  .flex{ display:flex; } .grid{ display:grid; } .hidden{ display:none; } .inline-flex{ display:inline-flex; } .inline-block{ display:inline-block; } .block{ display:block; }
+  .flex-col{ flex-direction:column; } .flex-1{ flex:1 1 0%; } .flex-shrink-0{ flex-shrink:0; }
+  .items-center{ align-items:center; } .items-start{ align-items:flex-start; } .items-end{ align-items:flex-end; }
+  .justify-center{ justify-content:center; } .justify-between{ justify-content:space-between; }
+  .text-center{ text-align:center; } .text-left{ text-align:left; } .text-right{ text-align:right; }
+  .mx-auto{ margin-left:auto; margin-right:auto; }
+  .w-full{ width:100%; } .h-full{ height:100%; } .h-px{ height:1px; } .min-h-screen{ min-height:100vh; }
+  .max-w-md{ max-width:28rem; } .max-w-lg{ max-width:32rem; } .max-w-xl{ max-width:36rem; } .max-w-2xl{ max-width:42rem; } .max-w-3xl{ max-width:48rem; } .max-w-4xl{ max-width:56rem; } .max-w-5xl{ max-width:64rem; } .max-w-6xl{ max-width:72rem; } .max-w-7xl{ max-width:80rem; }
+  .overflow-hidden{ overflow:hidden; } .overflow-x-hidden{ overflow-x:hidden; } .overflow-y-auto{ overflow-y:auto; }
+  .rounded-full{ border-radius:9999px; } .rounded-3xl{ border-radius:1.5rem; } .rounded-2xl{ border-radius:1rem; } .rounded-xl{ border-radius:.75rem; } .rounded-lg{ border-radius:.5rem; }
+  .border{ border:1px solid; } .border-t{ border-top:1px solid; } .border-b{ border-bottom:1px solid; }
+  .font-black{ font-weight:900; } .font-extrabold{ font-weight:800; } .font-bold{ font-weight:700; } .font-semibold{ font-weight:600; } .font-medium{ font-weight:500; } .font-mono{ font-family:monospace; }
+  .uppercase{ text-transform:uppercase; }
+  .leading-tight{ line-height:1.2; } .leading-relaxed{ line-height:1.625; }
+  .tracking-tight{ letter-spacing:-.02em; } .tracking-wide{ letter-spacing:.025em; } .tracking-wider{ letter-spacing:.05em; } .tracking-widest{ letter-spacing:.1em; }
+  .cursor-pointer{ cursor:pointer; }
+  .pointer-events-none{ pointer-events:none; }
+  .break-all{ word-break:break-all; }
+  .underline{ text-decoration:underline; }
+
+  .text-xs{ font-size:.75rem; line-height:1rem; } .text-sm{ font-size:.875rem; line-height:1.25rem; } .text-base{ font-size:1rem; line-height:1.5rem; }
+  .text-lg{ font-size:1.125rem; line-height:1.75rem; } .text-xl{ font-size:1.25rem; line-height:1.75rem; } .text-2xl{ font-size:1.5rem; line-height:2rem; }
+  .text-3xl{ font-size:1.875rem; line-height:2.25rem; } .text-4xl{ font-size:2.25rem; line-height:2.5rem; } .text-5xl{ font-size:3rem; line-height:1; } .text-6xl{ font-size:3.75rem; line-height:1; } .text-7xl{ font-size:4.5rem; line-height:1; }
+  .text-\[10px\]{ font-size:10px; } .text-\[11px\]{ font-size:11px; }
+  .text-white{ color:#fff; }
+
+  .p-3{ padding:.75rem; } .p-4{ padding:1rem; } .p-5{ padding:1.25rem; } .p-7{ padding:1.75rem; } .p-8{ padding:2rem; } .p-10{ padding:2.5rem; }
+  .px-4{ padding-left:1rem; padding-right:1rem; } .px-5{ padding-left:1.25rem; padding-right:1.25rem; } .px-6{ padding-left:1.5rem; padding-right:1.5rem; } .px-7{ padding-left:1.75rem; padding-right:1.75rem; } .px-9{ padding-left:2.25rem; padding-right:2.25rem; } .px-10{ padding-left:2.5rem; padding-right:2.5rem; } .px-2\.5{ padding-left:.625rem; padding-right:.625rem; }
+  .py-1{ padding-top:.25rem; padding-bottom:.25rem; } .py-1\.5{ padding-top:.375rem; padding-bottom:.375rem; } .py-2{ padding-top:.5rem; padding-bottom:.5rem; } .py-2\.5{ padding-top:.625rem; padding-bottom:.625rem; } .py-3{ padding-top:.75rem; padding-bottom:.75rem; } .py-3\.5{ padding-top:.875rem; padding-bottom:.875rem; } .py-4{ padding-top:1rem; padding-bottom:1rem; } .py-5{ padding-top:1.25rem; padding-bottom:1.25rem; } .py-7{ padding-top:1.75rem; padding-bottom:1.75rem; } .py-8{ padding-top:2rem; padding-bottom:2rem; } .py-9{ padding-top:2.25rem; padding-bottom:2.25rem; } .py-10{ padding-top:2.5rem; padding-bottom:2.5rem; } .py-16{ padding-top:4rem; padding-bottom:4rem; } .py-20{ padding-top:5rem; padding-bottom:5rem; }
+  .pt-40{ padding-top:10rem; } .pb-8{ padding-bottom:2rem; } .pb-24{ padding-bottom:6rem; } .pt-5{ padding-top:1.25rem; } .px-1\.5{ padding-left:.375rem; padding-right:.375rem; } .py-0\.5{ padding-top:.125rem; padding-bottom:.125rem; }
+  .mb-1{ margin-bottom:.25rem; } .mb-1\.5{ margin-bottom:.375rem; } .mb-2{ margin-bottom:.5rem; } .mb-3{ margin-bottom:.75rem; } .mb-4{ margin-bottom:1rem; } .mb-5{ margin-bottom:1.25rem; } .mb-6{ margin-bottom:1.5rem; } .mb-7{ margin-bottom:1.75rem; } .mb-8{ margin-bottom:2rem; } .mb-10{ margin-bottom:2.5rem; } .mb-12{ margin-bottom:3rem; }
+  .mt-1{ margin-top:.25rem; } .mt-2{ margin-top:.5rem; } .mt-3{ margin-top:.75rem; } .mt-4{ margin-top:1rem; } .mt-5{ margin-top:1.25rem; } .mt-6{ margin-top:1.5rem; } .mt-7{ margin-top:1.75rem; } .mt-8{ margin-top:2rem; } .mt-12{ margin-top:3rem; } .mt-20{ margin-top:5rem; } .mt-1\.5{ margin-top:.375rem; }
+  .my-6{ margin-top:1.5rem; margin-bottom:1.5rem; } .my-8{ margin-top:2rem; margin-bottom:2rem; }
+  .ml-auto{ margin-left:auto; }
+
+  .gap-2{ gap:.5rem; } .gap-2\.5{ gap:.625rem; } .gap-3{ gap:.75rem; } .gap-4{ gap:1rem; } .gap-5{ gap:1.25rem; } .gap-6{ gap:1.5rem; } .gap-8{ gap:2rem; } .gap-10{ gap:2.5rem; }
+  .space-y-2>*+*{ margin-top:.5rem; } .space-y-2\.5>*+*{ margin-top:.625rem; }
+
+  .grid-cols-2{ grid-template-columns:repeat(2,minmax(0,1fr)); } .grid-cols-3{ grid-template-columns:repeat(3,minmax(0,1fr)); } .grid-cols-4{ grid-template-columns:repeat(4,minmax(0,1fr)); }
+
+  .w-2{ width:.5rem; } .h-2{ height:.5rem; } .w-3{ width:.75rem; } .h-3{ height:.75rem; } .w-9{ width:2.25rem; } .h-9{ height:2.25rem; } .w-10{ width:2.5rem; } .h-10{ height:2.5rem; } .w-12{ width:3rem; } .h-12{ height:3rem; } .w-14{ width:3.5rem; } .h-14{ height:3.5rem; } .w-16{ width:4rem; } .h-16{ height:4rem; } .w-20{ width:5rem; } .h-20{ height:5rem; } .w-1\.5{ width:.375rem; } .h-1\.5{ height:.375rem; } .w-0\.5{ width:.125rem; } .w-20{ width:5rem; } .h-1{ height:.25rem; } .h-5{ height:1.25rem; } .h-px{ height:1px; }
+
+  .max-w-md,.max-w-lg,.max-w-xl,.max-w-2xl,.max-w-3xl,.max-w-4xl,.max-w-5xl,.max-w-6xl,.max-w-7xl{ width:100%; }
+  table{ border-collapse:collapse; }
+  .backdrop-blur-md{ backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); }
+
+  @media (min-width:640px){
+    .sm\:flex-row{ flex-direction:row; } .sm\:text-3xl{ font-size:1.875rem; line-height:2.25rem; } .sm\:text-4xl{ font-size:2.25rem; line-height:2.5rem; } .sm\:text-5xl{ font-size:3rem; line-height:1; } .sm\:text-6xl{ font-size:3.75rem; line-height:1; }
+    .sm\:p-10{ padding:2.5rem; } .sm\:p-14{ padding:3.5rem; } .sm\:px-8{ padding-left:2rem; padding-right:2rem; } .sm\:px-9{ padding-left:2.25rem; padding-right:2.25rem; } .sm\:px-10{ padding-left:2.5rem; padding-right:2.5rem; } .sm\:gap-5{ gap:1.25rem; } .sm\:text-2xl{ font-size:1.5rem; line-height:2rem; }
+  }
+  @media (min-width:768px){
+    .md\:flex{ display:flex; } .md\:grid-cols-2{ grid-template-columns:repeat(2,minmax(0,1fr)); } .md\:grid-cols-3{ grid-template-columns:repeat(3,minmax(0,1fr)); } .md\:grid-cols-4{ grid-template-columns:repeat(4,minmax(0,1fr)); }
+  }
+  @media (min-width:1024px){
+    .lg\:grid-cols-2{ grid-template-columns:repeat(2,minmax(0,1fr)); } .lg\:text-6xl{ font-size:3.75rem; line-height:1; } .lg\:text-7xl{ font-size:4.5rem; line-height:1; }
+  }
+
+  :root{ --blue:#00E5FF; --green:#39FF7A; --orange:#FF9D2E; }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:#000; color:#e8feff; font-family:'Inter',system-ui,-apple-system,Segoe UI,Tahoma,sans-serif; overflow-x:hidden; }
+  html{ scroll-behavior:smooth; }
+  section[id]{ scroll-margin-top:90px; }
+  .tabnum{ font-variant-numeric:tabular-nums; }
+  a{ text-decoration:none; }
+  button{ cursor:pointer; font-family:inherit; }
+
+  .glass{ background:rgba(255,255,255,.035); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border:1px solid rgba(0,229,255,.12); }
+  .feature:hover{ border-color:rgba(0,229,255,.4); box-shadow:0 10px 40px rgba(0,229,255,.12); transform:translateY(-8px); }
+  .feature{ transition:all .3s ease; }
+  .lift:hover{ transform:translateY(-4px); }
+  .lift{ transition:all .3s ease; }
+  .scaleup{ transition:transform .2s ease; }
+  .scaleup:hover{ transform:scale(1.05); }
+  .scaleup2:hover{ transform:scale(1.02); }
+  .scaleup2{ transition:transform .2s ease; }
+
+  @keyframes pulseSlow{ 0%,100%{opacity:1} 50%{opacity:.6} }
+  .pulse{ animation:pulseSlow 2.5s ease-in-out infinite; }
+  @keyframes ctaPulse{ 0%,100%{box-shadow:0 0 25px rgba(0,229,255,.45)} 50%{box-shadow:0 0 40px rgba(0,229,255,.75)} }
+  .cta-glow{ box-shadow:0 0 25px rgba(0,229,255,.5); animation:ctaPulse 2.5s ease-in-out infinite; }
+  @keyframes shine{ 0%{transform:translateX(-100%)} 100%{transform:translateX(300%)} }
+  .shine{ position:absolute; inset:0; width:40%; background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent); animation:shine 2.2s linear infinite; }
+
+  /* modal */
+  .overlay{ position:fixed; inset:0; z-index:100; display:none; align-items:center; justify-content:center; padding:16px; background:rgba(0,0,0,.85); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); }
+  .overlay.show{ display:flex; animation:ovFade .2s ease-out; }
+  @keyframes ovFade{ from{opacity:0} to{opacity:1} }
+  .modal{ animation:mScale .3s cubic-bezier(.16,1,.3,1); }
+  @keyframes mScale{ from{opacity:0; transform:translateY(14px) scale(.97)} to{opacity:1; transform:translateY(0) scale(1)} }
+  @keyframes pop{ 0%{transform:scale(0)} 60%{transform:scale(1.15)} 100%{transform:scale(1)} }
+  .pop{ animation:pop .5s cubic-bezier(.16,1,.3,1); }
+  .mscroll::-webkit-scrollbar{ width:8px; }
+  .mscroll::-webkit-scrollbar-track{ background:rgba(255,255,255,.03); }
+  .mscroll::-webkit-scrollbar-thumb{ background:rgba(0,229,255,.3); border-radius:8px; }
+
+  input{ font-family:inherit; }
+  input::placeholder{ color:#4f7780; }
+  .fblue:focus{ border-color:var(--blue)!important; box-shadow:0 0 0 3px rgba(0,229,255,.15); outline:none; }
+  .forange:focus{ border-color:var(--orange)!important; box-shadow:0 0 0 3px rgba(255,157,46,.15); outline:none; }
+
+  .navlink{ color:#9fdfe8; transition:color .2s; }
+  .navlink:hover{ color:#fff; }
+  .hide{ display:none!important; }
+  .grid-bg{ position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.4; }
+</style>
+</head>
+<body>
+
+<!-- BACKGROUND -->
+<div class="grid-bg">
+  <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(0,229,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,.07) 1px,transparent 1px);background-size:50px 50px;-webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 40%,transparent 100%);mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 40%,transparent 100%);"></div>
+  <div style="position:absolute;top:-10%;left:20%;width:60%;height:50%;background:radial-gradient(circle,rgba(0,229,255,.12),transparent 70%);filter:blur(60px);"></div>
+  <div style="position:absolute;top:40%;right:-10%;width:40%;height:40%;background:radial-gradient(circle,rgba(57,255,122,.08),transparent 70%);filter:blur(60px);"></div>
+</div>
+
+<!-- NAV -->
+<nav class="fixed top-0 left-0 right-0 z-50" style="background:rgba(0,0,0,.6);backdrop-filter:blur(10px);border-bottom:1px solid rgba(0,229,255,.15);">
+  <div class="max-w-7xl mx-auto px-5 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#00E5FF" stroke-width="2" style="filter:drop-shadow(0 0 8px #00E5FF)"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>
+      <span class="text-xl font-extrabold tracking-widest" style="text-shadow:0 0 12px #00E5FF">STRATOS<span style="color:#00E5FF">AI</span></span>
+    </div>
+    <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+      <a href="#presale" class="navlink">Presale</a>
+      <a href="#features" class="navlink">Features</a>
+      <a href="#tokenomics" class="navlink">Tokenomics</a>
+      <a href="#roadmap" class="navlink">Roadmap</a>
+      <a href="#hub" class="navlink">Hub</a>
+      <a href="#faq" class="navlink">FAQ</a>
+    </div>
+    <button onclick="openModal('whitelist')" class="px-5 py-2 rounded-full text-sm font-bold flex items-center gap-2 scaleup" style="background:#00E5FF;color:#000;box-shadow:0 0 18px rgba(0,229,255,.6)">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg> Get Notified
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="relative z-10 max-w-7xl mx-auto px-5 pt-40 pb-24 text-center">
+  <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-8 text-xs font-semibold tracking-wide pulse" style="border:1px solid #39FF7A;color:#39FF7A;background:rgba(57,255,122,.06);box-shadow:0 0 14px rgba(57,255,122,.25)">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l1.9 5.8L19.5 10l-5.6 1.2L12 17l-1.9-5.8L4.5 10l5.6-1.2z"/></svg>
+    PRESALE UPCOMING · STAGE 1 · Q4 2026 LAUNCH
+  </div>
+  <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black leading-tight tracking-tight mb-6">
+    <span style="color:#fff">STRATOS AI</span><br>
+    <span style="color:#00E5FF;text-shadow:0 0 28px rgba(0,229,255,.8),0 0 60px rgba(0,229,255,.4)">The World's First</span><br>
+    <span class="text-3xl sm:text-5xl lg:text-6xl" style="color:#fff">Decentralized Sports Oracle</span>
+  </h1>
+  <p class="max-w-2xl mx-auto text-base sm:text-lg mb-10" style="color:#8fc6cf">On-chain AI predictive modeling fused with tamper-proof decentralized data feeds. Real-time sports intelligence, secured by the blockchain — built for the next generation of capital.</p>
+  <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+    <button onclick="openModal('whitelist')" class="px-9 py-4 rounded-xl font-bold text-base flex items-center gap-2 scaleup cta-glow" style="background:linear-gradient(135deg,#00E5FF,#00a8c4);color:#000">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg> Join Whitelist
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+    <button onclick="openModal('whitepaper')" class="px-9 py-4 rounded-xl font-bold text-base flex items-center gap-2 scaleup" style="border:1px solid rgba(0,229,255,.4);color:#00E5FF;background:rgba(0,229,255,.04)">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg> Read Whitepaper
+    </button>
+  </div>
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-20 max-w-4xl mx-auto" id="trustStats"></div>
+</section>
+
+<!-- PRESALE -->
+<section id="presale" class="relative z-10 max-w-4xl mx-auto px-5 py-16">
+  <div class="glass rounded-3xl p-8 sm:p-10" style="box-shadow:0 0 50px rgba(0,229,255,.12)">
+    <div class="text-center mb-8">
+      <span class="text-xs uppercase tracking-[0.3em] inline-flex items-center gap-2" style="color:#00E5FF">
+        <span class="w-2 h-2 rounded-full pulse" style="background:#00E5FF;box-shadow:0 0 8px #00E5FF"></span> Presale Stage 1: Upcoming
+      </span>
+      <h2 class="text-2xl sm:text-3xl font-black mt-3 text-white">Launching Q4 2026</h2>
+      <p class="text-sm mt-2" style="color:#8fc6cf">Join the whitelist now to secure early access before public launch.</p>
+    </div>
+    <div class="grid grid-cols-4 gap-3 sm:gap-5 mb-10" id="countdown"></div>
+    <div class="mb-3 flex items-end justify-between">
+      <div><span class="text-xs uppercase tracking-wider" style="color:#6fa9b2">Raised</span>
+        <div class="text-2xl font-black tabnum" style="color:#39FF7A;text-shadow:0 0 16px rgba(57,255,122,.5)">$0</div></div>
+      <div class="text-right"><span class="text-xs uppercase tracking-wider" style="color:#6fa9b2">Hard Cap</span>
+        <div class="text-lg font-bold text-white tabnum">$1,500,000</div></div>
+    </div>
+    <div class="relative h-5 rounded-full overflow-hidden mb-2" style="background:rgba(255,255,255,.06)">
+      <div class="h-full rounded-full relative" style="width:0%;background:linear-gradient(90deg,#00E5FF,#39FF7A)"><div class="shine"></div></div>
+      <div class="absolute top-0 bottom-0 flex items-center" style="left:20%"><div class="w-0.5 h-full" style="background:rgba(255,255,255,.7)"></div></div>
+    </div>
+    <div class="flex justify-between text-xs" style="color:#6fa9b2">
+      <span>Soft Cap: <span class="font-bold text-white">$300,000</span></span>
+      <span class="font-bold" style="color:#00E5FF">0.0% Filled</span>
+    </div>
+    <div class="grid grid-cols-3 gap-3 mt-8">
+      <div class="rounded-xl p-4 text-center" style="border:1px solid #39FF7A;background:rgba(57,255,122,.07)">
+        <div class="text-xs uppercase tracking-wider" style="color:#39FF7A">Stage 1</div>
+        <div class="text-lg font-black text-white mt-1">$0.012</div>
+        <div class="text-[10px] font-bold mt-1" style="color:#39FF7A">● UPCOMING</div>
+      </div>
+      <div class="rounded-xl p-4 text-center" style="border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.02)">
+        <div class="text-xs uppercase tracking-wider" style="color:#6fa9b2">Stage 2</div>
+        <div class="text-lg font-black text-white mt-1">$0.018</div>
+      </div>
+      <div class="rounded-xl p-4 text-center" style="border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.02)">
+        <div class="text-xs uppercase tracking-wider" style="color:#6fa9b2">Listing</div>
+        <div class="text-lg font-black text-white mt-1">$0.030</div>
+      </div>
+    </div>
+    <button onclick="openModal('whitelist')" class="w-full mt-8 py-4 rounded-xl font-bold text-base flex items-center justify-center gap-2 scaleup2 cta-glow" style="background:linear-gradient(135deg,#00E5FF,#00a8c4);color:#000">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg> Join Whitelist / Get Notified
+    </button>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" class="relative z-10 max-w-7xl mx-auto px-5 py-20">
+  <div class="text-center">
+    <span class="text-xs uppercase tracking-[0.3em] font-semibold" style="color:#39FF7A">Core Technology</span>
+    <h2 class="text-3xl sm:text-5xl font-black text-white mt-3" style="text-shadow:0 0 30px rgba(0,229,255,.2)">Built For Precision</h2>
+    <div class="w-20 h-1 mx-auto mt-5 rounded-full" style="background:linear-gradient(90deg,#00E5FF,#39FF7A);box-shadow:0 0 12px #00E5FF"></div>
+  </div>
+  <div class="grid md:grid-cols-3 gap-6 mt-12" id="features-grid"></div>
+</section>
+
+<!-- TOKENOMICS -->
+<section id="tokenomics" class="relative z-10 max-w-7xl mx-auto px-5 py-20">
+  <div class="text-center">
+    <span class="text-xs uppercase tracking-[0.3em] font-semibold" style="color:#39FF7A">Token Distribution</span>
+    <h2 class="text-3xl sm:text-5xl font-black text-white mt-3" style="text-shadow:0 0 30px rgba(0,229,255,.2)">Tokenomics</h2>
+    <div class="w-20 h-1 mx-auto mt-5 rounded-full" style="background:linear-gradient(90deg,#00E5FF,#39FF7A);box-shadow:0 0 12px #00E5FF"></div>
+  </div>
+  <div class="text-center mb-12 mt-8">
+    <span class="text-sm" style="color:#8fc6cf">Total Supply</span>
+    <div class="text-3xl sm:text-4xl font-black" style="color:#00E5FF;text-shadow:0 0 22px rgba(0,229,255,.5)">1,000,000,000 <span class="text-xl" style="color:#39FF7A">$STRAT</span></div>
+  </div>
+  <div class="grid lg:grid-cols-2 gap-10 items-center">
+    <div class="flex justify-center">
+      <div class="relative" style="width:280px;height:280px">
+        <svg width="280" height="280" style="transform:rotate(-90deg)" id="donut"></svg>
+        <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+          <div class="text-3xl font-black" id="donutPct"></div>
+          <div class="text-xs text-center px-6 mt-1" id="donutName" style="color:#9fdfe8"></div>
+        </div>
+      </div>
+    </div>
+    <div class="glass rounded-2xl overflow-hidden">
+      <table class="w-full text-sm">
+        <thead><tr style="border-bottom:1px solid rgba(0,229,255,.15)">
+          <th class="text-left px-5 py-4 font-semibold uppercase tracking-wider text-xs" style="color:#6fa9b2">Allocation</th>
+          <th class="text-right px-5 py-4 font-semibold uppercase tracking-wider text-xs" style="color:#6fa9b2">%</th>
+          <th class="text-right px-5 py-4 font-semibold uppercase tracking-wider text-xs" style="color:#6fa9b2">Tokens</th>
+        </tr></thead>
+        <tbody id="tokenTable"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section id="roadmap" class="relative z-10 max-w-6xl mx-auto px-5 py-20">
+  <div class="text-center">
+    <span class="text-xs uppercase tracking-[0.3em] font-semibold" style="color:#39FF7A">The Journey</span>
+    <h2 class="text-3xl sm:text-5xl font-black text-white mt-3" style="text-shadow:0 0 30px rgba(0,229,255,.2)">Roadmap</h2>
+    <div class="w-20 h-1 mx-auto mt-5 rounded-full" style="background:linear-gradient(90deg,#00E5FF,#39FF7A);box-shadow:0 0 12px #00E5FF"></div>
+  </div>
+  <div class="grid md:grid-cols-3 gap-6 mt-12" id="roadmap-grid"></div>
+</section>
+
+<!-- HUB -->
+<section id="hub" class="relative z-10 max-w-7xl mx-auto px-5 py-20">
+  <div class="flex items-center justify-center mb-3">
+    <button onclick="toggleLang()" class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold scaleup" style="border:1px solid rgba(0,229,255,.3);color:#00E5FF;background:rgba(0,229,255,.05)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 8 6 6M4 14l6-6 2-3M2 5h12M7 2h1M22 22l-5-10-5 10M14 18h6"/></svg>
+      <span id="langLabel">العربية</span>
+    </button>
+  </div>
+  <div class="text-center">
+    <span class="text-xs uppercase tracking-[0.3em] font-semibold" style="color:#39FF7A" id="hubEyebrow">Official Hub</span>
+    <h2 class="text-3xl sm:text-5xl font-black text-white mt-3" style="text-shadow:0 0 30px rgba(0,229,255,.2)" id="hubTitle">Your STRATOS Gateway</h2>
+    <div class="w-20 h-1 mx-auto mt-5 rounded-full" style="background:linear-gradient(90deg,#00E5FF,#39FF7A);box-shadow:0 0 12px #00E5FF"></div>
+    <p class="max-w-2xl mx-auto text-base mt-6" style="color:#8fc6cf" id="hubSub"></p>
+  </div>
+  <div class="grid md:grid-cols-2 gap-6 mt-12">
+    <div class="glass rounded-2xl p-8 flex flex-col justify-between feature">
+      <div>
+        <div class="flex items-center justify-between mb-5">
+          <div class="w-14 h-14 rounded-xl flex items-center justify-center" style="background:rgba(0,229,255,.1);border:1px solid #00E5FF"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#00E5FF" stroke-width="2" style="filter:drop-shadow(0 0 8px #00E5FF)"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
+          <span class="text-[11px] font-bold px-3 py-1 rounded-full" style="background:rgba(0,229,255,.1);color:#00E5FF;border:1px solid rgba(0,229,255,.3)" id="stBadge">Dashboard</span>
+        </div>
+        <h3 class="text-2xl font-black text-white mb-3" id="stTitle2">Presale Staking</h3>
+        <p class="text-sm leading-relaxed" style="color:#8fc6cf" id="stDesc"></p>
+      </div>
+      <button onclick="openModal('staking')" class="w-full mt-7 py-3.5 rounded-xl font-bold text-base flex items-center justify-center gap-2 scaleup2 cta-glow" style="background:linear-gradient(135deg,#00E5FF,#00a8c4);color:#000">
+        <span id="stBtn">Enter Staking Dashboard</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+      </button>
+    </div>
+    <div class="glass rounded-2xl p-8 flex flex-col justify-between lift" style="border-color:rgba(255,157,46,.25)">
+      <div>
+        <div class="flex items-center justify-between mb-5">
+          <div class="w-14 h-14 rounded-xl flex items-center justify-center" style="background:rgba(255,157,46,.1);border:1px solid #FF9D2E"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FF9D2E" stroke-width="2" style="filter:drop-shadow(0 0 8px #FF9D2E)"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg></div>
+          <span class="text-[11px] font-bold px-3 py-1 rounded-full pulse" style="background:rgba(255,157,46,.1);color:#FF9D2E;border:1px solid rgba(255,157,46,.3)" id="adBadge">Live Campaign</span>
+        </div>
+        <h3 class="text-2xl font-black text-white mb-3" id="adTitle2">Community Airdrop</h3>
+        <p class="text-sm leading-relaxed" style="color:#8fc6cf" id="adDesc"></p>
+      </div>
+      <button onclick="openModal('airdrop')" class="w-full mt-7 py-3.5 rounded-xl font-bold text-base flex items-center justify-center gap-2 scaleup2" style="background:linear-gradient(135deg,#FF9D2E,#e07d10);color:#000;box-shadow:0 0 22px rgba(255,157,46,.4)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg>
+        <span id="adBtn">Claim Free Airdrop</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- HOW TO BUY -->
+<section id="howtobuy" class="relative z-10 max-w-7xl mx-auto px-5 py-20">
+  <div class="text-center">
+    <span class="text-xs uppercase tracking-widest font-semibold" style="color:#39FF7A">Getting Started</span>
+    <h2 class="text-3xl sm:text-5xl font-black text-white mt-3" style="text-shadow:0 0 30px rgba(0,229,255,.2)">How To Participate</h2>
+    <div class="w-20 h-1 mx-auto mt-5 rounded-full" style="background:linear-gradient(90deg,#00E5FF,#39FF7A);box-shadow:0 0 12px #00E5FF"></div>
+  </div>
+  <div class="grid md:grid-cols-4 gap-6 mt-12" id="howto-grid"></div>
+</section>
+
+<!-- SECURITY & TRUST -->
+<section id="security" class="relative z-10 max-w-7xl mx-auto px-5 py-20">
+  <div class="text-center">
+    <span class="text-xs uppercase tracking-widest font-semibold" style="color:#39FF7A">Built On Trust</span>
+    <h2 class="text-3xl sm:text-5xl font-black text-white mt-3" style="text-shadow:0 0 30px rgba(0,229,255,.2)">Security & Transparency</h2>
+    <div class="w-20 h-1 mx-auto mt-5 rounded-full" style="background:linear-gradient(90deg,#00E5FF,#39FF7A);box-shadow:0 0 12px #00E5FF"></div>
+    <p class="max-w-2xl mx-auto text-base mt-6" style="color:#8fc6cf">Our commitments to protecting our community. Each item updates to a verifiable link as it is completed ahead of launch.</p>
+  </div>
+  <div class="grid md:grid-cols-3 gap-6 mt-12" id="security-grid"></div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="relative z-10 max-w-3xl mx-auto px-5 py-20">
+  <div class="text-center">
+    <span class="text-xs uppercase tracking-widest font-semibold" style="color:#39FF7A">Questions</span>
+    <h2 class="text-3xl sm:text-5xl font-black text-white mt-3" style="text-shadow:0 0 30px rgba(0,229,255,.2)">Frequently Asked</h2>
+    <div class="w-20 h-1 mx-auto mt-5 rounded-full" style="background:linear-gradient(90deg,#00E5FF,#39FF7A);box-shadow:0 0 12px #00E5FF"></div>
+  </div>
+  <div class="mt-12" id="faq-list"></div>
+</section>
+
+<!-- CTA -->
+<section class="relative z-10 max-w-5xl mx-auto px-5 py-20">
+  <div class="glass rounded-3xl p-10 sm:p-14 text-center" style="box-shadow:0 0 60px rgba(0,229,255,.15)">
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#00E5FF" stroke-width="2" style="margin:0 auto 20px;filter:drop-shadow(0 0 14px #00E5FF)"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91 0zM12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/></svg>
+    <h2 class="text-3xl sm:text-4xl font-black text-white mb-4">Be First In Line</h2>
+    <p class="max-w-xl mx-auto text-base mb-8" style="color:#8fc6cf">The whitelist is open ahead of the Q4 2026 launch. Get notified the moment Stage 1 goes live and secure early access to the decentralized sports oracle revolution.</p>
+    <button onclick="openModal('whitelist')" class="px-10 py-4 rounded-xl font-bold text-lg inline-flex items-center gap-2 scaleup cta-glow" style="background:linear-gradient(135deg,#00E5FF,#00a8c4);color:#000">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg> Join Whitelist / Get Notified
+    </button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="relative z-10 border-t" style="border-color:rgba(0,229,255,.12)">
+  <div class="max-w-7xl mx-auto px-5 py-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+    <div class="flex items-center gap-2">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00E5FF" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>
+      <span class="font-extrabold tracking-widest">STRATOS<span style="color:#00E5FF">AI</span></span>
+    </div>
+    <div class="flex items-center gap-5" id="footerSocials"></div>
+    <span class="text-xs" style="color:#5a8089">© 2026 STRATOS AI. All rights reserved.</span>
+  </div>
+  <div class="max-w-7xl mx-auto px-5 pb-8">
+    <p class="text-[11px] leading-relaxed" style="color:#46656d">Disclaimer: Cryptocurrency presales involve substantial risk. $STRAT is a utility token and not an investment contract. Nothing on this page is financial advice. Always do your own research.</p>
+  </div>
+</footer>
+
+<!-- ===== MODALS ===== -->
+
+<!-- WHITELIST -->
+<div class="overlay" id="m-whitelist" onclick="bgClose(event,'whitelist')">
+  <div class="modal relative w-full max-w-md" style="background:linear-gradient(180deg,#050709,#000);border:1px solid rgba(0,229,255,.35);border-radius:22px;box-shadow:0 0 60px rgba(0,229,255,.25);overflow:hidden">
+    <button onclick="closeModal('whitelist')" class="absolute top-4 right-4 w-9 h-9 rounded-full flex items-center justify-center text-lg scaleup z-10" style="border:1px solid rgba(0,229,255,.3);color:#00E5FF;background:rgba(0,0,0,.4)">✕</button>
+    <div class="h-1.5 w-full" style="background:linear-gradient(90deg,#00E5FF,#39FF7A)"></div>
+    <div class="px-7 sm:px-9 py-9" id="wl-body"></div>
+  </div>
+</div>
+
+<!-- WHITEPAPER -->
+<div class="overlay" id="m-whitepaper" onclick="bgClose(event,'whitepaper')">
+  <div class="modal relative w-full max-w-3xl flex flex-col" style="max-height:90vh;background:linear-gradient(180deg,#050709,#000);border:1px solid rgba(0,229,255,.35);border-radius:20px;box-shadow:0 0 60px rgba(0,229,255,.25)">
+    <div class="flex items-center justify-between px-6 sm:px-8 py-5" style="border-bottom:1px solid rgba(0,229,255,.15);background:rgba(0,229,255,.03);border-radius:20px 20px 0 0;flex-shrink:0">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:rgba(0,229,255,.1);border:1px solid #00E5FF"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00E5FF" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg></div>
+        <div><div class="font-black text-white tracking-wide leading-tight">STRATOS AI · Whitepaper</div><div class="text-[11px]" style="color:#6fa9b2">Version 1.0 · Official Document</div></div>
+      </div>
+      <button onclick="closeModal('whitepaper')" class="w-9 h-9 rounded-full flex items-center justify-center text-lg scaleup" style="border:1px solid rgba(0,229,255,.3);color:#00E5FF;background:rgba(0,0,0,.4)">✕</button>
+    </div>
+    <div class="mscroll overflow-y-auto px-6 sm:px-10 py-8" style="flex:1" id="wp-body"></div>
+    <div class="flex items-center justify-between gap-3 px-6 sm:px-8 py-4" style="border-top:1px solid rgba(0,229,255,.15);background:rgba(0,0,0,.5);border-radius:0 0 20px 20px;flex-shrink:0">
+      <span class="text-[11px]" style="color:#6fa9b2">Press Esc to close</span>
+      <button onclick="closeModal('whitepaper')" class="px-6 py-2.5 rounded-xl font-bold text-sm scaleup" style="background:linear-gradient(135deg,#00E5FF,#00a8c4);color:#000;box-shadow:0 0 18px rgba(0,229,255,.5)">Got it</button>
+    </div>
+  </div>
+</div>
+
+<!-- AIRDROP -->
+<div class="overlay" id="m-airdrop" onclick="bgClose(event,'airdrop')">
+  <div class="modal relative w-full max-w-md" id="airdropDir" style="background:linear-gradient(180deg,#0a0805,#000);border:1px solid rgba(255,157,46,.35);border-radius:22px;box-shadow:0 0 60px rgba(255,157,46,.2);overflow:hidden;max-height:92vh">
+    <button onclick="closeModal('airdrop')" class="absolute top-4 right-4 w-9 h-9 rounded-full flex items-center justify-center text-lg scaleup z-10" style="border:1px solid rgba(255,157,46,.3);color:#FF9D2E;background:rgba(0,0,0,.4)">✕</button>
+    <div class="h-1.5 w-full" style="background:linear-gradient(90deg,#FF9D2E,#39FF7A)"></div>
+    <div class="mscroll overflow-y-auto px-7 py-8" style="max-height:calc(92vh - 6px)" id="ad-body"></div>
+  </div>
+</div>
+
+<!-- STAKING -->
+<div class="overlay" id="m-staking" onclick="bgClose(event,'staking')">
+  <div class="modal relative w-full max-w-lg" id="stakingDir" style="background:linear-gradient(180deg,#050709,#000);border:1px solid rgba(0,229,255,.35);border-radius:22px;box-shadow:0 0 60px rgba(0,229,255,.25);overflow:hidden;max-height:92vh">
+    <button onclick="closeModal('staking')" class="absolute top-4 right-4 w-9 h-9 rounded-full flex items-center justify-center text-lg scaleup z-10" style="border:1px solid rgba(0,229,255,.3);color:#00E5FF;background:rgba(0,0,0,.4)">✕</button>
+    <div class="h-1.5 w-full" style="background:linear-gradient(90deg,#00E5FF,#39FF7A)"></div>
+    <div class="mscroll overflow-y-auto px-7 py-7" style="max-height:calc(92vh - 6px)" id="stk-body"></div>
+  </div>
+</div>
+
+<script>
+/* ===== CONFIG ===== */
+var BLUE="#00E5FF", GREEN="#39FF7A", ORANGE="#FF9D2E";
+var STAKING_APY=280;
+var TELEGRAM_BOT_URL="https://t.me/StratosAirdropbot";
+var X_URL="https://x.com/stratosaig";
+var TELEGRAM_GROUP_URL="https://t.me/stratosAi_official";
+var TARGET=new Date("2026-10-15T15:00:00Z").getTime();
+var lang="en";
+
+/* ===== ICONS (svg strings) ===== */
+function svg(inner,size,color,extra){ size=size||24; color=color||"currentColor"; extra=extra||"";
+  return '<svg width="'+size+'" height="'+size+'" viewBox="0 0 24 24" fill="none" stroke="'+color+'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="'+extra+'">'+inner+'</svg>'; }
+var ICON={
+  shield:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+  lock:'<rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
+  activity:'<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>',
+  globe:'<circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/>',
+  brain:'<path d="M12 5a3 3 0 1 0-5.9.7 3 3 0 0 0-1.1 5.4 3 3 0 0 0 1 4.9A2.5 2.5 0 0 0 12 19V5z"/>',
+  network:'<rect x="9" y="2" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="16" y="16" width="6" height="6" rx="1"/><path d="M12 8v4M5 16v-2h14v2"/>',
+  coins:'<circle cx="8" cy="8" r="6"/><path d="M18.09 10.37A6 6 0 1 1 10.34 18M7 6h1v4M16.71 13.88l.7.71-2.82 2.82"/>',
+  trending:'<polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>',
+  rocket:'<path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91 0zM12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>',
+  gift:'<rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5"/>',
+  wallet:'<path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4z"/>',
+  mail:'<rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/>',
+  bell:'<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>',
+  check:'<circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>',
+  circle:'<circle cx="12" cy="12" r="10"/>',
+  ext:'<path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>',
+  twitter:'<path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/>',
+  send:'<path d="m22 2-7 20-4-9-9-4z"/><path d="M22 2 11 13"/>',
+  message:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
+  share:'<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/>'
+};
+
+/* ===== TRANSLATIONS ===== */
+var T={
+  en:{ dir:"ltr", langLabel:"العربية",
+    hubEyebrow:"Official Hub", hubTitle:"Your STRATOS Gateway",
+    hubSub:"Everything you need to participate in the STRATOS AI ecosystem — staking and community rewards, all in one place.",
+    stBadge:"Dashboard", stTitle:"Presale Staking",
+    stDesc:"Connect your wallet, stake your locked $STRAT, and track real-time APY and rewards from a professional dashboard.",
+    stBtn:"Enter Staking Dashboard",
+    adBadge:"Live Campaign", adTitle:"Community Airdrop",
+    adDesc:"Complete simple social tasks — follow on X and join our Telegram — then register your wallet address to reserve your free allocation.",
+    adBtn:"Claim Free Airdrop",
+    adSafe:"We will never ask for your private keys, seed phrase, or any wallet signature. This is a social-task airdrop only.",
+    adTasksTitle:"Complete these tasks",
+    taskX:"Follow @StratosAI on X", taskTg:"Join the STRATOS Telegram", taskShare:"Share with at least one friend",
+    adAddrLabel:"Your BEP-20 Wallet Address (for allocation only)",
+    adRegister:"Register My Address", adBotBtn:"Continue on Telegram Bot",
+    adErr:"Please enter a valid BEP-20 (0x…) address.",
+    adSuccessTitle:"You're Registered!", adSuccessBody:"Your address has been added to the airdrop list. Finish the social tasks on Telegram to confirm your allocation.",
+    done:"Done",
+    stkTitle:"Staking Dashboard", stkConnect:"Connect Wallet", stkConnected:"Connected",
+    stkApy:"Current APY", stkTotal:"Total Staked", stkYour:"Your Staked", stkRewards:"Claimable Rewards",
+    stkAmount:"Amount to stake", stkStake:"Stake $STRAT", stkClaim:"Claim Rewards", stkUnstake:"Unstake",
+    stkConnectFirst:"Connect your wallet to start staking.",
+    stkNote:"APY is subject to change based on smart contract pool distribution.",
+    stkDemo:"Demo interface — staking functions are mock placeholders pending smart contract deployment & audit.",
+    preLaunch:"Staking goes live at launch — preview mode",
+    stkNoWallet:"No wallet detected. Please install MetaMask:",
+    stkRejected:"Connection request was rejected.",
+    stkConnFail:"Could not connect. Please try again." },
+  ar:{ dir:"rtl", langLabel:"English",
+    hubEyebrow:"المنصة الرسمية", hubTitle:"بوابتك إلى STRATOS",
+    hubSub:"كل ما تحتاجه للمشاركة في منظومة STRATOS AI — التخزين ومكافآت المجتمع، في مكان واحد.",
+    stBadge:"لوحة التحكم", stTitle:"تخزين ما قبل البيع",
+    stDesc:"اربط محفظتك، خزّن عملات $STRAT المقفلة، وتابع الـ APY والمكافآت في الوقت الحقيقي من لوحة تحكم احترافية.",
+    stBtn:"دخول لوحة الاستيكنج",
+    adBadge:"حملة مباشرة", adTitle:"إيردروب المجتمع",
+    adDesc:"أكمل مهام اجتماعية بسيطة — تابعنا على X وانضم إلى تيليجرام — ثم سجّل عنوان محفظتك لحجز حصتك المجانية.",
+    adBtn:"احصل على الإيردروب المجاني",
+    adSafe:"لن نطلب منك أبداً مفاتيحك الخاصة أو العبارة السرية أو أي توقيع للمحفظة. هذا إيردروب يعتمد على المهام الاجتماعية فقط.",
+    adTasksTitle:"أكمل هذه المهام",
+    taskX:"تابع @StratosAI على X", taskTg:"انضم إلى تيليجرام STRATOS", taskShare:"شارك مع صديق واحد على الأقل",
+    adAddrLabel:"عنوان محفظتك BEP-20 (لتخصيص الحصة فقط)",
+    adRegister:"سجّل عنواني", adBotBtn:"المتابعة عبر بوت تيليجرام",
+    adErr:"يرجى إدخال عنوان BEP-20 صحيح (‎0x…).",
+    adSuccessTitle:"تم تسجيلك!", adSuccessBody:"تمت إضافة عنوانك إلى قائمة الإيردروب. أكمل المهام الاجتماعية على تيليجرام لتأكيد حصتك.",
+    done:"تم",
+    stkTitle:"لوحة التخزين", stkConnect:"ربط المحفظة", stkConnected:"متصل",
+    stkApy:"العائد السنوي الحالي", stkTotal:"إجمالي المخزّن", stkYour:"رصيدك المخزّن", stkRewards:"المكافآت القابلة للسحب",
+    stkAmount:"المبلغ المراد تخزينه", stkStake:"تخزين $STRAT", stkClaim:"سحب المكافآت", stkUnstake:"إلغاء التخزين",
+    stkConnectFirst:"اربط محفظتك لبدء التخزين.",
+    stkNote:"العائد السنوي قابل للتغيير بناءً على توزيع مجمع العقد الذكي.",
+    stkDemo:"واجهة تجريبية — وظائف التخزين هي عناصر نائبة مؤقتة بانتظار نشر العقد الذكي وتدقيقه.",
+    preLaunch:"التخزين يبدأ عند الإطلاق — لوحة المعاينة",
+    stkNoWallet:"لم يتم العثور على محفظة. يرجى تثبيت MetaMask:",
+    stkRejected:"تم رفض طلب الاتصال.",
+    stkConnFail:"تعذّر الاتصال. حاول مرة أخرى." }
+};
+
+/* ===== TRUST STATS / FEATURES / ROADMAP / SOCIALS render ===== */
+function rgba(c){ return c===BLUE?"0,229,255":"57,255,122"; }
+
+var trust=[["shield","Audit","Planned (Pre-Launch)"],["lock","Liquidity","Lock Planned"],["activity","Oracle Nodes","Testnet Phase"],["globe","Network","BNB Chain"]];
+document.getElementById("trustStats").innerHTML=trust.map(function(s){
+  return '<div class="glass rounded-xl px-4 py-5 flex flex-col items-center gap-2">'+svg(ICON[s[0]],22,GREEN)+
+  '<span class="text-xs uppercase tracking-wider" style="color:#6fa9b2">'+s[1]+'</span>'+
+  '<span class="text-sm font-bold text-white">'+s[2]+'</span></div>'; }).join("");
+
+var features=[
+  ["brain","AI Predictive Modeling","Neural networks trained on petabytes of historical sports data deliver probabilistic outcomes with institutional-grade accuracy, updated in real time.",BLUE],
+  ["network","Decentralized Data Feeds","A distributed network of independent oracle nodes cross-validates every data point, making manipulation cryptographically impractical.",GREEN],
+  ["coins","High Utility Token","$STRAT powers query staking, governance, node rewards, and fee discounts — engineered for sustained demand and deflationary pressure.",BLUE]
+];
+document.getElementById("features-grid").innerHTML=features.map(function(f){
+  return '<div class="glass rounded-2xl p-7 feature">'+
+    '<div class="w-14 h-14 rounded-xl flex items-center justify-center mb-5" style="background:rgba('+rgba(f[3])+',.1);border:1px solid '+f[3]+'">'+svg(ICON[f[0]],28,f[3],"filter:drop-shadow(0 0 8px "+f[3]+")")+'</div>'+
+    '<h3 class="text-xl font-bold text-white mb-3">'+f[1]+'</h3>'+
+    '<p class="text-sm leading-relaxed" style="color:#8fc6cf">'+f[2]+'</p></div>'; }).join("");
+
+var phases=[
+  {ph:"Phase 1",date:"Q2 – Q3 2026",title:"Platform Architecture & Audit",items:["Oracle protocol design","AI model training pipeline","Smart contract development","Security audit"],status:"done",ic:"shield"},
+  {ph:"Phase 2",date:"Q4 2026",title:"Official Presale Launch",items:["Multi-stage presale opens","Community & marketing push","Node operator onboarding","Testnet oracle live"],status:"active",ic:"rocket"},
+  {ph:"Phase 3",date:"May 2027",title:"Token Generation & Exchange Listing",items:["$STRAT TGE","Tier-1 CEX listings","Mainnet oracle launch","DAO governance live"],status:"upcoming",ic:"trending"}
+];
+document.getElementById("roadmap-grid").innerHTML=phases.map(function(p){
+  var c=p.status==="done"?GREEN:p.status==="active"?BLUE:"#5a8089";
+  var rg=c===BLUE?"0,229,255":c===GREEN?"57,255,122":"90,128,137";
+  var badge=p.status==="active"?'<div class="absolute top-4 right-4 text-[10px] font-bold px-2.5 py-1 rounded-full pulse" style="background:rgba(0,229,255,.12);color:#00E5FF;border:1px solid #00E5FF">IN PROGRESS</div>':"";
+  var items=p.items.map(function(it){
+    var ic=p.status==="done"?svg(ICON.check,16,GREEN,"margin-top:2px;flex-shrink:0"):svg(ICON.circle,16,c,"margin-top:2px;flex-shrink:0");
+    return '<li class="flex items-start gap-2 text-sm" style="color:#8fc6cf">'+ic+it+'</li>'; }).join("");
+  return '<div class="glass rounded-2xl p-7 relative overflow-hidden" style="border:'+(p.status==="active"?"1px solid #00E5FF":"1px solid rgba(255,255,255,.07)")+'">'+badge+
+    '<div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background:rgba('+rg+',.1);border:1px solid '+c+'">'+svg(ICON[p.ic],24,c,"filter:drop-shadow(0 0 6px "+c+")")+'</div>'+
+    '<div class="text-xs uppercase tracking-widest font-bold mb-1" style="color:'+c+'">'+p.ph+' · '+p.date+'</div>'+
+    '<h3 class="text-lg font-bold text-white mb-4">'+p.title+'</h3><ul class="space-y-2.5">'+items+'</ul></div>'; }).join("");
+
+document.getElementById("footerSocials").innerHTML=
+  '<a href="'+X_URL+'" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full flex items-center justify-center scaleup" style="border:1px solid rgba(0,229,255,.25);color:#00E5FF">'+svg(ICON.twitter,18,BLUE)+'</a>'+
+  '<a href="'+TELEGRAM_GROUP_URL+'" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full flex items-center justify-center scaleup" style="border:1px solid rgba(0,229,255,.25);color:#00E5FF">'+svg(ICON.send,18,BLUE)+'</a>'+
+  '<a href="'+TELEGRAM_BOT_URL+'" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full flex items-center justify-center scaleup" style="border:1px solid rgba(0,229,255,.25);color:#00E5FF">'+svg(ICON.message,18,BLUE)+'</a>';
+
+document.getElementById("footerCommunity").innerHTML=
+  '<a href="'+X_URL+'" target="_blank" rel="noopener noreferrer" class="navlink flex items-center gap-2">'+svg(ICON.twitter,15,"#6fa9b2")+' Twitter / X</a>'+
+  '<a href="'+TELEGRAM_GROUP_URL+'" target="_blank" rel="noopener noreferrer" class="navlink flex items-center gap-2">'+svg(ICON.send,15,"#6fa9b2")+' Telegram Channel</a>'+
+  '<a href="'+TELEGRAM_BOT_URL+'" target="_blank" rel="noopener noreferrer" class="navlink flex items-center gap-2">'+svg(ICON.message,15,"#6fa9b2")+' Airdrop Bot</a>';
+
+/* ===== HOW TO BUY ===== */
+var howtoSteps=[
+  {n:"01",ic:"wallet",t:"Set Up A Wallet",d:"Download MetaMask or any BNB Chain compatible wallet and secure your seed phrase offline."},
+  {n:"02",ic:"coins",t:"Fund With BNB",d:"Buy BNB from an exchange and transfer it to your wallet to cover the presale and gas fees."},
+  {n:"03",ic:"bell",t:"Join The Whitelist",d:"Register early to lock in Stage 1 access and the best presale price before public launch."},
+  {n:"04",ic:"rocket",t:"Buy At Launch",d:"When Stage 1 opens in Q4 2026, connect your wallet and swap BNB for $STRAT directly on-site."}
+];
+document.getElementById("howto-grid").innerHTML=howtoSteps.map(function(s){
+  return '<div class="glass rounded-2xl p-7 feature relative overflow-hidden">'+
+    '<div class="text-5xl font-black" style="color:rgba(0,229,255,.12);position:absolute;top:10px;right:16px">'+s.n+'</div>'+
+    '<div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background:rgba(0,229,255,.1);border:1px solid #00E5FF">'+svg(ICON[s.ic],24,BLUE,"filter:drop-shadow(0 0 6px #00E5FF)")+'</div>'+
+    '<h3 class="text-lg font-bold text-white mb-2">'+s.t+'</h3>'+
+    '<p class="text-sm leading-relaxed" style="color:#8fc6cf">'+s.d+'</p></div>'; }).join("");
+
+/* ===== SECURITY & TRUST ===== */
+var securityItems=[
+  {ic:"shield",t:"Smart Contract Audit",status:"Scheduled",d:"$STRAT will undergo a full third-party security audit (CertiK / SolidProof) before any public sale. The report will be published and linked here."},
+  {ic:"lock",t:"Liquidity Lock",status:"Planned",d:"Presale liquidity will be locked at listing via a trusted locker, with the lock certificate published for anyone to verify."},
+  {ic:"check",t:"Verified Contract",status:"At Launch",d:"The $STRAT contract address will be published and verified on BscScan so the code is fully open and inspectable."},
+  {ic:"wallet",t:"Non-Custodial",status:"Always",d:"We never hold your funds, keys, or seed phrase. You connect your own wallet and stay in full control at all times."},
+  {ic:"activity",t:"Transparent Tokenomics",status:"Published",d:"Full supply, allocations, and vesting are documented in the whitepaper — no hidden mints, no surprise unlocks."},
+  {ic:"globe",t:"Open Community",status:"Live",d:"Official channels on X and Telegram for direct updates. Always verify links from this site to avoid impersonators."}
+];
+document.getElementById("security-grid").innerHTML=securityItems.map(function(s){
+  return '<div class="glass rounded-2xl p-7 feature">'+
+    '<div class="flex items-center justify-between mb-4">'+
+    '<div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background:rgba(57,255,122,.08);border:1px solid #39FF7A">'+svg(ICON[s.ic],24,GREEN,"filter:drop-shadow(0 0 6px #39FF7A)")+'</div>'+
+    '<span class="text-\[10px\] font-bold px-2.5 py-1 rounded-full" style="background:rgba(57,255,122,.1);color:#39FF7A;border:1px solid rgba(57,255,122,.3)">'+s.status+'</span></div>'+
+    '<h3 class="text-lg font-bold text-white mb-2">'+s.t+'</h3>'+
+    '<p class="text-sm leading-relaxed" style="color:#8fc6cf">'+s.d+'</p></div>'; }).join("");
+
+/* ===== FAQ (accordion) ===== */
+var faqData=[
+  {q:"What is STRATOS AI?",a:"STRATOS AI is a decentralized sports oracle that combines AI predictive modeling with tamper-proof, on-chain data feeds. The native $STRAT token powers access, staking, and governance across the ecosystem."},
+  {q:"When is the presale?",a:"The Stage 1 presale is scheduled for Q4 2026. Join the whitelist now to be notified the moment it opens and to secure early-access pricing."},
+  {q:"Which blockchain is $STRAT on?",a:"$STRAT is built on BNB Chain (BSC), chosen for its low fees and fast confirmation times. You'll need a BNB Chain compatible wallet such as MetaMask."},
+  {q:"Is the project audited?",a:"A full third-party smart contract audit is scheduled prior to public sale. The audit report and the verified contract address will be published on this site and on BscScan before launch."},
+  {q:"How does the airdrop work?",a:"It's a pure social-task airdrop: follow us on X, join our Telegram, and share with a friend, then register your wallet address. We never ask for private keys, seed phrases, or wallet signatures."},
+  {q:"What is the total supply?",a:"The fixed total supply is 1,000,000,000 $STRAT. The full allocation breakdown and vesting schedule are detailed in the whitepaper."},
+  {q:"Is this financial advice?",a:"No. Everything on this site is for informational purposes only. Crypto involves substantial risk — always do your own research and never invest more than you can afford to lose."}
+];
+document.getElementById("faq-list").innerHTML=faqData.map(function(f,i){
+  return '<div class="glass rounded-xl mb-3 overflow-hidden">'+
+    '<button onclick="toggleFaq('+i+')" class="w-full flex items-center justify-between gap-4 px-5 py-4 text-left" style="background:transparent">'+
+    '<span class="text-base font-bold text-white">'+f.q+'</span>'+
+    '<span id="faq-ic-'+i+'" style="color:#00E5FF;flex-shrink:0;transition:transform .25s ease">'+svg('<path d="M6 9l6 6 6-6"/>',20,BLUE)+'</span></button>'+
+    '<div id="faq-a-'+i+'" style="max-height:0;overflow:hidden;transition:max-height .3s ease">'+
+    '<p class="px-5 pb-4 text-sm leading-relaxed" style="color:#8fc6cf">'+f.a+'</p></div></div>'; }).join("");
+function toggleFaq(i){
+  var a=document.getElementById("faq-a-"+i), ic=document.getElementById("faq-ic-"+i);
+  if(a.style.maxHeight && a.style.maxHeight!=="0px"){ a.style.maxHeight="0px"; ic.style.transform="rotate(0deg)"; }
+  else { a.style.maxHeight=a.scrollHeight+"px"; ic.style.transform="rotate(180deg)"; }
+}
+
+/* ===== COUNTDOWN ===== */
+function pad(n){ return String(n).padStart(2,"0"); }
+function tickCountdown(){
+  var diff=Math.max(0,TARGET-Date.now());
+  var d=Math.floor(diff/86400000),h=Math.floor((diff/3600000)%24),m=Math.floor((diff/60000)%60),s=Math.floor((diff/1000)%60);
+  var units=[[d,"Days"],[h,"Hours"],[m,"Mins"],[s,"Secs"]];
+  document.getElementById("countdown").innerHTML=units.map(function(u){
+    return '<div class="rounded-2xl py-5 text-center" style="background:rgba(0,229,255,.05);border:1px solid rgba(0,229,255,.2)">'+
+      '<div class="text-3xl sm:text-5xl font-black tabnum" style="color:#00E5FF;text-shadow:0 0 20px rgba(0,229,255,.6)">'+pad(u[0])+'</div>'+
+      '<div class="text-[10px] sm:text-xs uppercase tracking-widest mt-1" style="color:#6fa9b2">'+u[1]+'</div></div>'; }).join("");
+}
+tickCountdown(); setInterval(tickCountdown,1000);
+
+/* ===== TOKENOMICS DONUT + TABLE ===== */
+var tokData=[
+  {name:"Presale",pct:35,color:BLUE,desc:"Public + private rounds"},
+  {name:"Liquidity & Listings",pct:20,color:GREEN,desc:"Locked 24 months"},
+  {name:"Oracle Node Rewards",pct:18,color:BLUE,desc:"Staking emissions"},
+  {name:"Ecosystem & Treasury",pct:12,color:GREEN,desc:"Grants & partnerships"},
+  {name:"Team & Advisors",pct:10,color:BLUE,desc:"12mo cliff, 24mo vest"},
+  {name:"Marketing",pct:5,color:GREEN,desc:"Growth campaigns"}
+];
+var TOTAL=1000000000, activeTok=0;
+function renderDonut(){
+  var r=110,stroke=38,cx=140,cy=140,circ=2*Math.PI*r,offset=0,out="";
+  tokData.forEach(function(d,i){
+    var len=(d.pct/100)*circ, sw=(activeTok===i?stroke+6:stroke);
+    out+='<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="'+d.color+'" stroke-width="'+sw+'" stroke-dasharray="'+len+' '+(circ-len)+'" stroke-dashoffset="'+(-offset)+'" style="cursor:pointer;opacity:'+(activeTok===i?1:.55)+';filter:'+(activeTok===i?"drop-shadow(0 0 8px "+d.color+")":"none")+';transition:all .25s ease" onmouseover="setTok('+i+')"/>';
+    offset+=len;
+  });
+  document.getElementById("donut").innerHTML=out;
+  document.getElementById("donutPct").textContent=tokData[activeTok].pct+"%";
+  document.getElementById("donutPct").style.color=tokData[activeTok].color;
+  document.getElementById("donutPct").style.textShadow="0 0 18px "+tokData[activeTok].color;
+  document.getElementById("donutName").textContent=tokData[activeTok].name;
+}
+function renderTable(){
+  document.getElementById("tokenTable").innerHTML=tokData.map(function(row,i){
+    var bg=activeTok===i?"rgba("+rgba(row.color)+",.08)":"transparent";
+    var bb=i<tokData.length-1?"1px solid rgba(255,255,255,.05)":"none";
+    return '<tr style="cursor:pointer;border-bottom:'+bb+';background:'+bg+'" onmouseover="setTok('+i+')">'+
+      '<td class="px-5 py-4"><div class="flex items-center gap-3"><span class="w-3 h-3 rounded-full" style="background:'+row.color+';box-shadow:'+(activeTok===i?"0 0 10px "+row.color:"none")+'"></span>'+
+      '<div><div class="font-bold text-white">'+row.name+'</div><div class="text-xs" style="color:#6fa9b2">'+row.desc+'</div></div></div></td>'+
+      '<td class="px-5 py-4 text-right font-black tabnum" style="color:'+row.color+'">'+row.pct+'%</td>'+
+      '<td class="px-5 py-4 text-right tabnum text-white font-medium">'+((TOTAL*row.pct)/100/1000000).toLocaleString()+'M</td></tr>'; }).join("");
+}
+function setTok(i){ activeTok=i; renderDonut(); renderTable(); }
+renderDonut(); renderTable();
+
+/* ===== MODAL CORE ===== */
+function openModal(id){ document.getElementById("m-"+id).classList.add("show");
+  if(id==="whitelist") renderWhitelist();
+  if(id==="whitepaper") renderWhitepaper();
+  if(id==="airdrop") renderAirdrop();
+  if(id==="staking") renderStaking();
+}
+function closeModal(id){ document.getElementById("m-"+id).classList.remove("show"); }
+function bgClose(e,id){ if(e.target===e.currentTarget) closeModal(id); }
+document.addEventListener("keydown",function(e){ if(e.key==="Escape"){ ["whitelist","whitepaper","airdrop","staking"].forEach(closeModal); } });
+
+/* ===== LANGUAGE TOGGLE ===== */
+function applyLang(){
+  var t=T[lang];
+  document.getElementById("langLabel").textContent=t.langLabel;
+  document.getElementById("hubEyebrow").textContent=t.hubEyebrow;
+  document.getElementById("hubTitle").textContent=t.hubTitle;
+  document.getElementById("hubSub").textContent=t.hubSub;
+  document.getElementById("stBadge").textContent=t.stBadge;
+  document.getElementById("stTitle2").textContent=t.stTitle;
+  document.getElementById("stDesc").textContent=t.stDesc;
+  document.getElementById("stBtn").textContent=t.stBtn;
+  document.getElementById("adBadge").textContent=t.adBadge;
+  document.getElementById("adTitle2").textContent=t.adTitle;
+  document.getElementById("adDesc").textContent=t.adDesc;
+  document.getElementById("adBtn").textContent=t.adBtn;
+  document.getElementById("hub").setAttribute("dir",t.dir);
+}
+function toggleLang(){ lang=(lang==="en"?"ar":"en"); applyLang(); }
+applyLang();
+
+/* ===== WHITELIST MODAL ===== */
+function renderWhitelist(){
+  document.getElementById("wl-body").innerHTML=
+    '<div class="flex justify-center mb-5"><div class="w-16 h-16 rounded-2xl flex items-center justify-center pulse" style="background:rgba(0,229,255,.1);border:1px solid #00E5FF;box-shadow:0 0 22px rgba(0,229,255,.3)">'+svg(ICON.bell,30,BLUE)+'</div></div>'+
+    '<h3 class="text-2xl font-black text-white text-center mb-2">Join The Whitelist</h3>'+
+    '<p class="text-sm text-center mb-7" style="color:#8fc6cf">Be first to know when <span style="color:#00E5FF" class="font-semibold">$STRAT</span> Stage 1 goes live in Q4 2026. No spam — just launch alerts and presale access.</p>'+
+    '<div class="relative mb-2"><span style="position:absolute;left:16px;top:50%;transform:translateY(-50%)">'+svg(ICON.mail,18,"#4f7780")+'</span>'+
+    '<input id="wlEmail" type="email" placeholder="you@email.com" class="fblue w-full rounded-xl text-sm text-white" style="padding:14px 16px 14px 44px;background:rgba(255,255,255,.04);border:1px solid rgba(0,229,255,.2)" onkeydown="if(event.key===\'Enter\')wlSubmit()"></div>'+
+    '<p id="wlErr" class="text-xs mb-2" style="color:#ff5c7a;display:none"></p>'+
+    '<button onclick="wlSubmit()" class="w-full mt-4 py-3.5 rounded-xl font-bold text-base flex items-center justify-center gap-2 scaleup2 cta-glow" style="background:linear-gradient(135deg,#00E5FF,#00a8c4);color:#000">'+svg(ICON.bell,18,"#000")+' Notify Me At Launch</button>'+
+    '<div class="flex items-center gap-3 my-6"><div class="flex-1 h-px" style="background:rgba(255,255,255,.08)"></div><span class="text-xs" style="color:#4f7780">or follow for updates</span><div class="flex-1 h-px" style="background:rgba(255,255,255,.08)"></div></div>'+
+    '<div class="flex items-center justify-center gap-4">'+
+      '<a href="'+X_URL+'" target="_blank" rel="noopener noreferrer" class="w-12 h-12 rounded-xl flex items-center justify-center scaleup" style="border:1px solid rgba(0,229,255,.25);color:#00E5FF;background:rgba(0,229,255,.04)">'+svg(ICON.twitter,20,BLUE)+'</a>'+
+      '<a href="'+TELEGRAM_GROUP_URL+'" target="_blank" rel="noopener noreferrer" class="w-12 h-12 rounded-xl flex items-center justify-center scaleup" style="border:1px solid rgba(0,229,255,.25);color:#00E5FF;background:rgba(0,229,255,.04)">'+svg(ICON.send,20,BLUE)+'</a>'+
+      '<a href="'+TELEGRAM_BOT_URL+'" target="_blank" rel="noopener noreferrer" class="w-12 h-12 rounded-xl flex items-center justify-center scaleup" style="border:1px solid rgba(0,229,255,.25);color:#00E5FF;background:rgba(0,229,255,.04)">'+svg(ICON.message,20,BLUE)+'</a>'+
+    '</div>';
+}
+function wlSubmit(){
+  var v=document.getElementById("wlEmail").value;
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){ var e=document.getElementById("wlErr"); e.textContent="Please enter a valid email address."; e.style.display="block"; return; }
+  document.getElementById("wl-body").innerHTML=
+    '<div class="text-center py-4"><div class="flex justify-center mb-6"><div class="w-20 h-20 rounded-full flex items-center justify-center pop" style="background:rgba(57,255,122,.12);border:2px solid #39FF7A;box-shadow:0 0 30px rgba(57,255,122,.4)">'+svg(ICON.check,42,GREEN)+'</div></div>'+
+    '<h3 class="text-2xl font-black text-white mb-2" style="text-shadow:0 0 20px rgba(57,255,122,.4)">You\'re On The List! 🎉</h3>'+
+    '<p class="text-sm mb-1" style="color:#8fc6cf">We\'ll email <span class="font-semibold text-white">'+v.replace(/</g,"&lt;")+'</span> the moment Stage 1 opens.</p>'+
+    '<p class="text-xs mb-7" style="color:#6fa9b2">Whitelisted wallets get early access & the best Stage 1 pricing.</p>'+
+    '<button onclick="closeModal(\'whitelist\')" class="w-full py-3.5 rounded-xl font-bold text-base scaleup2" style="border:1px solid rgba(0,229,255,.4);color:#00E5FF;background:rgba(0,229,255,.04)">Done</button></div>';
+}
+
+/* ===== AIRDROP MODAL ===== */
+var adTasks={x:false,tg:false,bot:false};
+function renderAirdrop(){
+  var t=T[lang];
+  adTasks={x:false,tg:false,bot:false};
+  document.getElementById("airdropDir").setAttribute("dir",t.dir);
+  var shareText=encodeURIComponent("Join the STRATOS AI airdrop — The World's First Decentralized Sports Oracle! 🚀");
+  var shareUrl="https://t.me/share/url?url="+encodeURIComponent(TELEGRAM_GROUP_URL)+"&text="+shareText;
+  var taskRows=[["x",t.taskX,X_URL,"twitter"],["tg",t.taskTg,TELEGRAM_GROUP_URL,"send"],["share",t.taskShare,shareUrl,"share"]].map(function(tk){
+    return '<a id="task-'+tk[0]+'" href="'+tk[2]+'" target="_blank" rel="noopener noreferrer" onclick="markTask(\''+tk[0]+'\')" class="flex items-center gap-3 rounded-xl px-4 py-3 scaleup2" style="border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.02)">'+
+      '<span class="task-ic">'+svg(ICON[tk[3]],20,ORANGE,"flex-shrink:0")+'</span>'+
+      '<span class="text-sm flex-1 text-white">'+tk[1]+'</span>'+svg(ICON.ext,15,"#6fa9b2")+'</a>'; }).join("");
+  document.getElementById("ad-body").innerHTML=
+    '<div class="flex justify-center mb-4"><div class="w-16 h-16 rounded-2xl flex items-center justify-center pulse" style="background:rgba(255,157,46,.1);border:1px solid #FF9D2E;box-shadow:0 0 22px rgba(255,157,46,.3)">'+svg(ICON.gift,30,ORANGE)+'</div></div>'+
+    '<h3 class="text-2xl font-black text-white text-center mb-4">'+t.adTitle+'</h3>'+
+    '<div class="flex items-start gap-2.5 rounded-xl p-3.5 mb-6" style="background:rgba(57,255,122,.06);border:1px solid rgba(57,255,122,.25)">'+svg(ICON.shield,18,GREEN,"flex-shrink:0;margin-top:2px")+'<p class="text-xs leading-relaxed" style="color:#a8cfd6">'+t.adSafe+'</p></div>'+
+    '<div class="text-xs uppercase tracking-wider font-bold mb-3" style="color:#6fa9b2">'+t.adTasksTitle+'</div>'+
+    '<div class="space-y-2.5 mb-6">'+taskRows+'</div>'+
+    '<div class="text-xs uppercase tracking-wider font-bold mb-2" style="color:#6fa9b2">'+t.adAddrLabel+'</div>'+
+    '<div class="relative mb-2"><span style="position:absolute;left:16px;top:50%;transform:translateY(-50%)">'+svg(ICON.wallet,18,"#6b5a3a")+'</span>'+
+    '<input id="adAddr" type="text" placeholder="0x…" dir="ltr" class="forange w-full rounded-xl text-sm text-white" style="padding:14px 16px 14px 44px;background:rgba(255,255,255,.04);border:1px solid rgba(255,157,46,.2);font-family:monospace" onkeydown="if(event.key===\'Enter\')adSubmit()"></div>'+
+    '<p id="adErr" class="text-xs mb-2" style="color:#ff5c7a;display:none"></p>'+
+    '<button onclick="adSubmit()" class="w-full mt-3 py-3.5 rounded-xl font-bold text-base flex items-center justify-center gap-2 scaleup2" style="background:linear-gradient(135deg,#FF9D2E,#e07d10);color:#000;box-shadow:0 0 22px rgba(255,157,46,.4)">'+svg(ICON.gift,18,"#000")+' '+t.adRegister+'</button>'+
+    '<a href="'+TELEGRAM_BOT_URL+'" target="_blank" rel="noopener noreferrer" class="w-full mt-3 py-3.5 rounded-xl font-bold text-base flex items-center justify-center gap-2 scaleup2" style="border:1px solid rgba(0,229,255,.4);color:#00E5FF;background:rgba(0,229,255,.04)">'+svg(ICON.send,18,BLUE)+' '+t.adBotBtn+'</a>';
+}
+function markTask(k){
+  adTasks[k]=true;
+  var el=document.getElementById("task-"+k);
+  el.style.border="1px solid #39FF7A"; el.style.background="rgba(57,255,122,.06)";
+  el.querySelector(".task-ic").innerHTML=svg(ICON.check,20,GREEN,"flex-shrink:0");
+}
+function adSubmit(){
+  var t=T[lang]; var v=document.getElementById("adAddr").value.trim();
+  if(!/^0x[a-fA-F0-9]{40}$/.test(v)){ var e=document.getElementById("adErr"); e.textContent=t.adErr; e.style.display="block"; return; }
+  document.getElementById("ad-body").innerHTML=
+    '<div class="text-center py-4"><div class="flex justify-center mb-6"><div class="w-20 h-20 rounded-full flex items-center justify-center pop" style="background:rgba(57,255,122,.12);border:2px solid #39FF7A;box-shadow:0 0 30px rgba(57,255,122,.4)">'+svg(ICON.check,42,GREEN)+'</div></div>'+
+    '<h3 class="text-2xl font-black text-white mb-2" style="text-shadow:0 0 20px rgba(57,255,122,.4)">'+t.adSuccessTitle+'</h3>'+
+    '<p class="text-sm mb-1" style="color:#8fc6cf">'+t.adSuccessBody+'</p>'+
+    '<p class="text-xs mb-7" style="color:#6fa9b2;font-family:monospace;word-break:break-all" dir="ltr">'+v.replace(/</g,"&lt;")+'</p>'+
+    '<a href="'+TELEGRAM_BOT_URL+'" target="_blank" rel="noopener noreferrer" class="w-full mb-3 py-3.5 rounded-xl font-bold text-base flex items-center justify-center gap-2 scaleup2" style="background:linear-gradient(135deg,#FF9D2E,#e07d10);color:#000">'+svg(ICON.send,18,"#000")+' '+t.adBotBtn+'</a>'+
+    '<button onclick="closeModal(\'airdrop\')" class="w-full py-3.5 rounded-xl font-bold text-base scaleup2" style="border:1px solid rgba(0,229,255,.4);color:#00E5FF;background:rgba(0,229,255,.04)">'+t.done+'</button></div>';
+}
+
+/* ===== STAKING MODAL ===== */
+var stkConnected=false;
+function renderStaking(){
+  var t=T[lang];
+  document.getElementById("stakingDir").setAttribute("dir",t.dir);
+  function statBox(label,val,color){
+    return '<div class="rounded-xl p-4 text-center" style="background:rgba(0,229,255,.04);border:1px solid rgba(0,229,255,.15)">'+
+      '<div class="text-[10px] uppercase tracking-wider mb-1" style="color:#6fa9b2">'+label+'</div>'+
+      '<div class="text-xl font-black tabnum" style="color:'+color+';text-shadow:0 0 12px '+color+'55">'+val+'</div></div>'; }
+  var head=
+    '<div class="flex items-center gap-3 mb-6"><div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background:rgba(0,229,255,.1);border:1px solid #00E5FF">'+svg(ICON.trending,24,BLUE)+'</div>'+
+    '<div><h3 class="text-xl font-black text-white leading-tight">'+t.stkTitle+'</h3><div class="text-[11px]" style="color:#6fa9b2">$STRAT · BNB Chain</div></div></div>'+
+    '<div class="rounded-2xl p-5 mb-5 text-center" style="background:rgba(57,255,122,.06);border:1px solid rgba(57,255,122,.3)">'+
+    '<div class="text-xs uppercase tracking-widest mb-1" style="color:#39FF7A">'+t.stkApy+'</div>'+
+    '<div class="text-5xl font-black tabnum" style="color:#39FF7A;text-shadow:0 0 26px rgba(57,255,122,.6)">'+STAKING_APY+'%</div></div>'+
+    '<div class="grid grid-cols-3 gap-3 mb-6">'+statBox(t.stkTotal,"0",BLUE)+statBox(t.stkYour,"0","#ffffff")+statBox(t.stkRewards,"0.000",GREEN)+'</div>'+
+    '<div id="stkToast"></div>';
+  var body;
+  if(!stkConnected){
+    body='<p class="text-sm text-center mb-4" style="color:#8fc6cf">'+t.stkConnectFirst+'</p>'+
+      '<button onclick="stkConnect()" class="w-full py-4 rounded-xl font-bold text-base flex items-center justify-center gap-2 scaleup2 cta-glow" style="background:linear-gradient(135deg,#00E5FF,#00a8c4);color:#000">'+svg(ICON.wallet,18,"#000")+' '+t.stkConnect+'</button>';
+  } else {
+    body='<div class="flex items-center justify-center gap-2 mb-5 text-sm"><span class="w-2 h-2 rounded-full" style="background:#39FF7A;box-shadow:0 0 8px #39FF7A"></span>'+
+      '<span style="color:#39FF7A">'+t.stkConnected+':</span><span class="font-mono text-white" dir="ltr">0x71C…3a9f</span></div>'+
+      '<div class="text-xs uppercase tracking-wider font-bold mb-2" style="color:#6fa9b2">'+t.stkAmount+'</div>'+
+      '<div class="relative mb-4"><span style="position:absolute;left:16px;top:50%;transform:translateY(-50%)">'+svg(ICON.coins,18,"#4f7780")+'</span>'+
+      '<input id="stkAmt" type="number" min="0" placeholder="0.00" dir="ltr" class="fblue w-full rounded-xl text-sm text-white" style="padding:14px 16px 14px 44px;background:rgba(255,255,255,.04);border:1px solid rgba(0,229,255,.2)"></div>'+
+      '<button onclick="stkAction()" class="w-full py-3.5 rounded-xl font-bold text-base flex items-center justify-center gap-2 mb-3 scaleup2 cta-glow" style="background:linear-gradient(135deg,#00E5FF,#00a8c4);color:#000">'+svg(ICON.trending,18,"#000")+' '+t.stkStake+'</button>'+
+      '<div class="grid grid-cols-2 gap-3">'+
+      '<button onclick="stkAction()" class="py-3.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2 scaleup2" style="border:1px solid #39FF7A;color:#39FF7A;background:rgba(57,255,122,.06)">'+svg(ICON.gift,16,GREEN)+' '+t.stkClaim+'</button>'+
+      '<button onclick="stkAction()" class="py-3.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2 scaleup2" style="border:1px solid rgba(255,255,255,.15);color:#8fc6cf;background:rgba(255,255,255,.02)">'+svg(ICON.lock,16,"#8fc6cf")+' '+t.stkUnstake+'</button></div>';
+  }
+  var notes='<div class="mt-6 pt-5 space-y-2" style="border-top:1px solid rgba(255,255,255,.06)">'+
+    '<p class="text-[11px] leading-relaxed flex items-start gap-2" style="color:#6fa9b2">'+svg(ICON.activity,13,BLUE,"flex-shrink:0;margin-top:1px")+' '+t.stkNote+'</p>'+
+    '<p class="text-[11px] leading-relaxed flex items-start gap-2" style="color:#5a8089">'+svg(ICON.circle,13,"#5a8089","flex-shrink:0;margin-top:1px")+' '+t.stkDemo+'</p></div>';
+  document.getElementById("stk-body").innerHTML=head+body+notes;
+}
+function stkConnect(){ stkConnected=true; renderStaking(); }
+function stkAction(){
+  var t=T[lang];
+  document.getElementById("stkToast").innerHTML='<div class="rounded-xl px-4 py-2.5 mb-4 text-sm font-semibold text-center" style="background:rgba(57,255,122,.1);border:1px solid #39FF7A;color:#39FF7A">'+t.preLaunch+'</div>';
+  setTimeout(function(){ var el=document.getElementById("stkToast"); if(el) el.innerHTML=""; },2200);
+}
+
+/* ===== WHITEPAPER MODAL ===== */
+function renderWhitepaper(){
+  function eyebrow(x){ return '<div class="text-[11px] uppercase tracking-[0.3em] font-bold mb-1.5" style="color:#39FF7A">'+x+'</div>'; }
+  function h(x){ return '<h3 class="text-xl sm:text-2xl font-black text-white mb-4">'+x+'</h3>'; }
+  function sub(x){ return '<h4 class="text-base font-bold mt-5 mb-2" style="color:#00E5FF">'+x+'</h4>'; }
+  function p(x){ return '<p class="text-sm leading-relaxed mb-3" style="color:#a8cfd6">'+x+'</p>'; }
+  function hr(){ return '<div class="my-8 h-px" style="background:linear-gradient(90deg,transparent,rgba(0,229,255,.3),transparent)"></div>'; }
+  function li(label,x){ return '<li class="flex gap-2.5 text-sm leading-relaxed mb-2.5" style="color:#a8cfd6"><span class="mt-1.5 w-1.5 h-1.5 rounded-full" style="background:#39FF7A;box-shadow:0 0 6px #39FF7A;flex-shrink:0"></span><span>'+(label?'<strong class="text-white">'+label+' </strong>':"")+x+'</span></li>'; }
+  var rows=[["Total Hard Supply","1,000,000,000","Fixed, non-mintable",true],["Ecosystem & Staking","35% · 350,000,000","Rewards & node operators",false],["Presale (Public)","20% · 200,000,000","Q4 2026 stage",false],["Liquidity & Listings","20% · 200,000,000","Locked at listing",false],["Team & Founders","15% · 150,000,000","12mo cliff, 24mo vest",false],["Partnerships & Marketing","10% · 100,000,000","Enterprise integration",false]];
+  var tokBox='<div class="rounded-xl overflow-hidden mb-4" style="border:1px solid rgba(0,229,255,.15)">'+rows.map(function(r,i){
+    return '<div class="flex items-center justify-between px-4 py-3" style="border-bottom:'+(i<5?"1px solid rgba(255,255,255,.05)":"none")+';background:'+(i===0?"rgba(0,229,255,.05)":"transparent")+'">'+
+      '<div><div class="text-sm font-bold text-white">'+r[0]+'</div><div class="text-[11px]" style="color:#6fa9b2">'+r[2]+'</div></div>'+
+      '<div class="text-sm font-black tabnum text-right" style="color:'+(r[3]?BLUE:GREEN)+'">'+r[1]+'</div></div>'; }).join("")+'</div>';
+
+  document.getElementById("wp-body").innerHTML=
+    '<div class="text-center mb-8">'+eyebrow("The World's First Decentralized Sports Oracle")+'<h2 class="text-3xl sm:text-4xl font-black text-white mt-2" style="text-shadow:0 0 26px rgba(0,229,255,.4)">STRATOS <span style="color:#00E5FF">AI</span></h2></div>'+
+    eyebrow("Section 1")+h("Executive Summary")+p("STRATOS AI introduces a paradigm shift in decentralized data architecture by establishing the world's first AI-driven Decentralized Sports Oracle (DSO). By bridging high-fidelity real-world sports data with blockchain smart contracts, STRATOS AI eliminates latency, central point-of-failure vulnerabilities, and data manipulation. Powered by the native utility token ($STRAT), the ecosystem incentivizes validator nodes, fuels machine learning analytics, and offers institutional-grade predictive matrices.")+
+    hr()+eyebrow("Section 2")+h("The Problem In Current Architectures")+p("Existing oracle networks (e.g., Chainlink, Band Protocol) are highly optimized for price-feed tracking (DeFi) but critically fail in processing multi-layered, fast-paced sports metrics.")+
+    '<ul>'+li("Latency & Settlement Delays:","Traditional APIs suffer from timeouts during live matches, causing settlement lag.")+li("Data Vulnerability:","Centralized aggregators are prone to manipulation, downtime, and biased reporting.")+li("Lack of Predictive Logic:","Current Web3 architectures only transmit historical scores; they lack real-time predictive intelligence.")+'</ul>'+
+    hr()+eyebrow("Section 3")+h("The STRATOS AI Solution")+p("STRATOS AI solves these bottlenecks through a dual-engine protocol:")+
+    '<ul>'+li("DSO Infrastructure:","A specialized network of distributed validator nodes verifying live off-chain sports feeds.")+li("Core AI Predictive Engine:","A non-linear neural network calculating high-probability outcome matrices.")+'</ul>'+
+    hr()+eyebrow("Section 4")+h("DSO Architecture")+sub("1. Data Ingestion & Consensus")+p("STRATOS AI aggregates high-fidelity data from multi-layered APIs. To ensure integrity and eliminate single points of failure, incoming data is processed through a Byzantine Fault Tolerant (BFT) consensus mechanism across distributed validator nodes.")+sub("2. Anti-Tamper Cryptographic Proofs")+p("Every data point is cryptographically signed by the inputting node via multi-party computation (MPC), guaranteeing data cannot be altered prior to on-chain consensus.")+
+    hr()+eyebrow("Section 5")+h("The Core AI Predictive Engine")+sub("1. Multi-Variable Neural Networks")+p("Custom-trained DNN and LSTM models process sequential sports analytics and behavioral patterns, outputting probability matrices for $STRAT holders.")+sub("2. Machine Learning Feed Optimization")+p("Models undergo continuous reinforcement learning, recalibrating weights and biases to increase oracle precision over time.")+
+    hr()+eyebrow("Section 6")+h("Token Utility & Economics")+p("The native $STRAT token is the economic engine and security collateral for the network.")+sub("1. Tiered Protocol Access")+'<ul>'+li("Tier 1 (Retail):","Basic analytics via standard wallet connection.")+li("Tier 2 (Alpha):","Advanced models (min. 50,000 $STRAT).")+li("Tier 3 (Institutional):","Full API access (min. 250,000 $STRAT).")+'</ul>'+sub("2. Staking & Yield")+p("Holders may lock $STRAT to help secure the oracle network, with rewards funded by protocol revenues. Parameters are governed on-chain and subject to change based on pool distribution.")+sub("3. Deflationary Burning")+p("A portion of $STRAT from API/subscription fees is permanently burned, reducing total supply over time.")+
+    hr()+eyebrow("Section 7")+h("Tokenomics & Distribution")+tokBox+
+    hr()+eyebrow("Section 8")+h("Roadmap")+sub("Phase 1 — Architecture & Audit (Q2–Q3 2026)")+'<ul>'+li("","Core models & neural network structures.")+li("","Smart contract development & third-party audit.")+li("","Premium landing page launch.")+'</ul>'+sub("Phase 2 — Presale Launch (Q4 2026)")+'<ul>'+li("","$STRAT presale via secure launchpads.")+li("","Soft Cap $300,000 · Hard Cap $1,500,000.")+li("","Global marketing campaigns.")+'</ul>'+sub("Phase 3 — Liquidity & Mainnet (Jan–May 2027)")+'<ul>'+li("","TGE & exchange listing (May 2027).")+li("","Locked liquidity injection.")+li("","DSO Mainnet & Tiered Platform launch.")+'</ul>'+
+    hr()+eyebrow("Section 9")+h("Risk Disclosure & Legal Disclaimer")+
+    '<div class="rounded-xl p-5" style="border:1px solid rgba(57,255,122,.25);background:rgba(57,255,122,.04)">'+sub("1. Speculative Nature of Digital Assets")+p("Investment in $STRAT involves high technical and financial risk. Markets are volatile. Perform independent due diligence. $STRAT does not represent equity, shares, or securities in any jurisdiction.")+sub("2. Forward-Looking Statements")+p("This document contains forward-looking statements that are developmental projections, not guarantees of profitability.")+sub("3. Execution & Liability")+p('The platform is provided "as-is." Execution depends on third-party API availability, network scaling, and community participation.')+'</div>'+
+    '<div class="text-center text-[11px] mt-8" style="color:#46656d">© 2026 STRATOS AI · Whitepaper V1.0 · For informational purposes only — not financial advice.</div>';
+}
+</script>
+</body>
+</html>
