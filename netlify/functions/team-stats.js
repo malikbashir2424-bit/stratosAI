@@ -1,7 +1,4 @@
 // netlify/functions/team-stats.js
-// Fetches real team statistics for a given match from API-Football.
-// Returns: avg goals scored/conceded, form (last 5), clean sheets, etc.
-
 exports.handler = async function (event) {
   const API_KEY = process.env.API_FOOTBALL_KEY;
   const BASE = "https://v3.football.api-sports.io";
@@ -27,71 +24,107 @@ exports.handler = async function (event) {
   const homeId   = params.homeId;
   const awayId   = params.awayId;
   const leagueId = params.leagueId;
-  const season   = params.season || new Date().getFullYear();
 
   if (!homeId || !awayId || !leagueId) {
-    return { statusCode: 400, headers, body: JSON.stringify({ error: "Missing homeId, awayId, or leagueId." }) };
+    return { statusCode: 400, headers, body: JSON.stringify({ error: "Missing params." }) };
   }
 
   function parseStats(data) {
-    if (!data.response) return null;
+    if (!data || !data.response) return null;
     const s = data.response;
-
-    // Goals scored/conceded per game
-    const gf = s.goals?.for?.average?.total;
-    const ga = s.goals?.against?.average?.total;
-
-    // Form string e.g. "WWDLW"
-    const form = s.form || "";
-    const last5 = form.slice(-5);
-
-    // Clean sheets
-    const cs = s.clean_sheet?.total ?? null;
-
-    // Wins/draws/losses
+    const gf     = s.goals?.for?.average?.total;
+    const ga     = s.goals?.against?.average?.total;
+    const form   = (s.form || "").slice(-5);
+    const cs     = s.clean_sheet?.total ?? null;
     const wins   = s.fixtures?.wins?.total   ?? 0;
     const draws  = s.fixtures?.draws?.total  ?? 0;
     const losses = s.fixtures?.loses?.total  ?? 0;
     const played = s.fixtures?.played?.total ?? 0;
-
+    if (played === 0) return null;
     return {
-      goalsScored:    gf ? parseFloat(gf) : null,
-      goalsConceded:  ga ? parseFloat(ga) : null,
-      form:           last5,
-      cleanSheets:    cs,
+      goalsScored:   gf ? parseFloat(gf) : null,
+      goalsConceded: ga ? parseFloat(ga) : null,
+      form, cleanSheets: cs,
       wins, draws, losses, played,
     };
   }
 
+  // Try to get stats for a team across multiple leagues/seasons
+  async function getBestStats(teamId, primaryLeagueId) {
+    const currentYear = new Date().getFullYear();
+
+    // 1) Try primary league, current and previous seasons
+    for (const season of [currentYear, currentYear - 1]) {
+      try {
+        const data = await api(`/teams/statistics?team=${teamId}&league=${primaryLeagueId}&season=${season}`);
+        const stats = parseStats(data);
+        if (stats) return { ...stats, source: `League ${primaryLeagueId} ${season}` };
+      } catch(e) {}
+    }
+
+    // 2) Get all leagues this team played in recently
+    try {
+      const leaguesData = await api(`/leagues?team=${teamId}&season=${currentYear - 1}`);
+      if (leaguesData.response && leaguesData.response.length) {
+        // Try top leagues first (prioritize by type)
+        const sorted = leaguesData.response.sort((a, b) => {
+          const order = { 'League': 0, 'Cup': 1, 'Friendly': 2 };
+          return (order[a.league.type] ?? 3) - (order[b.league.type] ?? 3);
+        });
+        for (const entry of sorted.slice(0, 5)) {
+          try {
+            const data = await api(`/teams/statistics?team=${teamId}&league=${entry.league.id}&season=${currentYear - 1}`);
+            const stats = parseStats(data);
+            if (stats) return { ...stats, source: `${entry.league.name} ${currentYear - 1}` };
+          } catch(e) {}
+        }
+      }
+    } catch(e) {}
+
+    // 3) Try last 5 matches directly
+    try {
+      const matches = await api(`/fixtures?team=${teamId}&last=10&status=FT`);
+      if (matches.response && matches.response.length) {
+        let gf = 0, ga = 0, count = 0;
+        let formArr = [];
+        matches.response.forEach(m => {
+          const isHome = m.teams.home.id == teamId;
+          const scored    = isHome ? m.goals.home : m.goals.away;
+          const conceded  = isHome ? m.goals.away : m.goals.home;
+          if (scored !== null && conceded !== null) {
+            gf += scored; ga += conceded; count++;
+            formArr.push(scored > conceded ? 'W' : scored === conceded ? 'D' : 'L');
+          }
+        });
+        if (count > 0) {
+          return {
+            goalsScored:   parseFloat((gf / count).toFixed(2)),
+            goalsConceded: parseFloat((ga / count).toFixed(2)),
+            form: formArr.slice(0, 5).join(''),
+            cleanSheets: null,
+            wins: formArr.filter(r=>r==='W').length,
+            draws: formArr.filter(r=>r==='D').length,
+            losses: formArr.filter(r=>r==='L').length,
+            played: count,
+            source: 'Last ' + count + ' matches'
+          };
+        }
+      }
+    } catch(e) {}
+
+    return null;
+  }
+
   try {
-    // Fetch both teams in parallel
-    const [homeData, awayData] = await Promise.all([
-      api(`/teams/statistics?team=${homeId}&league=${leagueId}&season=${season}`),
-      api(`/teams/statistics?team=${awayId}&league=${leagueId}&season=${season}`),
+    const [homeStats, awayStats] = await Promise.all([
+      getBestStats(homeId, leagueId),
+      getBestStats(awayId, leagueId),
     ]);
-
-    const home = parseStats(homeData);
-    const away = parseStats(awayData);
-
-    // If season data missing, try previous season
-    let homeFinal = home;
-    let awayFinal = away;
-
-    if (!home || home.played === 0) {
-      const prevSeason = parseInt(season) - 1;
-      const fallback = await api(`/teams/statistics?team=${homeId}&league=${leagueId}&season=${prevSeason}`);
-      homeFinal = parseStats(fallback) || home;
-    }
-    if (!away || away.played === 0) {
-      const prevSeason = parseInt(season) - 1;
-      const fallback = await api(`/teams/statistics?team=${awayId}&league=${leagueId}&season=${prevSeason}`);
-      awayFinal = parseStats(fallback) || away;
-    }
 
     return {
       statusCode: 200,
       headers: { ...headers, "Cache-Control": "public, max-age=3600" },
-      body: JSON.stringify({ home: homeFinal, away: awayFinal }),
+      body: JSON.stringify({ home: homeStats, away: awayStats }),
     };
   } catch (err) {
     return { statusCode: 502, headers, body: JSON.stringify({ error: String(err.message || err) }) };
