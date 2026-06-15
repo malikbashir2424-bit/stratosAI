@@ -24,7 +24,6 @@
   input::placeholder{ color:#4f7780; }
   .fld{ width:100%; padding:11px 13px; border-radius:10px; background:rgba(255,255,255,.04); border:1px solid rgba(0,229,255,.2); color:#fff; font-size:14px; outline:none; transition:all .2s; }
   .fld:focus{ border-color:var(--blue); box-shadow:0 0 0 3px rgba(0,229,255,.15); }
-  select.fld{ -webkit-appearance:none; appearance:none; cursor:pointer; }
   .lbl{ font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:#6fa9b2; margin-bottom:6px; display:block; }
 
   @keyframes pulseSlow{ 0%,100%{opacity:1} 50%{opacity:.55} }
@@ -36,71 +35,35 @@
   @keyframes fadeUp{ from{ opacity:0; transform:translateY(14px) } to{ opacity:1; transform:none } }
   .fadeUp{ animation:fadeUp .45s ease-out; }
   @keyframes spin{ to{ transform:rotate(360deg) } }
-  .spinner{ width:36px; height:36px; border:3px solid rgba(0,229,255,.15); border-top-color:#00E5FF; border-radius:50%; animation:spin .8s linear infinite; margin:0 auto; }
+  .spinner{ width:32px; height:32px; border:3px solid rgba(0,229,255,.15); border-top-color:#00E5FF; border-radius:50%; animation:spin .8s linear infinite; margin:0 auto; }
 
   .grid-bg{ position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.4; }
   .seg{ display:inline-flex; padding:5px; border-radius:14px; background:rgba(255,255,255,.04); border:1px solid rgba(0,229,255,.15); }
   .seg button{ padding:9px 22px; border-radius:10px; font-weight:700; font-size:14px; color:#8fc6cf; transition:all .2s; }
   .seg button.on{ color:#000; }
 
-  /* ── LIVE FIXTURES ── */
-  .fixtures-section{ position:relative; z-index:10; padding:20px 20px 0; }
-  .fixtures-header{ display:flex; align-items:center; gap:10px; margin-bottom:16px; }
-  .live-dot{ width:8px; height:8px; border-radius:50%; background:#39FF7A; box-shadow:0 0 8px #39FF7A; animation:pulseSlow 1.8s ease-in-out infinite; flex-shrink:0; }
-  .fixtures-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:12px; }
-  .fixture-card{
-    border:1px solid rgba(0,229,255,.14);
-    border-radius:16px;
-    padding:14px 16px;
-    background:rgba(0,229,255,.03);
-    cursor:pointer;
-    transition:all .22s ease;
-    position:relative;
-    overflow:hidden;
-  }
-  .fixture-card:hover{
-    border-color:rgba(0,229,255,.45);
-    background:rgba(0,229,255,.07);
-    transform:translateY(-2px);
-    box-shadow:0 8px 32px rgba(0,229,255,.12);
-  }
-  .fixture-card.selected{
-    border-color:#00E5FF;
-    background:rgba(0,229,255,.1);
-    box-shadow:0 0 0 2px rgba(0,229,255,.3), 0 8px 32px rgba(0,229,255,.18);
-  }
-  .fixture-card::before{
-    content:'';
-    position:absolute;
-    top:0; left:0; right:0;
-    height:2px;
-    background:linear-gradient(90deg,transparent,rgba(0,229,255,.4),transparent);
-    opacity:0;
-    transition:opacity .22s;
-  }
-  .fixture-card:hover::before, .fixture-card.selected::before{ opacity:1; }
+  /* FIXTURES */
+  .fixtures-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,1fr)); gap:12px; }
+  .fixture-card{ border:1px solid rgba(0,229,255,.14); border-radius:16px; padding:14px 16px; background:rgba(0,229,255,.03); cursor:pointer; transition:all .22s ease; position:relative; overflow:hidden; }
+  .fixture-card:hover{ border-color:rgba(0,229,255,.45); background:rgba(0,229,255,.07); transform:translateY(-2px); box-shadow:0 8px 32px rgba(0,229,255,.12); }
+  .fixture-card.selected{ border-color:#00E5FF; background:rgba(0,229,255,.1); box-shadow:0 0 0 2px rgba(0,229,255,.3); }
   .fixture-league{ font-size:10px; text-transform:uppercase; letter-spacing:.12em; color:#4f99a8; margin-bottom:8px; display:flex; align-items:center; gap:6px; }
-  .fixture-league img{ width:14px; height:14px; object-fit:contain; filter:brightness(.8); }
+  .fixture-league img{ width:14px; height:14px; object-fit:contain; }
   .fixture-teams{ display:flex; align-items:center; justify-content:space-between; gap:8px; }
   .fixture-team{ display:flex; flex-direction:column; align-items:center; gap:6px; flex:1; }
   .fixture-team img{ width:32px; height:32px; object-fit:contain; }
   .fixture-team-name{ font-size:11px; font-weight:700; color:#cde; text-align:center; line-height:1.3; }
-  .fixture-vs{ font-size:11px; font-weight:800; color:#2a5c68; letter-spacing:.08em; flex-shrink:0; }
+  .fixture-vs{ font-size:11px; font-weight:800; color:#2a5c68; flex-shrink:0; }
   .fixture-time{ font-size:11px; color:#4f7780; margin-top:9px; text-align:center; }
-  .fixture-tap-hint{
-    position:absolute; bottom:8px; right:10px;
-    font-size:9px; letter-spacing:.06em; color:#1f4f5a; text-transform:uppercase;
-    opacity:0; transition:opacity .2s;
-  }
-  .fixture-card:hover .fixture-tap-hint{ opacity:1; }
-  .fixtures-empty{ text-align:center; padding:32px; color:#4f7780; font-size:14px; }
-  .fixtures-error{ text-align:center; padding:20px; color:#ff5c7a; font-size:13px; background:rgba(255,92,122,.06); border:1px solid rgba(255,92,122,.2); border-radius:12px; }
-  .selected-badge{
-    display:inline-flex; align-items:center; gap:6px;
-    padding:4px 12px; border-radius:999px; margin-bottom:14px;
-    font-size:11px; font-weight:700; letter-spacing:.04em;
-    background:rgba(57,255,122,.08); border:1px solid rgba(57,255,122,.3); color:#39FF7A;
-  }
+
+  /* FORM DOTS */
+  .form-dot{ display:inline-block; width:22px; height:22px; border-radius:50%; font-size:10px; font-weight:800; line-height:22px; text-align:center; }
+  .form-W{ background:rgba(57,255,122,.2); color:#39FF7A; }
+  .form-D{ background:rgba(0,229,255,.15); color:#00E5FF; }
+  .form-L{ background:rgba(255,92,122,.15); color:#ff5c7a; }
+
+  /* STATS LOADING */
+  .stats-loading{ display:flex; align-items:center; gap:10px; padding:12px 16px; border-radius:12px; background:rgba(0,229,255,.04); border:1px solid rgba(0,229,255,.1); font-size:12px; color:#4f99a8; margin-bottom:14px; }
 </style>
 </head>
 <body>
@@ -133,20 +96,18 @@
   <h1 style="font-size:2.6rem;font-weight:900;line-height:1.15;margin:0 0 16px">
     <span style="color:#fff">STRATOS </span><span style="color:#00E5FF;text-shadow:0 0 26px rgba(0,229,255,.7)">Prediction Engine</span>
   </h1>
-  <p style="max-width:620px;margin:0 auto 8px;color:#8fc6cf;font-size:1.02rem;line-height:1.6">
-    Pick a live upcoming match below, or enter custom team stats — the engine computes outcome probabilities in real time using <strong style="color:#fff">Poisson</strong> and <strong style="color:#fff">Elo</strong> models.
+  <p style="max-width:620px;margin:0 auto;color:#8fc6cf;font-size:1.02rem;line-height:1.6">
+    اضغط على أي مباراة قادمة — الإنجين يجيب إحصائيات الفريقين الحقيقية ويحسب التوقع تلقائياً.
   </p>
 </section>
 
-<!-- ══════════════════════════════════════════
-     LIVE FIXTURES SECTION
-══════════════════════════════════════════ -->
-<section class="wrap fixtures-section">
+<!-- LIVE FIXTURES -->
+<section class="wrap" style="position:relative;z-index:10;padding:0 20px 20px">
   <div class="glass" style="border-radius:22px;padding:22px">
-    <div class="fixtures-header">
-      <div class="live-dot"></div>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+      <div style="width:8px;height:8px;border-radius:50%;background:#39FF7A;box-shadow:0 0 8px #39FF7A;animation:pulseSlow 1.8s ease-in-out infinite;"></div>
       <span style="font-size:13px;font-weight:800;letter-spacing:.08em;color:#00E5FF;text-transform:uppercase">Upcoming Matches</span>
-      <span style="font-size:11px;color:#4f7780;margin-left:auto">Select a match to auto-fill the model</span>
+      <span style="font-size:11px;color:#4f7780;margin-left:auto">Tap a match to analyze</span>
     </div>
     <div id="fixturesContainer">
       <div style="padding:28px 0;text-align:center">
@@ -158,7 +119,7 @@
 </section>
 
 <!-- SPORT TOGGLE -->
-<section class="wrap" style="position:relative;z-index:10;text-align:center;padding:20px 20px 10px">
+<section class="wrap" style="position:relative;z-index:10;text-align:center;padding:10px 20px">
   <div class="seg">
     <button id="tab-foot" class="on" style="background:linear-gradient(135deg,#00E5FF,#00a8c4)" onclick="switchSport('foot')">⚽ Football</button>
     <button id="tab-nba" onclick="switchSport('nba')">🏀 NBA</button>
@@ -166,15 +127,24 @@
 </section>
 
 <!-- FOOTBALL PANEL -->
-<section id="panel-foot" class="wrap" style="position:relative;z-index:10;padding:10px 20px 10px">
+<section id="panel-foot" class="wrap" style="position:relative;z-index:10;padding:10px 20px">
   <div class="glass" style="border-radius:22px;padding:26px">
-    <div id="selectedMatchBadge" style="display:none">
-      <div class="selected-badge">
+
+    <!-- Selected match badge -->
+    <div id="selectedMatchBadge" style="display:none;margin-bottom:16px">
+      <div style="display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:999px;background:rgba(57,255,122,.08);border:1px solid rgba(57,255,122,.3);font-size:11px;font-weight:700;color:#39FF7A">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
         <span id="selectedMatchLabel"></span>
       </div>
     </div>
-    <div style="display:grid;grid-template-columns:1fr;gap:18px" class="foot-grid">
+
+    <!-- Stats loading indicator -->
+    <div id="statsLoadingBar" style="display:none" class="stats-loading">
+      <div class="spinner" style="width:18px;height:18px;border-width:2px;margin:0"></div>
+      <span>Fetching real team stats from API-Football…</span>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:18px">
       <!-- HOME -->
       <div style="border:1px solid rgba(0,229,255,.18);border-radius:16px;padding:18px;background:rgba(0,229,255,.03)">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
@@ -183,11 +153,18 @@
         </div>
         <label class="lbl">Team name</label>
         <input id="fHomeName" class="fld" value="Home Side" style="margin-bottom:12px">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-          <div><label class="lbl">Avg goals scored</label><input id="fHomeGS" class="fld tabnum" type="number" step="0.1" min="0" value="1.9"></div>
-          <div><label class="lbl">Avg goals conceded</label><input id="fHomeGC" class="fld tabnum" type="number" step="0.1" min="0" value="1.0"></div>
+        <!-- Form -->
+        <div id="homeFormRow" style="display:none;margin-bottom:12px">
+          <label class="lbl">Last 5 matches</label>
+          <div id="homeFormDots" style="display:flex;gap:5px;margin-top:4px"></div>
         </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div><label class="lbl">Avg goals scored</label><input id="fHomeGS" class="fld tabnum" type="number" step="0.01" min="0" value="1.50"></div>
+          <div><label class="lbl">Avg goals conceded</label><input id="fHomeGC" class="fld tabnum" type="number" step="0.01" min="0" value="1.15"></div>
+        </div>
+        <div id="homeExtraStats" style="display:none;margin-top:10px;padding:10px;border-radius:10px;background:rgba(0,229,255,.04);font-size:12px;color:#6fa9b2"></div>
       </div>
+
       <!-- AWAY -->
       <div style="border:1px solid rgba(255,157,46,.22);border-radius:16px;padding:18px;background:rgba(255,157,46,.03)">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
@@ -196,10 +173,16 @@
         </div>
         <label class="lbl">Team name</label>
         <input id="fAwayName" class="fld" value="Away Side" style="margin-bottom:12px">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-          <div><label class="lbl">Avg goals scored</label><input id="fAwayGS" class="fld tabnum" type="number" step="0.1" min="0" value="1.4"></div>
-          <div><label class="lbl">Avg goals conceded</label><input id="fAwayGC" class="fld tabnum" type="number" step="0.1" min="0" value="1.3"></div>
+        <!-- Form -->
+        <div id="awayFormRow" style="display:none;margin-bottom:12px">
+          <label class="lbl">Last 5 matches</label>
+          <div id="awayFormDots" style="display:flex;gap:5px;margin-top:4px"></div>
         </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div><label class="lbl">Avg goals scored</label><input id="fAwayGS" class="fld tabnum" type="number" step="0.01" min="0" value="1.20"></div>
+          <div><label class="lbl">Avg goals conceded</label><input id="fAwayGC" class="fld tabnum" type="number" step="0.01" min="0" value="1.45"></div>
+        </div>
+        <div id="awayExtraStats" style="display:none;margin-top:10px;padding:10px;border-radius:10px;background:rgba(255,157,46,.04);font-size:12px;color:#6fa9b2"></div>
       </div>
     </div>
 
@@ -207,20 +190,21 @@
       <span style="font-size:11px;color:#6fa9b2;margin-right:4px">Quick presets:</span>
       <button class="scaleup" style="font-size:12px;padding:6px 12px;border-radius:8px;border:1px solid rgba(0,229,255,.25);color:#9fdfe8;background:rgba(0,229,255,.04)" onclick="footPreset('strong')">Strong vs Mid</button>
       <button class="scaleup" style="font-size:12px;padding:6px 12px;border-radius:8px;border:1px solid rgba(0,229,255,.25);color:#9fdfe8;background:rgba(0,229,255,.04)" onclick="footPreset('even')">Even Match</button>
-      <button class="scaleup" style="font-size:12px;padding:6px 12px;border-radius:8px;border:1px solid rgba(0,229,255,.25);color:#9fdfe8;background:rgba(0,229,255,.04)" onclick="footPreset('defensive')">Two Defensive Sides</button>
+      <button class="scaleup" style="font-size:12px;padding:6px 12px;border-radius:8px;border:1px solid rgba(0,229,255,.25);color:#9fdfe8;background:rgba(0,229,255,.04)" onclick="footPreset('defensive')">Defensive Match</button>
     </div>
 
     <button onclick="predictFootball()" class="cta-glow scaleup" style="width:100%;margin-top:18px;padding:15px;border-radius:14px;font-weight:800;font-size:16px;background:linear-gradient(135deg,#00E5FF,#00a8c4);color:#000;display:flex;align-items:center;justify-content:center;gap:8px">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l1.9 5.8L19.5 10l-5.6 1.2L12 17l-1.9-5.8L4.5 10l5.6-1.2z"/></svg> Generate Prediction
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l1.9 5.8L19.5 10l-5.6 1.2L12 17l-1.9-5.8L4.5 10l5.6-1.2z"/></svg>
+      Generate Prediction
     </button>
   </div>
   <div id="footResult" style="margin-top:18px"></div>
 </section>
 
 <!-- NBA PANEL -->
-<section id="panel-nba" class="wrap" style="position:relative;z-index:10;padding:10px 20px 10px;display:none">
+<section id="panel-nba" class="wrap" style="position:relative;z-index:10;padding:10px 20px;display:none">
   <div class="glass" style="border-radius:22px;padding:26px">
-    <div style="display:grid;grid-template-columns:1fr;gap:18px" class="nba-grid">
+    <div style="display:grid;grid-template-columns:1fr;gap:18px">
       <div style="border:1px solid rgba(0,229,255,.18);border-radius:16px;padding:18px;background:rgba(0,229,255,.03)">
         <span style="font-size:11px;font-weight:700;letter-spacing:.1em;color:#00E5FF">🏠 HOME TEAM</span>
         <div style="margin-top:14px"><label class="lbl">Team name</label><input id="nHomeName" class="fld" value="Home Team" style="margin-bottom:12px"></div>
@@ -234,47 +218,43 @@
         <input id="nAwayElo" class="fld tabnum" type="number" step="5" value="1505">
       </div>
     </div>
-
     <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;align-items:center">
       <span style="font-size:11px;color:#6fa9b2;margin-right:4px">Quick presets:</span>
       <button class="scaleup" style="font-size:12px;padding:6px 12px;border-radius:8px;border:1px solid rgba(0,229,255,.25);color:#9fdfe8;background:rgba(0,229,255,.04)" onclick="nbaPreset('contender')">Contender vs Average</button>
       <button class="scaleup" style="font-size:12px;padding:6px 12px;border-radius:8px;border:1px solid rgba(0,229,255,.25);color:#9fdfe8;background:rgba(0,229,255,.04)" onclick="nbaPreset('even')">Even Match</button>
       <button class="scaleup" style="font-size:12px;padding:6px 12px;border-radius:8px;border:1px solid rgba(0,229,255,.25);color:#9fdfe8;background:rgba(0,229,255,.04)" onclick="nbaPreset('upset')">Underdog at Home</button>
     </div>
-
     <button onclick="predictNBA()" class="cta-glow scaleup" style="width:100%;margin-top:18px;padding:15px;border-radius:14px;font-weight:800;font-size:16px;background:linear-gradient(135deg,#00E5FF,#00a8c4);color:#000;display:flex;align-items:center;justify-content:center;gap:8px">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l1.9 5.8L19.5 10l-5.6 1.2L12 17l-1.9-5.8L4.5 10l5.6-1.2z"/></svg> Generate Prediction
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l1.9 5.8L19.5 10l-5.6 1.2L12 17l-1.9-5.8L4.5 10l5.6-1.2z"/></svg>
+      Generate Prediction
     </button>
   </div>
   <div id="nbaResult" style="margin-top:18px"></div>
 </section>
 
 <!-- METHODOLOGY -->
-<section class="wrap" style="position:relative;z-index:10;padding:40px 20px 10px">
+<section class="wrap" style="position:relative;z-index:10;padding:30px 20px 10px">
   <div class="glass" style="border-radius:20px;padding:26px">
     <div style="font-size:11px;text-transform:uppercase;letter-spacing:.3em;font-weight:700;color:#39FF7A;margin-bottom:8px">Transparent By Design</div>
     <h2 style="font-size:1.6rem;font-weight:900;color:#fff;margin:0 0 16px">How The Models Work</h2>
-    <div style="display:grid;grid-template-columns:1fr;gap:16px" class="meth-grid">
+    <div style="display:grid;grid-template-columns:1fr;gap:16px">
       <div style="border-left:2px solid #00E5FF;padding-left:16px">
         <h3 style="color:#00E5FF;font-size:1.05rem;margin:0 0 6px">⚽ Football — Poisson Model</h3>
-        <p style="color:#8fc6cf;font-size:.9rem;line-height:1.65;margin:0">We estimate each team's expected goals from their attacking and defensive form, add home advantage, then use the <strong style="color:#fff">Poisson distribution</strong> — the statistical standard for modeling goal counts — to compute the probability of every scoreline. Summing those gives Win / Draw / Loss probabilities and the most likely results.</p>
+        <p style="color:#8fc6cf;font-size:.9rem;line-height:1.65;margin:0">We fetch each team's real average goals scored and conceded from API-Football, add home advantage, then use the <strong style="color:#fff">Poisson distribution</strong> to compute the probability of every scoreline — giving Win / Draw / Loss probabilities and the most likely results.</p>
       </div>
       <div style="border-left:2px solid #39FF7A;padding-left:16px">
         <h3 style="color:#39FF7A;font-size:1.05rem;margin:0 0 6px">🏀 NBA — Elo Rating Model</h3>
-        <p style="color:#8fc6cf;font-size:.9rem;line-height:1.65;margin:0">Each team carries an <strong style="color:#fff">Elo rating</strong> reflecting its strength. The rating gap (plus home-court advantage) feeds the Elo win-probability formula used widely in sports analytics, and converts into a projected point margin. Stronger gap → higher win probability.</p>
+        <p style="color:#8fc6cf;font-size:.9rem;line-height:1.65;margin:0">Each team carries an <strong style="color:#fff">Elo rating</strong> reflecting its strength. The rating gap (plus home-court advantage) feeds the Elo win-probability formula, converting into a projected point margin.</p>
       </div>
     </div>
-    <p style="color:#6fa9b2;font-size:.8rem;line-height:1.6;margin:18px 0 0;padding-top:16px;border-top:1px solid rgba(255,255,255,.06)">
-      These are genuine, industry-recognized statistical methods — the same family of models used by professional analysts. The full STRATOS AI engine will extend them with live decentralized data feeds and machine-learning calibration, as described in the whitepaper.
-    </p>
   </div>
 </section>
 
-<!-- DISCLAIMER + FOOTER -->
+<!-- FOOTER -->
 <footer class="wrap" style="position:relative;z-index:10;padding:30px 20px 50px">
   <div style="border:1px solid rgba(255,92,122,.2);background:rgba(255,92,122,.05);border-radius:14px;padding:16px;margin-bottom:24px">
     <p style="color:#ffb3c2;font-size:.82rem;line-height:1.6;margin:0">
-      <strong>⚠️ Important:</strong> This is a demonstration of statistical modeling for informational and educational purposes only. Outputs are probabilities, not certainties or guarantees. This is <strong>not betting advice</strong> and not financial advice. Sports outcomes are inherently uncertain — never wager more than you can afford to lose.
+      <strong>⚠️ Important:</strong> This is a demonstration of statistical modeling for informational and educational purposes only. This is <strong>not betting advice</strong>. Sports outcomes are inherently uncertain.
     </p>
   </div>
   <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px">
@@ -287,10 +267,10 @@
 </footer>
 
 <script>
-var BLUE="#00E5FF", GREEN="#39FF7A", ORANGE="#FF9D2E", RED="#ff5c7a";
-var selectedFixtureId = null;
+var BLUE="#00E5FF", GREEN="#39FF7A", ORANGE="#FF9D2E";
+var selectedFixture = null;
 
-/* ===== LOAD LIVE FIXTURES ===== */
+/* ===== LOAD FIXTURES ===== */
 async function loadFixtures(){
   try {
     var res = await fetch('/.netlify/functions/fixtures');
@@ -299,99 +279,135 @@ async function loadFixtures(){
     renderFixtures(data.matches || []);
   } catch(err) {
     document.getElementById('fixturesContainer').innerHTML =
-      '<div class="fixtures-error">Could not load live fixtures. Please try again later.<br><span style="color:#6fa9b2;font-size:11px;margin-top:4px;display:block">'+err.message+'</span></div>';
+      '<div style="text-align:center;padding:20px;color:#ff5c7a;font-size:13px;background:rgba(255,92,122,.06);border:1px solid rgba(255,92,122,.2);border-radius:12px">Could not load fixtures: '+err.message+'</div>';
   }
 }
 
 function renderFixtures(matches){
   var el = document.getElementById('fixturesContainer');
-  if(!matches || matches.length === 0){
-    el.innerHTML = '<div class="fixtures-empty">No upcoming matches found in the next 3 days.</div>';
+  if(!matches.length){
+    el.innerHTML = '<div style="text-align:center;padding:32px;color:#4f7780;font-size:14px">No upcoming matches found in the next 7 days.</div>';
     return;
   }
   var html = '<div class="fixtures-grid">';
   matches.forEach(function(m){
     var kickoff = new Date(m.kickoff);
-    var timeStr = kickoff.toLocaleString('en-GB',{weekday:'short',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit',timeZoneName:'short'});
-    html += '<div class="fixture-card" id="fc-'+m.id+'" onclick="selectFixture('+JSON.stringify(m).replace(/"/g,'&quot;')+')">' +
+    var timeStr = kickoff.toLocaleString('en-GB',{weekday:'short',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
+    html += '<div class="fixture-card" id="fc-'+m.id+'" onclick="selectFixture('+encodeFixture(m)+')">' +
       '<div class="fixture-league">' +
         (m.leagueLogo ? '<img src="'+m.leagueLogo+'" alt="" onerror="this.style.display=\'none\'">' : '') +
         '<span>'+m.league+'</span>' +
       '</div>' +
       '<div class="fixture-teams">' +
         '<div class="fixture-team">' +
-          (m.homeLogo ? '<img src="'+m.homeLogo+'" alt="'+m.home+'" onerror="this.src=\'\'">' : '') +
+          (m.homeLogo ? '<img src="'+m.homeLogo+'" alt="'+m.home+'" onerror="this.style.display=\'none\'">' : '') +
           '<div class="fixture-team-name">'+m.home+'</div>' +
         '</div>' +
         '<div class="fixture-vs">VS</div>' +
         '<div class="fixture-team">' +
-          (m.awayLogo ? '<img src="'+m.awayLogo+'" alt="'+m.away+'" onerror="this.src=\'\'">' : '') +
+          (m.awayLogo ? '<img src="'+m.awayLogo+'" alt="'+m.away+'" onerror="this.style.display=\'none\'">' : '') +
           '<div class="fixture-team-name">'+m.away+'</div>' +
         '</div>' +
       '</div>' +
       '<div class="fixture-time">'+timeStr+'</div>' +
-      '<div class="fixture-tap-hint">Tap to analyze →</div>' +
     '</div>';
   });
   html += '</div>';
   el.innerHTML = html;
 }
 
-// League-average stats used when we don't have per-team data yet
-var LEAGUE_STATS = {
-  39:  { hgs:1.55, hgc:1.15, ags:1.25, agc:1.50 }, // EPL
-  140: { hgs:1.50, hgc:1.10, ags:1.20, agc:1.45 }, // La Liga
-  135: { hgs:1.45, hgc:1.10, ags:1.15, agc:1.40 }, // Serie A
-  78:  { hgs:1.65, hgc:1.20, ags:1.30, agc:1.55 }, // Bundesliga
-  61:  { hgs:1.40, hgc:1.15, ags:1.15, agc:1.40 }, // Ligue 1
-  2:   { hgs:1.60, hgc:1.00, ags:1.30, agc:1.50 }, // UCL
-};
-var DEFAULT_STATS = { hgs:1.50, hgc:1.15, ags:1.20, agc:1.45 };
+function encodeFixture(m){
+  return "'" + JSON.stringify(m).replace(/'/g,"\\'") + "'";
+}
 
-function selectFixture(m){
-  // Deselect all
+/* ===== SELECT FIXTURE & FETCH REAL STATS ===== */
+async function selectFixture(mJson){
+  var m = typeof mJson === 'string' ? JSON.parse(mJson) : mJson;
+  selectedFixture = m;
+
+  // UI: select card
   document.querySelectorAll('.fixture-card').forEach(function(c){ c.classList.remove('selected'); });
-  document.getElementById('fc-'+m.id).classList.add('selected');
-  selectedFixtureId = m.id;
+  var card = document.getElementById('fc-'+m.id);
+  if(card) card.classList.add('selected');
 
   // Switch to football panel
   switchSport('foot');
 
-  // Fill team names
+  // Fill names & logos immediately
   document.getElementById('fHomeName').value = m.home;
   document.getElementById('fAwayName').value = m.away;
-
-  // Fill logos
-  if(m.homeLogo){
-    document.getElementById('homeLogoImg').src = m.homeLogo;
-    document.getElementById('homeLogoWrap').style.display = 'block';
-  } else {
-    document.getElementById('homeLogoWrap').style.display = 'none';
-  }
-  if(m.awayLogo){
-    document.getElementById('awayLogoImg').src = m.awayLogo;
-    document.getElementById('awayLogoWrap').style.display = 'block';
-  } else {
-    document.getElementById('awayLogoWrap').style.display = 'none';
-  }
-
-  // Fill stats from league averages
-  var s = LEAGUE_STATS[m.leagueId] || DEFAULT_STATS;
-  document.getElementById('fHomeGS').value = s.hgs;
-  document.getElementById('fHomeGC').value = s.hgc;
-  document.getElementById('fAwayGS').value = s.ags;
-  document.getElementById('fAwayGC').value = s.agc;
+  if(m.homeLogo){ document.getElementById('homeLogoImg').src = m.homeLogo; document.getElementById('homeLogoWrap').style.display='block'; }
+  if(m.awayLogo){ document.getElementById('awayLogoImg').src = m.awayLogo; document.getElementById('awayLogoWrap').style.display='block'; }
 
   // Show badge
-  var badge = document.getElementById('selectedMatchBadge');
-  badge.style.display = 'block';
+  document.getElementById('selectedMatchBadge').style.display='block';
   document.getElementById('selectedMatchLabel').textContent = m.home + ' vs ' + m.away + ' · ' + m.league;
 
-  // Auto-run prediction & scroll
-  predictFootball();
-  setTimeout(function(){
-    document.getElementById('panel-foot').scrollIntoView({ behavior:'smooth', block:'start' });
-  }, 100);
+  // Show loading
+  document.getElementById('statsLoadingBar').style.display='flex';
+  document.getElementById('homeFormRow').style.display='none';
+  document.getElementById('awayFormRow').style.display='none';
+  document.getElementById('homeExtraStats').style.display='none';
+  document.getElementById('awayExtraStats').style.display='none';
+
+  // Scroll
+  setTimeout(function(){ document.getElementById('panel-foot').scrollIntoView({behavior:'smooth',block:'start'}); }, 80);
+
+  try {
+    var season = m.season || new Date().getFullYear();
+    var url = '/.netlify/functions/team-stats?homeId='+m.homeId+'&awayId='+m.awayId+'&leagueId='+m.leagueId+'&season='+season;
+    var res = await fetch(url);
+    var data = await res.json();
+
+    document.getElementById('statsLoadingBar').style.display='none';
+
+    applyTeamStats('home', data.home, m.home);
+    applyTeamStats('away', data.away, m.away);
+
+    predictFootball();
+  } catch(err) {
+    document.getElementById('statsLoadingBar').style.display='none';
+    // Fallback to league averages
+    document.getElementById('fHomeGS').value = '1.50';
+    document.getElementById('fHomeGC').value = '1.15';
+    document.getElementById('fAwayGS').value = '1.20';
+    document.getElementById('fAwayGC').value = '1.45';
+    predictFootball();
+  }
+}
+
+function applyTeamStats(side, stats, name){
+  if(!stats) return;
+
+  // Goals
+  if(stats.goalsScored !== null){
+    document.getElementById('f'+(side==='home'?'Home':'Away')+'GS').value = stats.goalsScored.toFixed(2);
+  }
+  if(stats.goalsConceded !== null){
+    document.getElementById('f'+(side==='home'?'Home':'Away')+'GC').value = stats.goalsConceded.toFixed(2);
+  }
+
+  // Form dots
+  if(stats.form){
+    var dotsEl = document.getElementById(side+'FormDots');
+    var rowEl  = document.getElementById(side+'FormRow');
+    dotsEl.innerHTML = stats.form.split('').map(function(r){
+      return '<span class="form-dot form-'+r+'">'+r+'</span>';
+    }).join('');
+    rowEl.style.display = 'block';
+  }
+
+  // Extra stats
+  if(stats.played > 0){
+    var extraEl = document.getElementById(side+'ExtraStats');
+    extraEl.innerHTML =
+      '🎯 Played: <strong style="color:#fff">'+stats.played+'</strong> &nbsp;|&nbsp; ' +
+      '✅ W: <strong style="color:#39FF7A">'+stats.wins+'</strong> &nbsp;' +
+      '➖ D: <strong style="color:#00E5FF">'+stats.draws+'</strong> &nbsp;' +
+      '❌ L: <strong style="color:#ff5c7a">'+stats.losses+'</strong>' +
+      (stats.cleanSheets !== null ? ' &nbsp;|&nbsp; 🧤 Clean sheets: <strong style="color:#fff">'+stats.cleanSheets+'</strong>' : '');
+    extraEl.style.display = 'block';
+  }
 }
 
 /* ===== TABS ===== */
@@ -407,16 +423,20 @@ function switchSport(s){
   tn.style.color=!foot?"#000":"#8fc6cf";
 }
 
-/* ===== FOOTBALL: Poisson model ===== */
+/* ===== FOOTBALL MODEL ===== */
 function fact(n){ var r=1; for(var i=2;i<=n;i++) r*=i; return r; }
 function poisson(k,l){ return Math.pow(l,k)*Math.exp(-l)/fact(k); }
 
 function footPreset(type){
-  selectedFixtureId = null;
+  selectedFixture = null;
   document.querySelectorAll('.fixture-card').forEach(function(c){ c.classList.remove('selected'); });
-  document.getElementById('selectedMatchBadge').style.display = 'none';
-  document.getElementById('homeLogoWrap').style.display = 'none';
-  document.getElementById('awayLogoWrap').style.display = 'none';
+  document.getElementById('selectedMatchBadge').style.display='none';
+  document.getElementById('homeLogoWrap').style.display='none';
+  document.getElementById('awayLogoWrap').style.display='none';
+  document.getElementById('homeFormRow').style.display='none';
+  document.getElementById('awayFormRow').style.display='none';
+  document.getElementById('homeExtraStats').style.display='none';
+  document.getElementById('awayExtraStats').style.display='none';
   var v={
     strong:["Home Side",2.3,0.8,"Away Side",1.1,1.5],
     even:["Home Side",1.6,1.2,"Away Side",1.5,1.2],
@@ -454,36 +474,42 @@ function predictFootball(){
   var top=cells.slice(0,3);
 
   function bar(label,val,color){
-    return '<div style="margin-bottom:12px"><div style="display:flex;justify-content:space-between;margin-bottom:5px"><span style="font-size:13px;color:#cfe;font-weight:600">'+label+'</span><span class="tabnum" style="font-size:15px;font-weight:900;color:'+color+'">'+val.toFixed(1)+'%</span></div>'+
-    '<div style="height:12px;border-radius:8px;background:rgba(255,255,255,.06);overflow:hidden"><div class="barfill" style="height:100%;width:'+val+'%;border-radius:8px;background:'+color+';box-shadow:0 0 12px '+color+'88"></div></div></div>';
+    return '<div style="margin-bottom:12px"><div style="display:flex;justify-content:space-between;margin-bottom:5px">'+
+      '<span style="font-size:13px;color:#cfe;font-weight:600">'+label+'</span>'+
+      '<span class="tabnum" style="font-size:15px;font-weight:900;color:'+color+'">'+val.toFixed(1)+'%</span></div>'+
+      '<div style="height:12px;border-radius:8px;background:rgba(255,255,255,.06);overflow:hidden">'+
+      '<div class="barfill" style="height:100%;width:'+val+'%;border-radius:8px;background:'+color+';box-shadow:0 0 12px '+color+'88"></div></div></div>';
   }
-  var winner = pH>=pD&&pH>=pA?hName+" win":(pA>=pH&&pA>=pD?aName+" win":"Draw");
-  var topScores=top.map(function(c){
+
+  var winner = pH>=pD&&pH>=pA ? hName+" win" : (pA>=pH&&pA>=pD ? aName+" win" : "Draw");
+  var topScores = top.map(function(c){
     return '<div style="text-align:center;padding:10px 8px;border-radius:10px;background:rgba(0,229,255,.04);border:1px solid rgba(0,229,255,.15)">'+
       '<div class="tabnum" style="font-size:1.3rem;font-weight:900;color:#fff">'+c.h+' – '+c.a+'</div>'+
       '<div class="tabnum" style="font-size:11px;color:#6fa9b2;margin-top:2px">'+(c.p*100).toFixed(1)+'%</div></div>';
   }).join("");
 
-  var liveNote = selectedFixtureId
-    ? '<div style="margin-top:14px;padding:10px 14px;border-radius:10px;background:rgba(57,255,122,.05);border:1px solid rgba(57,255,122,.2);font-size:11px;color:#5fa87a">ℹ️ Using league-average baselines. Live per-team stats will be added in the next phase.</div>'
-    : '';
+  var dataSource = selectedFixture
+    ? '<div style="margin-top:14px;padding:10px 14px;border-radius:10px;background:rgba(57,255,122,.05);border:1px solid rgba(57,255,122,.2);font-size:11px;color:#5fa87a">📡 Based on real season stats from API-Football</div>'
+    : '<div style="margin-top:14px;padding:10px 14px;border-radius:10px;background:rgba(0,229,255,.04);border:1px solid rgba(0,229,255,.1);font-size:11px;color:#4f7780">ℹ️ Using custom / preset values</div>';
 
   document.getElementById("footResult").innerHTML=
     '<div class="glass fadeUp" style="border-radius:22px;padding:26px">'+
-    '<div style="text-align:center;margin-bottom:20px"><span style="font-size:11px;letter-spacing:.2em;color:#39FF7A;text-transform:uppercase">Model Output · Most Likely</span>'+
-    '<div style="font-size:1.4rem;font-weight:900;color:#00E5FF;text-shadow:0 0 20px rgba(0,229,255,.5);margin-top:4px">'+winner+'</div></div>'+
+    '<div style="text-align:center;margin-bottom:20px">'+
+      '<span style="font-size:11px;letter-spacing:.2em;color:#39FF7A;text-transform:uppercase">Model Output · Most Likely</span>'+
+      '<div style="font-size:1.4rem;font-weight:900;color:#00E5FF;text-shadow:0 0 20px rgba(0,229,255,.5);margin-top:4px">'+winner+'</div>'+
+    '</div>'+
     bar(hName+' Win',pH,BLUE)+bar('Draw',pD,'#9fdfe8')+bar(aName+' Win',pA,ORANGE)+
     '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px;padding-top:18px;border-top:1px solid rgba(255,255,255,.06)">'+
-      '<div style="text-align:center"><div style="font-size:11px;color:#6fa9b2">Expected Goals · '+hName+'</div><div class="tabnum" style="font-size:1.5rem;font-weight:900;color:#00E5FF">'+hXG.toFixed(2)+'</div></div>'+
-      '<div style="text-align:center"><div style="font-size:11px;color:#6fa9b2">Expected Goals · '+aName+'</div><div class="tabnum" style="font-size:1.5rem;font-weight:900;color:#FF9D2E">'+aXG.toFixed(2)+'</div></div>'+
+      '<div style="text-align:center"><div style="font-size:11px;color:#6fa9b2">xG · '+hName+'</div><div class="tabnum" style="font-size:1.5rem;font-weight:900;color:#00E5FF">'+hXG.toFixed(2)+'</div></div>'+
+      '<div style="text-align:center"><div style="font-size:11px;color:#6fa9b2">xG · '+aName+'</div><div class="tabnum" style="font-size:1.5rem;font-weight:900;color:#FF9D2E">'+aXG.toFixed(2)+'</div></div>'+
     '</div>'+
     '<div style="margin-top:18px"><div style="font-size:11px;color:#6fa9b2;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">Most Likely Scorelines</div>'+
     '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">'+topScores+'</div></div>'+
-    liveNote+
+    dataSource+
     '</div>';
 }
 
-/* ===== NBA: Elo model ===== */
+/* ===== NBA MODEL ===== */
 function nbaPreset(type){
   var v={
     contender:["Contender",1660,"Average Team",1500],
@@ -500,29 +526,32 @@ function predictNBA(){
   var aName=document.getElementById("nAwayName").value||"Away";
   var hElo=parseFloat(document.getElementById("nHomeElo").value)||1500;
   var aElo=parseFloat(document.getElementById("nAwayElo").value)||1500;
-
-  var HOME_ADV=100;
-  var diff=(hElo+HOME_ADV)-aElo;
+  var diff=(hElo+100)-aElo;
   var pHome=1/(1+Math.pow(10,-diff/400))*100;
   var pAway=100-pHome;
   var margin=diff/28;
-  var favName = margin>=0?hName:aName;
+  var favName=margin>=0?hName:aName;
   var absM=Math.abs(margin);
 
   function bar(label,val,color){
-    return '<div style="margin-bottom:12px"><div style="display:flex;justify-content:space-between;margin-bottom:5px"><span style="font-size:13px;color:#cfe;font-weight:600">'+label+'</span><span class="tabnum" style="font-size:15px;font-weight:900;color:'+color+'">'+val.toFixed(1)+'%</span></div>'+
-    '<div style="height:12px;border-radius:8px;background:rgba(255,255,255,.06);overflow:hidden"><div class="barfill" style="height:100%;width:'+val+'%;border-radius:8px;background:'+color+';box-shadow:0 0 12px '+color+'88"></div></div></div>';
+    return '<div style="margin-bottom:12px"><div style="display:flex;justify-content:space-between;margin-bottom:5px">'+
+      '<span style="font-size:13px;color:#cfe;font-weight:600">'+label+'</span>'+
+      '<span class="tabnum" style="font-size:15px;font-weight:900;color:'+color+'">'+val.toFixed(1)+'%</span></div>'+
+      '<div style="height:12px;border-radius:8px;background:rgba(255,255,255,.06);overflow:hidden">'+
+      '<div class="barfill" style="height:100%;width:'+val+'%;border-radius:8px;background:'+color+';box-shadow:0 0 12px '+color+'88"></div></div></div>';
   }
 
   document.getElementById("nbaResult").innerHTML=
     '<div class="glass fadeUp" style="border-radius:22px;padding:26px">'+
-    '<div style="text-align:center;margin-bottom:20px"><span style="font-size:11px;letter-spacing:.2em;color:#39FF7A;text-transform:uppercase">Model Output · Projected</span>'+
-    '<div style="font-size:1.4rem;font-weight:900;color:#00E5FF;text-shadow:0 0 20px rgba(0,229,255,.5);margin-top:4px">'+favName+' favored</div></div>'+
+    '<div style="text-align:center;margin-bottom:20px">'+
+      '<span style="font-size:11px;letter-spacing:.2em;color:#39FF7A;text-transform:uppercase">Model Output · Projected</span>'+
+      '<div style="font-size:1.4rem;font-weight:900;color:#00E5FF;text-shadow:0 0 20px rgba(0,229,255,.5);margin-top:4px">'+favName+' favored</div>'+
+    '</div>'+
     bar(hName+' Win (Home)',pHome,BLUE)+bar(aName+' Win (Away)',pAway,ORANGE)+
     '<div style="margin-top:18px;padding-top:18px;border-top:1px solid rgba(255,255,255,.06);text-align:center">'+
       '<div style="font-size:11px;color:#6fa9b2;text-transform:uppercase;letter-spacing:.08em">Projected Margin</div>'+
-      '<div class="tabnum" style="font-size:2rem;font-weight:900;color:#39FF7A;text-shadow:0 0 18px rgba(57,255,122,.5);margin-top:4px">'+favName+' by '+absM.toFixed(1)+'</div>'+
-      '<div style="font-size:12px;color:#6fa9b2;margin-top:4px">Rating gap incl. home-court advantage: '+(diff>=0?'+':'')+Math.round(diff)+' Elo</div>'+
+      '<div class="tabnum" style="font-size:2rem;font-weight:900;color:#39FF7A;margin-top:4px">'+favName+' by '+absM.toFixed(1)+'</div>'+
+      '<div style="font-size:12px;color:#6fa9b2;margin-top:4px">Rating gap incl. home-court: '+(diff>=0?'+':'')+Math.round(diff)+' Elo</div>'+
     '</div></div>';
 }
 
