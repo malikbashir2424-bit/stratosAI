@@ -289,11 +289,15 @@ function renderFixtures(matches){
     el.innerHTML = '<div style="text-align:center;padding:32px;color:#4f7780;font-size:14px">No upcoming matches found in the next 7 days.</div>';
     return;
   }
+  // Store matches globally for safe access
+  window._fixturesMap = {};
+  matches.forEach(function(m){ window._fixturesMap[m.id] = m; });
+
   var html = '<div class="fixtures-grid">';
   matches.forEach(function(m){
     var kickoff = new Date(m.kickoff);
     var timeStr = kickoff.toLocaleString('en-GB',{weekday:'short',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
-    html += '<div class="fixture-card" id="fc-'+m.id+'" onclick="selectFixture('+encodeFixture(m)+')">' +
+    html += '<div class="fixture-card" id="fc-'+m.id+'" onclick="selectFixture('+m.id+')">' +
       '<div class="fixture-league">' +
         (m.leagueLogo ? '<img src="'+m.leagueLogo+'" alt="" onerror="this.style.display=\'none\'">' : '') +
         '<span>'+m.league+'</span>' +
@@ -316,13 +320,12 @@ function renderFixtures(matches){
   el.innerHTML = html;
 }
 
-function encodeFixture(m){
-  return "'" + JSON.stringify(m).replace(/'/g,"\\'") + "'";
-}
+
 
 /* ===== SELECT FIXTURE & FETCH REAL STATS ===== */
-async function selectFixture(mJson){
-  var m = typeof mJson === 'string' ? JSON.parse(mJson) : mJson;
+async function selectFixture(id){
+  var m = window._fixturesMap[id];
+  if(!m) return;
   selectedFixture = m;
 
   // UI: select card
