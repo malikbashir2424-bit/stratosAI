@@ -1,6 +1,4 @@
 // netlify/functions/team-stats.js
-// Gets real team stats from last 10 matches - works for all teams including national teams
-
 exports.handler = async function (event) {
   const API_KEY = process.env.API_FOOTBALL_KEY;
   const BASE = "https://v3.football.api-sports.io";
@@ -32,8 +30,12 @@ exports.handler = async function (event) {
 
   async function getStatsFromMatches(teamId) {
     try {
-      const data = await api(`/fixtures?team=${teamId}&last=10&status=FT`);
-      if (!data.response || data.response.length === 0) return null;
+      // Try last matches without status filter
+      const data = await api(`/fixtures?team=${teamId}&last=10`);
+      
+      if (!data.response || data.response.length === 0) {
+        return { debug: "no_fixtures", raw_count: 0, errors: data.errors };
+      }
 
       let gf = 0, ga = 0, count = 0;
       let wins = 0, draws = 0, losses = 0;
@@ -44,31 +46,24 @@ exports.handler = async function (event) {
         const isHome = m.teams.home.id == teamId;
         const scored   = isHome ? m.goals.home : m.goals.away;
         const conceded = isHome ? m.goals.away : m.goals.home;
-
         if (scored === null || conceded === null) return;
-
-        gf += scored;
-        ga += conceded;
-        count++;
-
+        gf += scored; ga += conceded; count++;
         if (conceded === 0) cleanSheets++;
-
         if (scored > conceded) { wins++; formArr.push('W'); }
         else if (scored === conceded) { draws++; formArr.push('D'); }
         else { losses++; formArr.push('L'); }
       });
 
-      if (count === 0) return null;
+      if (count === 0) return { debug: "fixtures_found_but_no_goals", raw_count: data.response.length };
 
       return {
         goalsScored:   parseFloat((gf / count).toFixed(2)),
         goalsConceded: parseFloat((ga / count).toFixed(2)),
         form:          formArr.slice(0, 5).join(''),
-        cleanSheets,
-        wins, draws, losses, played: count,
+        cleanSheets, wins, draws, losses, played: count,
       };
     } catch(e) {
-      return null;
+      return { debug: "error", message: e.message };
     }
   }
 
@@ -80,7 +75,7 @@ exports.handler = async function (event) {
 
     return {
       statusCode: 200,
-      headers: { ...headers, "Cache-Control": "public, max-age=3600" },
+      headers: { ...headers, "Cache-Control": "no-cache" },
       body: JSON.stringify({ home: homeStats, away: awayStats }),
     };
   } catch (err) {
