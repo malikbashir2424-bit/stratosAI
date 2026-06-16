@@ -588,7 +588,9 @@ function renderDetail(id,m,ai){
   var aiHtml;
   if(ai){
     var cc=ai.confidence==='High'?'#39FF7A':ai.confidence==='Medium'?'#FF9D2E':'#8fc6cf';
-    aiHtml='<div class="ai-box"><div class="ai-head"><div class="ai-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#00E5FF" stroke-width="2"><path d="M12 3l1.9 5.8L19.5 10l-5.6 1.2L12 17l-1.9-5.8L4.5 10l5.6-1.2z"/></svg></div><span class="ai-title">STRATOS AI</span><span style="margin-left:auto;font-size:10px;font-weight:700;padding:2px 7px;border-radius:999px;color:'+cc+';border:1px solid '+cc+'40;background:'+cc+'12">'+ai.confidence+'</span></div><p class="ai-text">'+ai.analysis+'</p><div class="ai-tip">💡 '+ai.tip+'</div><div class="ai-verdict"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Prediction: <strong>'+ai.verdict+'</strong></div></div>';
+    aiHtml='<div class="ai-box"><div class="ai-head"><div class="ai-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#00E5FF" stroke-width="2"><path d="M12 3l1.9 5.8L19.5 10l-5.6 1.2L12 17l-1.9-5.8L4.5 10l5.6-1.2z"/></svg></div><span class="ai-title">STRATOS AI</span><span style="margin-left:auto;font-size:10px;font-weight:700;padding:2px 7px;border-radius:999px;color:'+cc+';border:1px solid '+cc+'40;background:'+cc+'12">'+ai.confidence+'</span></div><p class="ai-text">'+ai.analysis+'</p><div class="ai-tip">💡 '+ai.tip+'</div><div class="ai-verdict"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Prediction: <strong>'+ai.verdict+'</strong></div><a href="history.html" style="display:inline-flex;align-items:center;gap:4px;margin-top:8px;font-size:10px;color:var(--text-dim);text-decoration:none">View all predictions →</a></div>';
+    // Save prediction to localStorage for history page
+    savePredictionToHistory(m, ai);
   } else {
     aiHtml='<div class="ai-box"><p style="font-size:12px;color:var(--text-muted)">AI analysis unavailable.</p></div>';
   }
@@ -774,6 +776,38 @@ function switchTab(tab){
   document.getElementById('panel-slip').classList.toggle('hidden',tab!=='slip');
   document.getElementById('panel-bets').classList.toggle('hidden',tab!=='bets');
   if(tab==='bets') renderMyBets();
+}
+
+/* ═══════════════════════════════════════
+   SAVE PREDICTION TO HISTORY
+═══════════════════════════════════════ */
+function savePredictionToHistory(m, ai){
+  try{
+    var preds = JSON.parse(localStorage.getItem('stratos_predictions')||'[]');
+    var exists = preds.findIndex(function(p){ return p.fixtureId===m.id; });
+    if(exists >= 0) return; // already saved
+    preds.unshift({
+      id: 'pred-'+m.id,
+      fixtureId: m.id,
+      match: m.home+' vs '+m.away,
+      league: m.league,
+      homeTeam: m.home,
+      awayTeam: m.away,
+      homeLogo: m.homeLogo,
+      awayLogo: m.awayLogo,
+      kickoff: m.kickoff,
+      verdict: ai.verdict,
+      confidence: ai.confidence,
+      analysis: ai.analysis,
+      tip: ai.tip,
+      result: null,
+      settled: false,
+      won: null,
+      finalScore: null,
+      timestamp: new Date().toISOString(),
+    });
+    localStorage.setItem('stratos_predictions', JSON.stringify(preds.slice(0,200)));
+  }catch(e){}
 }
 
 /* ═══════════════════════════════════════
