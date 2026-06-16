@@ -95,6 +95,51 @@ input{font-family:inherit;}
 }
 
 /* ═══════════════════════════════════════
+   MOBILE STYLES
+═══════════════════════════════════════ */
+@media(max-width:919px){
+  /* Betslip fixed at bottom */
+  .betslip-wrap{position:fixed;bottom:0;left:0;right:0;z-index:40;}
+  .betslip{border-radius:16px 16px 0 0;border-bottom:none;}
+  .page{padding-bottom:130px;}
+
+  /* Hide betslip panels when collapsed */
+  .betslip-wrap:not(.mob-open) .bs-panel{display:none!important;}
+
+  /* Mobile toggle bar */
+  .bs-mob-bar{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:13px 16px;cursor:pointer;
+    background:rgba(0,229,255,.06);border-bottom:1px solid rgba(0,229,255,.12);
+  }
+  .bs-mob-label{font-size:13px;font-weight:700;color:#e8feff;display:flex;align-items:center;gap:8px;}
+  .bs-mob-arrow{color:var(--text-dim);transition:transform .22s;}
+  .betslip-wrap.mob-open .bs-mob-arrow{transform:rotate(180deg);}
+  .betslip-wrap.mob-open .betslip{max-height:75vh;overflow-y:auto;}
+
+  /* Compact match list */
+  .match-head{padding:9px 10px;gap:5px;}
+  .match-league{max-width:55px;}
+  .match-team-name{font-size:12px;}
+  .match-vs{padding:0 2px;}
+  .match-time{font-size:10px;}
+  .odds-row{padding:0 10px 9px;gap:4px;}
+  .odd-btn{padding:6px 3px;}
+  .odd-val{font-size:13px;}
+  .odd-label{font-size:8px;}
+
+  /* Compact stats */
+  .stats-grid{gap:6px;}
+  .stat-box{padding:8px;}
+  .stat-lbl{font-size:9px;}
+  .stat-v{font-size:10px;}
+
+  /* Nav compact */
+  .coming-soon-badge{padding:6px 8px;}
+  .coming-soon-badge span:last-child{display:none;}
+}
+
+/* ═══════════════════════════════════════
    SECTION HEADER
 ═══════════════════════════════════════ */
 .sec-head{
@@ -318,13 +363,19 @@ input{font-family:inherit;}
 
   <!-- RIGHT: BETSLIP -->
   <div>
-    <div class="betslip-wrap">
+    <div class="betslip-wrap" id="betslipWrap">
       <div class="betslip">
-        <div class="bs-tabs">
-          <div class="bs-tab active" onclick="switchTab('slip')" id="tab-slip">
+        <!-- Mobile toggle bar -->
+        <div class="bs-mob-bar" onclick="toggleMobileBetslip()">
+          <div class="bs-mob-label">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00E5FF" stroke-width="2"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>
             Bet Slip
-            <span id="bsCount" style="background:#00E5FF;color:#000;border-radius:999px;font-size:9px;padding:1px 6px;margin-left:4px;font-weight:900">0</span>
+            <span id="bsCount" style="background:#00E5FF;color:#000;border-radius:999px;font-size:9px;padding:1px 6px;font-weight:900">0</span>
           </div>
+          <svg class="bs-mob-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="bs-tabs">
+          <div class="bs-tab active" onclick="switchTab('slip')" id="tab-slip">Bet Slip</div>
           <div class="bs-tab" onclick="switchTab('bets')" id="tab-bets">My Bets</div>
         </div>
         <div class="bs-panel" id="panel-slip">
@@ -812,6 +863,13 @@ function savePredictionToHistory(m, ai){
     });
     localStorage.setItem('stratos_predictions', JSON.stringify(preds.slice(0,200)));
   }catch(e){}
+}
+
+/* ═══════════════════════════════════════
+   MOBILE BETSLIP TOGGLE
+═══════════════════════════════════════ */
+function toggleMobileBetslip(){
+  document.getElementById('betslipWrap').classList.toggle('mob-open');
 }
 
 /* ═══════════════════════════════════════
