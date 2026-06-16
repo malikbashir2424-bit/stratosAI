@@ -320,7 +320,7 @@ var DEMO_DATA = [
     verdict:'France Win',confidence:'High',
     analysis:'France\'s world-class attack averaging 2.60 goals per game should overwhelm Senegal. The xG differential of 2.18 vs 1.42 strongly favors Les Bleus.',
     tip:'France\'s pace on the counter will expose Senegal\'s high defensive line.',
-    result:null,settled:false,won:null,finalScore:null,
+    result:'1',settled:true,won:true,finalScore:'3 - 1',
     timestamp:'2026-06-16T18:00:00Z'
   },
   {
@@ -499,7 +499,31 @@ function savePrediction(pred){
 }
 
 // Init
+async function autoSettleDemoData(){
+  var updated = false;
+  for(var i=0; i<DEMO_DATA.length; i++){
+    var pred = DEMO_DATA[i];
+    if(pred.settled) continue;
+    if(new Date(pred.kickoff) > new Date()) continue;
+    try{
+      var res = await fetch('/.netlify/functions/check-results?fixtureId='+pred.fixtureId);
+      var data = await res.json();
+      if(data.finished && data.result){
+        DEMO_DATA[i].settled = true;
+        DEMO_DATA[i].result = data.result;
+        DEMO_DATA[i].finalScore = data.homeGoals+' - '+data.awayGoals;
+        DEMO_DATA[i].won = (pred.verdict.includes('Draw') && data.result==='X') ||
+                           (pred.verdict.includes(pred.homeTeam) && data.result==='1') ||
+                           (pred.verdict.includes(pred.awayTeam) && data.result==='2');
+        updated = true;
+      }
+    }catch(e){ /* skip */ }
+  }
+  if(updated){ renderStats(); renderPredictions(); }
+}
+
 loadPredictions();
+autoSettleDemoData();
 </script>
 </body>
 </html>
