@@ -760,6 +760,13 @@ function placeBet(){
     });
   });
 
+  // Open betslip on mobile and switch to My Bets
+  var wrap = document.getElementById('betslipWrap');
+  if(wrap && window.innerWidth < 920){
+    wrap.classList.add('mob-open');
+    switchTab('bets');
+  }
+
   // Show toast
   document.getElementById('toastBody').innerHTML=
     '<strong style="color:#fff">'+picks+'</strong><br>'+
