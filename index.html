@@ -184,7 +184,12 @@ table{border-collapse:collapse;}
       </a>
     </div>
     <div class="nav-right">
-      <button onclick="openModal('whitelist')" class="nav-cta scaleup">🔔 Get Notified</button>
+      <!-- Predictions button always visible including mobile -->
+      <a href="predictions.html" class="nav-predict scaleup" style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;padding:7px 13px;border-radius:999px;">
+        <span style="width:7px;height:7px;border-radius:50%;background:#39FF7A;box-shadow:0 0 8px #39FF7A" class="pulse"></span>
+        <span>Predictions</span>
+      </a>
+      <button onclick="openModal('whitelist')" class="nav-cta scaleup" style="font-size:12px;padding:8px 14px;">🔔 Get Notified</button>
       <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
         <span class="ham-line"></span>
         <span class="ham-line"></span>
@@ -921,16 +926,71 @@ function renderWhitepaper(){
       '<div><div style="font-size:14px;font-weight:700;color:#fff">'+r[0]+'</div><div style="font-size:11px;color:#6fa9b2">'+r[2]+'</div></div>'+
       '<div style="font-size:14px;font-weight:900;color:'+(r[3]?BLUE:GREEN)+'">'+r[1]+'</div></div>';}).join("")+'</div>';
   document.getElementById("wp-body").innerHTML=
-    '<div style="text-align:center;margin-bottom:24px"><div style="font-size:11px;text-transform:uppercase;letter-spacing:.2em;color:#39FF7A;margin-bottom:6px">The World\'s First Decentralized Sports Oracle</div>'+
-    '<h2 style="font-size:1.8rem;font-weight:900;color:#fff;text-shadow:0 0 26px rgba(0,229,255,.4);margin:0">STRATOS <span style="color:#00E5FF">AI</span></h2></div>'+
-    h("Executive Summary")+p("STRATOS AI introduces the world's first AI-driven Decentralized Sports Oracle (DSO). By bridging high-fidelity real-world sports data with blockchain smart contracts, STRATOS AI eliminates latency, central point-of-failure vulnerabilities, and data manipulation.")+
-    hr()+h("The Problem")+p("Existing oracle networks are optimized for price-feed tracking but fail in processing multi-layered sports metrics.")+
-    '<ul style="margin:0 0 12px;padding:0">'+li("Latency:","Traditional APIs suffer timeouts during live matches.")+li("Vulnerability:","Centralized aggregators are prone to manipulation.")+li("No Prediction:","Current Web3 only transmits scores, not predictive intelligence.")+'</ul>'+
-    hr()+h("The Solution")+p("STRATOS AI solves these through a dual-engine protocol: a DSO Infrastructure and a Core AI Predictive Engine.")+
+    '<div style="text-align:center;margin-bottom:24px">'+
+    '<div style="font-size:11px;text-transform:uppercase;letter-spacing:.2em;color:#39FF7A;margin-bottom:6px">The World\'s First Decentralized Sports Oracle</div>'+
+    '<h2 style="font-size:1.8rem;font-weight:900;color:#fff;text-shadow:0 0 26px rgba(0,229,255,.4);margin:0 0 12px">STRATOS <span style="color:#00E5FF">AI</span></h2>'+
+    '<a href="predictions.html" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:999px;font-size:12px;font-weight:700;background:rgba(57,255,122,.08);border:1px solid rgba(57,255,122,.3);color:#39FF7A">'+
+    '<span style="width:6px;height:6px;border-radius:50%;background:#39FF7A;box-shadow:0 0 6px #39FF7A"></span>Try Live Demo →</a>'+
+    '</div>'+
+
+    h("Executive Summary")+
+    p("STRATOS AI introduces the world's first AI-driven Decentralized Sports Oracle (DSO). By bridging high-fidelity real-world sports data with blockchain smart contracts, STRATOS AI eliminates manipulation, latency, and centralized failure points. The live demo at stratosa.netlify.app/predictions showcases the core prediction engine running on real World Cup 2026 data.")+
+
+    hr()+h("The Problem")+
+    p("The sports data industry is dominated by centralized providers — opaque, slow, and easily manipulated. Existing Web3 oracle networks are optimized for price feeds, not sports intelligence.")+
+    '<ul style="margin:0 0 12px;padding:0">'+
+    li("Centralization:","Single points of failure and data manipulation risk.")+
+    li("No Prediction Layer:","Current Web3 only transmits scores, not predictive intelligence.")+
+    li("KYC Barriers:","Traditional platforms require identity verification, excluding millions.")+
+    li("No Transparency:","Prediction accuracy is never disclosed or verifiable.")+
+    '</ul>'+
+
+    hr()+h("The STRATOS AI Solution")+
+    p("STRATOS AI combines three pillars into one unified platform:")+
+    '<ul style="margin:0 0 12px;padding:0">'+
+    li("AI Prediction Engine:","Claude-powered analysis using real team stats, form, and xG models to generate transparent match predictions.")+
+    li("Decentralized Oracle:","Tamper-proof on-chain data feeds validated by distributed nodes.")+
+    li("No-KYC Sportsbook:","Users connect a wallet and bet with $STRAT — smart contract pays winners automatically, no middleman.")+
+    '</ul>'+
+
+    hr()+h("Live Demo — Available Now")+
+    '<div style="border-radius:12px;padding:14px 16px;background:rgba(57,255,122,.05);border:1px solid rgba(57,255,122,.2);margin-bottom:16px">'+
+    '<div style="font-size:12px;font-weight:700;color:#39FF7A;margin-bottom:8px">🚀 Try it at stratosa.netlify.app/predictions</div>'+
+    '<ul style="margin:0;padding:0">'+
+    li("","Real World Cup 2026 matches with live odds")+
+    li("","AI analysis with confidence scores for every match")+
+    li("","Place demo bets — results auto-settle after matches end")+
+    li("","Full prediction history with accuracy tracking")+
+    '</ul></div>'+
+
     hr()+h("Tokenomics")+tokBox+
-    hr()+h("Roadmap")+sub("Phase 1 — Architecture & Audit (Q2–Q3 2026)")+'<ul style="margin:0 0 12px;padding:0">'+li("","Core models & neural network structures.")+li("","Smart contract development & third-party audit.")+'</ul>'+sub("Phase 2 — Presale Launch (Q4 2026)")+'<ul style="margin:0 0 12px;padding:0">'+li("","$STRAT presale · Soft Cap $300K · Hard Cap $1.5M.")+li("","Global marketing campaigns.")+'</ul>'+sub("Phase 3 — Mainnet (Jan–May 2027)")+'<ul style="margin:0 0 12px;padding:0">'+li("","TGE & exchange listing (May 2027).")+li("","DSO Mainnet & Tiered Platform launch.")+'</ul>'+
-    hr()+'<div style="border-radius:12px;padding:16px;border:1px solid rgba(57,255,122,.25);background:rgba(57,255,122,.04)">'+h("Legal Disclaimer")+p("$STRAT does not represent equity, shares, or securities. This document contains forward-looking statements that are projections, not guarantees.")+'</div>'+
-    '<div style="text-align:center;font-size:11px;color:#46656d;margin-top:20px">© 2026 STRATOS AI · Whitepaper V1.0 · Not financial advice.</div>';
+
+    hr()+h("Roadmap")+
+    sub("Phase 1 — MVP Demo (Q2 2026) ✅")+
+    '<ul style="margin:0 0 12px;padding:0">'+
+    li("","AI prediction engine live on World Cup 2026.")+
+    li("","Real-time odds, stats, and match analysis.")+
+    li("","Demo betting system with localStorage.")+
+    '</ul>'+
+    sub("Phase 2 — Presale Launch (Q4 2026)")+
+    '<ul style="margin:0 0 12px;padding:0">'+
+    li("","$STRAT presale · Soft Cap $300K · Hard Cap $1.5M.")+
+    li("","Smart contract development & third-party audit.")+
+    li("","On-chain betting with MetaMask integration.")+
+    '</ul>'+
+    sub("Phase 3 — Mainnet (2027)")+
+    '<ul style="margin:0 0 12px;padding:0">'+
+    li("","TGE & exchange listing.")+
+    li("","DSO Mainnet with decentralized oracle nodes.")+
+    li("","DAO governance & staking rewards live.")+
+    '</ul>'+
+
+    hr()+
+    '<div style="border-radius:12px;padding:16px;border:1px solid rgba(57,255,122,.25);background:rgba(57,255,122,.04)">'+
+    h("Legal Disclaimer")+
+    p("$STRAT does not represent equity, shares, or securities in any jurisdiction. This document contains forward-looking statements that are projections, not guarantees. Always conduct your own research.")+
+    '</div>'+
+    '<div style="text-align:center;font-size:11px;color:#46656d;margin-top:20px">© 2026 STRATOS AI · Whitepaper V1.1 · Not financial advice.</div>';
 }
 </script>
 </body>
