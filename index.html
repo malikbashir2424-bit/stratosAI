@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>STRATOS AI | Decentralized Sports Oracle</title>
 <meta name="description" content="STRATOS AI — The World's First Decentralized Sports Oracle. AI predictive modeling on-chain. $STRAT presale launching Q4 2026." />
 <meta property="og:type" content="website" />
@@ -13,7 +13,7 @@
 <style>
 *{box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{margin:0;background:#000;color:#e8feff;font-family:'Inter',system-ui,-apple-system,sans-serif;overflow-x:hidden;}
+body{margin:0;background:#000;color:#e8feff;font-family:'Inter',system-ui,-apple-system,sans-serif;overflow-x:hidden;-webkit-text-size-adjust:100%;}
 section[id]{scroll-margin-top:70px;}
 a{text-decoration:none;}
 button{cursor:pointer;font-family:inherit;border:none;background:none;}
@@ -46,10 +46,10 @@ table{border-collapse:collapse;}
 .grid-bg{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.4;}
 
 /* ── NAVBAR ── */
-.nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,0,0,.7);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(0,229,255,.15);}
-.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;max-width:1100px;margin:0 auto;}
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;height:56px;background:rgba(2,4,8,.97);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,229,255,.12);}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:0 16px;max-width:1100px;margin:0 auto;height:56px;}
 .nav-logo{display:flex;align-items:center;gap:8px;}
-.nav-logo-text{font-size:19px;font-weight:800;letter-spacing:.12em;text-shadow:0 0 12px #00E5FF;}
+.nav-logo-text{font-size:17px;font-weight:800;letter-spacing:.1em;color:#fff;}
 /* Desktop links */
 .nav-links{display:none;align-items:center;gap:28px;font-size:14px;font-weight:500;}
 @media(min-width:768px){.nav-links{display:flex;}}
@@ -65,7 +65,7 @@ table{border-collapse:collapse;}
 .hamburger.open .ham-line:nth-child(2){opacity:0;}
 .hamburger.open .ham-line:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
 /* Mobile menu */
-.mobile-menu{display:none;position:fixed;top:60px;left:0;right:0;z-index:49;background:rgba(0,0,0,.97);border-bottom:1px solid rgba(0,229,255,.2);padding:18px;}
+.mobile-menu{display:none;position:fixed;top:56px;left:0;right:0;z-index:49;background:rgba(2,4,8,.98);border-bottom:1px solid rgba(0,229,255,.15);padding:12px 16px 20px;max-height:calc(100vh - 56px);overflow-y:auto;}
 .mobile-menu.open{display:block;}
 .mobile-menu a,.mobile-menu button.mm-item{display:flex;align-items:center;gap:10px;width:100%;padding:13px 16px;border-radius:12px;color:#9fdfe8;font-size:15px;font-weight:600;margin-bottom:6px;background:transparent;border:1px solid transparent;text-align:left;transition:all .2s;}
 .mobile-menu a:hover,.mobile-menu button.mm-item:hover{background:rgba(0,229,255,.06);border-color:rgba(0,229,255,.2);color:#fff;}
@@ -73,7 +73,7 @@ table{border-collapse:collapse;}
 .mobile-menu .mm-cta{background:#00E5FF;color:#000;border-color:#00E5FF;font-weight:700;justify-content:center;box-shadow:0 0 18px rgba(0,229,255,.4);margin-top:8px;}
 
 /* ── HERO ── */
-.hero{position:relative;z-index:10;padding-top:100px;padding-bottom:60px;text-align:center;}
+.hero{position:relative;z-index:10;padding-top:88px;padding-bottom:60px;text-align:center;}
 .hero h1{font-size:clamp(1.8rem,6vw,4.5rem);font-weight:900;line-height:1.12;margin:0 0 20px;letter-spacing:-.02em;}
 .hero-sub{font-size:clamp(0.5rem,2.5vw,1rem);font-weight:900;line-height:1.12;}
 .hero p{max-width:600px;margin:0 auto 32px;color:#8fc6cf;font-size:clamp(.9rem,2.5vw,1.05rem);line-height:1.65;}
@@ -150,6 +150,67 @@ table{border-collapse:collapse;}
 .text-muted{color:#8fc6cf;} .text-dim{color:#6fa9b2;}
 .rounded-full{border-radius:9999px;} .rounded-xl{border-radius:12px;} .rounded-2xl{border-radius:16px;} .rounded-3xl{border-radius:22px;}
 .badge{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:999px;font-size:12px;font-weight:600;}
+
+/* ══ MOBILE OVERRIDES ══ */
+@media(max-width:767px){
+  /* Nav */
+  .nav-inner{padding:0 14px;}
+  .nav-cta{display:none;}  /* hide "Get Notified" btn on mobile, hamburger handles it */
+  
+  /* Hero */
+  .hero{padding-top:80px;padding-bottom:40px;}
+  .hero h1{font-size:clamp(1.7rem,8vw,3rem);line-height:1.14;}
+  .hero p{font-size:.95rem;margin-bottom:20px;}
+  .hero-btns{flex-direction:column;align-items:center;gap:10px;}
+  .hero-btn-primary,.hero-btn-secondary{width:100%;max-width:320px;justify-content:center;padding:14px 20px;font-size:14px;}
+  
+  /* How It Works - switch to 1 col on mobile */
+  .how-it-works-grid{grid-template-columns:1fr !important;max-width:100% !important;}
+  
+  /* Trust grid - 2 col is fine */
+  .trust-grid{margin-top:32px;}
+  
+  /* Sections */
+  .section{padding:40px 0;}
+  .section-header{margin-bottom:28px;}
+  .section-title{font-size:clamp(1.4rem,6vw,2rem);}
+  
+  /* Cards */
+  .card{padding:18px;}
+  .card-icon{width:44px;height:44px;border-radius:12px;margin-bottom:14px;}
+  
+  /* Presale */
+  .presale-wrap{padding:20px 16px;}
+  .countdown-grid{gap:6px;}
+  .cd-box{padding:12px 4px;}
+  .cd-num{font-size:1.4rem;}
+  .price-grid{grid-template-columns:1fr;gap:8px;}
+  
+  /* Tokenomics - donut smaller */
+  .donut-wrap svg{width:200px;height:200px;}
+  
+  /* Hub */
+  .hub-grid{grid-template-columns:1fr;}
+  
+  /* Footer */
+  .footer-grid{grid-template-columns:1fr 1fr;gap:20px;padding:28px 0;}
+  
+  /* Modals - full width on mobile */
+  .overlay{padding:0;}
+  .modal{border-radius:16px 16px 0 0 !important;position:fixed !important;bottom:0;left:0;right:0;max-width:100% !important;max-height:92vh;}
+  
+  /* Whitepaper modal special */
+  #m-whitepaper .modal{border-radius:16px 16px 0 0;max-height:92vh;}
+}
+
+@media(max-width:400px){
+  .hero h1{font-size:1.6rem;}
+  .hero-btn-primary,.hero-btn-secondary{font-size:13px;padding:13px 16px;}
+  .countdown-grid{gap:4px;}
+  .cd-num{font-size:1.2rem;}
+  .cd-label{font-size:9px;letter-spacing:.05em;}
+}
+
 </style>
 </head>
 <body>
@@ -180,14 +241,14 @@ table{border-collapse:collapse;}
       <a href="#hub" class="navlink">Hub</a>
       <a href="#faq" class="navlink">FAQ</a>
       <a href="demo.html" class="navlink" style="color:#FF9D2E;font-weight:700">How It Works</a>
-      <a href="staking.html" class="navlink" style="color:#FF9D2E;font-weight:700">🔒 Staking</a>
-      <a href="airdrop.html" class="navlink" style="color:#39FF7A;font-weight:700">🎁 Airdrop</a>
+      <a href="staking.html" class="navlink" style="color:#FF9D2E;font-weight:700">Staking</a>
+      <a href="airdrop.html" class="navlink" style="color:#39FF7A;font-weight:700">Airdrop</a>
       <a href="predictions.html" class="nav-predict scaleup">
         <span style="width:7px;height:7px;border-radius:50%;background:#39FF7A;box-shadow:0 0 8px #39FF7A" class="pulse"></span>Predictions
       </a>
     </div>
     <div class="nav-right">
-      <button onclick="openModal('whitelist')" class="nav-cta scaleup" style="font-size:12px;padding:8px 14px;">🔔 Get Notified</button>
+      <button onclick="openModal('whitelist')" class="nav-cta scaleup" style="font-size:12px;padding:8px 14px;">Get Notified</button>
       <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
         <span class="ham-line"></span>
         <span class="ham-line"></span>
@@ -199,18 +260,18 @@ table{border-collapse:collapse;}
 
 <!-- Mobile Menu -->
 <div class="mobile-menu" id="mobileMenu">
-  <a href="#presale" onclick="closeMenu()">📊 Presale</a>
-  <a href="#features" onclick="closeMenu()">⚡ Features</a>
-  <a href="#tokenomics" onclick="closeMenu()">🪙 Tokenomics</a>
-  <a href="#roadmap" onclick="closeMenu()">🗺️ Roadmap</a>
-  <a href="#hub" onclick="closeMenu()">🏠 Hub</a>
-  <a href="#faq" onclick="closeMenu()">❓ FAQ</a>
-  <a href="staking.html" onclick="closeMenu()" style="color:#FF9D2E;border-color:rgba(255,157,46,.25);background:rgba(255,157,46,.05)">🔒 Staking</a>
-  <a href="airdrop.html" onclick="closeMenu()" style="color:#39FF7A;border-color:rgba(57,255,122,.25);background:rgba(57,255,122,.05)">🎁 Airdrop</a>
+  <a href="#presale" onclick="closeMenu()">Presale</a>
+  <a href="#features" onclick="closeMenu()">Features</a>
+  <a href="#tokenomics" onclick="closeMenu()">Tokenomics</a>
+  <a href="#roadmap" onclick="closeMenu()">Roadmap</a>
+  <a href="#hub" onclick="closeMenu()">Hub</a>
+  <a href="#faq" onclick="closeMenu()">FAQ</a>
+  <a href="staking.html" onclick="closeMenu()" style="color:#FF9D2E;border-color:rgba(255,157,46,.25);background:rgba(255,157,46,.05)">Staking</a>
+  <a href="airdrop.html" onclick="closeMenu()" style="color:#39FF7A;border-color:rgba(57,255,122,.25);background:rgba(57,255,122,.05)">Airdrop</a>
   <a href="predictions.html" class="mm-predict">
     <span style="width:7px;height:7px;border-radius:50%;background:#39FF7A;box-shadow:0 0 8px #39FF7A" class="pulse"></span> Live Predictions
   </a>
-  <button class="mm-item mm-cta" onclick="openModal('whitelist');closeMenu()">🔔 Join Whitelist / Get Notified</button>
+  <button class="mm-item mm-cta" onclick="openModal('whitelist');closeMenu()">Join Whitelist</button>
 </div>
 
 <!-- ═══ HERO ═══ -->
@@ -237,24 +298,24 @@ table{border-collapse:collapse;}
     </button>
     <a href="airdrop.html" class="hero-btn-secondary scaleup" style="border-color:rgba(57,255,122,.3);color:#39FF7A;background:rgba(57,255,122,.06);">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l1.9 5.8L19.5 10l-5.6 1.2L12 17l-1.9-5.8L4.5 10l5.6-1.2z"/></svg>
-      🎁 Claim Airdrop
+      Claim Airdrop
     </a>
   </div>
 
   <!-- HOW IT WORKS -->
-  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:40px;max-width:700px;margin-left:auto;margin-right:auto;">
+  <div class="how-it-works-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:40px;max-width:700px;margin-left:auto;margin-right:auto;">
     <div style="background:rgba(255,255,255,.03);border:1px solid rgba(0,229,255,.12);border-radius:14px;padding:20px 14px;text-align:center;">
-      <div style="font-size:1.6rem;margin-bottom:8px">🔍</div>
+      <div style="width:38px;height:38px;margin:0 auto 10px;border-radius:10px;background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.2);display:flex;align-items:center;justify-content:center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00E5FF" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div>
       <div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:6px">Pick a Match</div>
       <div style="font-size:11px;color:#6fa9b2;line-height:1.5">Browse live upcoming matches with real odds</div>
     </div>
     <div style="background:rgba(255,255,255,.03);border:1px solid rgba(0,229,255,.12);border-radius:14px;padding:20px 14px;text-align:center;">
-      <div style="font-size:1.6rem;margin-bottom:8px">🤖</div>
+      <div style="width:38px;height:38px;margin:0 auto 10px;border-radius:10px;background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.2);display:flex;align-items:center;justify-content:center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00E5FF" stroke-width="1.8"><path d="M12 3l1.9 5.8L19.5 10l-5.6 1.2L12 17l-1.9-5.8L4.5 10l5.6-1.2z"/></svg></div>
       <div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:6px">Get AI Prediction</div>
       <div style="font-size:11px;color:#6fa9b2;line-height:1.5">See confidence score & full analysis</div>
     </div>
     <div style="background:rgba(255,255,255,.03);border:1px solid rgba(57,255,122,.15);border-radius:14px;padding:20px 14px;text-align:center;">
-      <div style="font-size:1.6rem;margin-bottom:8px">🏆</div>
+      <div style="width:38px;height:38px;margin:0 auto 10px;border-radius:10px;background:rgba(57,255,122,.08);border:1px solid rgba(57,255,122,.2);display:flex;align-items:center;justify-content:center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#39FF7A" stroke-width="1.8"><path d="M6 9l6 6 6-6"/><path d="M12 3v12"/><path d="M3 21h18"/></svg></div>
       <div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:6px">Win $STRAT</div>
       <div style="font-size:11px;color:#6fa9b2;line-height:1.5">Smart contract pays winners automatically</div>
     </div>
@@ -274,10 +335,11 @@ table{border-collapse:collapse;}
         <h2 style="font-size:clamp(1.4rem,4vw,2rem);font-weight:900;color:#fff;margin:10px 0 6px">Launching Q4 2026</h2>
         <p style="font-size:14px;color:#8fc6cf">Join the whitelist to secure early access before public launch.</p>
       </div>
-      <div class="countdown-grid" id="countdown" style="display:none"></div>
+      <div class="countdown-grid" id="countdown"></div>
       <div style="text-align:center;margin-bottom:24px">
         <div style="display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:999px;font-size:14px;font-weight:800;border:1px solid rgba(255,157,46,.4);color:var(--orange);background:rgba(255,157,46,.07);box-shadow:0 0 16px rgba(255,157,46,.15)">
-          🔜 Presale Opening Q4 2026
+          <span style="width:7px;height:7px;border-radius:50%;background:#FF9D2E;box-shadow:0 0 6px #FF9D2E" class="pulse"></span>
+          Presale Opening Q4 2026
         </div>
       </div>
       <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:10px">
@@ -458,7 +520,7 @@ table{border-collapse:collapse;}
           <p style="font-size:14px;color:#8fc6cf;line-height:1.65" id="stDesc"></p>
         </div>
         <a href="staking.html" class="scaleup2 cta-glow" style="width:100%;margin-top:20px;padding:14px;border-radius:12px;font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#00E5FF,#00a8c4);color:#000;text-decoration:none">
-          <span id="stBtn">🔒 Staking Dashboard</span>
+          <span id="stBtn">Staking Dashboard</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
         </a>
       </div>
@@ -475,7 +537,7 @@ table{border-collapse:collapse;}
         </div>
         <a href="airdrop.html" class="scaleup2" style="width:100%;margin-top:20px;padding:14px;border-radius:12px;font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#FF9D2E,#e07d10);color:#000;box-shadow:0 0 22px rgba(255,157,46,.4);text-decoration:none">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>
-          <span id="adBtn">🎁 Claim Free Airdrop</span>
+          <span id="adBtn">Claim Airdrop</span>
         </a>
       </div>
     </div>
@@ -842,7 +904,7 @@ var adTasks={x:false,tg:false,share:false};
 function renderAirdrop(){
   var t=T[lang];adTasks={x:false,tg:false,share:false};
   document.getElementById("airdropDir").setAttribute("dir",t.dir);
-  var shareText=encodeURIComponent("Join the STRATOS AI airdrop! 🚀");
+  var shareText=encodeURIComponent("Join the STRATOS AI airdrop and earn $STRAT before presale.");
   var shareUrl="https://t.me/share/url?url="+encodeURIComponent(TELEGRAM_GROUP_URL)+"&text="+shareText;
   var taskRows=[["x",t.taskX,X_URL,"twitter"],["tg",t.taskTg,TELEGRAM_GROUP_URL,"send"],["share",t.taskShare,shareUrl,"share"]].map(function(tk){
     return '<a id="task-'+tk[0]+'" href="'+tk[2]+'" target="_blank" rel="noopener" onclick="markTask(\''+tk[0]+'\')" style="display:flex;align-items:center;gap:10px;border-radius:12px;padding:12px 14px;margin-bottom:8px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.02);color:#fff;font-size:14px;font-weight:600;transition:all .2s">'+
@@ -1001,7 +1063,7 @@ function renderWhitepaper(){
 
     hr()+h("Live Demo — Available Now")+
     '<div style="border-radius:12px;padding:14px 16px;background:rgba(57,255,122,.05);border:1px solid rgba(57,255,122,.2);margin-bottom:16px">'+
-    '<div style="font-size:12px;font-weight:700;color:#39FF7A;margin-bottom:8px">🚀 Try it at stratosa.netlify.app/predictions</div>'+
+    '<div style="font-size:12px;font-weight:700;color:#39FF7A;margin-bottom:8px">Live demo: stratosa.netlify.app/predictions</div>'+
     '<ul style="margin:0;padding:0">'+
     li("","Real World Cup 2026 matches with live odds")+
     li("","AI analysis with confidence scores for every match")+
@@ -1012,7 +1074,7 @@ function renderWhitepaper(){
     hr()+h("Tokenomics")+tokBox+
 
     hr()+h("Roadmap")+
-    sub("Phase 1 — MVP Demo (Q2 2026) ✅")+
+    sub("Phase 1 — MVP Demo (Q2 2026) — Complete")+
     '<ul style="margin:0 0 12px;padding:0">'+
     li("","AI prediction engine live on World Cup 2026.")+
     li("","Real-time odds, stats, and match analysis.")+
