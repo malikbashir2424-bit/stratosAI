@@ -224,6 +224,19 @@ button{cursor:pointer;font-family:inherit;border:none;background:none;}
     <div id="confBreakdown"></div>
   </div>
 
+  <!-- WEEKLY CHART -->
+  <div id="weeklySection" style="display:none;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px;margin-bottom:20px;">
+    <div style="font-size:11px;text-transform:uppercase;letter-spacing:.1em;font-weight:700;color:var(--blue);margin-bottom:4px;">Weekly Accuracy</div>
+    <div style="font-size:12px;color:var(--text-dim);margin-bottom:14px;">AI performance over time</div>
+    <div id="weeklyChart"></div>
+  </div>
+
+  <!-- SETTLE INDICATOR -->
+  <div id="settleIndicator" style="display:none;align-items:center;gap:8px;padding:10px 14px;border-radius:var(--radius);background:rgba(0,229,255,.04);border:1px solid rgba(0,229,255,.1);margin-bottom:12px;font-size:12px;color:var(--text-muted);">
+    <span style="width:14px;height:14px;border:2px solid rgba(0,229,255,.15);border-top-color:var(--blue);border-radius:50%;animation:spin .7s linear infinite;display:inline-block;flex-shrink:0"></span>
+    Checking for new results…
+  </div>
+
   <!-- FILTERS -->
   <div class="filters">
     <span class="filter-label">Filter:</span>
@@ -344,14 +357,12 @@ var DEMO_DATA = [
    merged with demo data
 ═══════════════════════════════════════ */
 function loadPredictions(){
-  // Load real predictions from localStorage (saved when AI analysis viewed)
   var real = [];
   try{
     var raw = localStorage.getItem('stratos_predictions');
     real = raw ? JSON.parse(raw) : [];
   }catch(e){ real=[]; }
 
-  // Merge: real predictions + demo data (avoid duplicates by fixtureId)
   var realIds = real.map(function(p){ return p.fixtureId; });
   var demo = DEMO_DATA.filter(function(p){ return !realIds.includes(p.fixtureId); });
 
@@ -361,6 +372,8 @@ function loadPredictions(){
 
   renderStats();
   renderPredictions();
+  renderWeeklyChart();
+  autoSettleDemoData();
 }
 
 /* ═══════════════════════════════════════
@@ -500,30 +513,89 @@ function savePrediction(pred){
 
 // Init
 async function autoSettleDemoData(){
+  var pending = allPredictions.filter(function(p){
+    return !p.settled && new Date(p.kickoff) < new Date();
+  });
+  if(!pending.length) return;
+
   var updated = false;
-  for(var i=0; i<DEMO_DATA.length; i++){
-    var pred = DEMO_DATA[i];
-    if(pred.settled) continue;
-    if(new Date(pred.kickoff) > new Date()) continue;
+  for(var i=0; i<pending.length; i++){
+    var pred = pending[i];
     try{
       var res = await fetch('/.netlify/functions/check-results?fixtureId='+pred.fixtureId);
       var data = await res.json();
       if(data.finished && data.result){
-        DEMO_DATA[i].settled = true;
-        DEMO_DATA[i].result = data.result;
-        DEMO_DATA[i].finalScore = data.homeGoals+' - '+data.awayGoals;
-        DEMO_DATA[i].won = (pred.verdict.includes('Draw') && data.result==='X') ||
-                           (pred.verdict.includes(pred.homeTeam) && data.result==='1') ||
-                           (pred.verdict.includes(pred.awayTeam) && data.result==='2');
-        updated = true;
+        var idx = allPredictions.findIndex(function(p){ return p.fixtureId===pred.fixtureId; });
+        if(idx>=0){
+          allPredictions[idx].settled = true;
+          allPredictions[idx].result = data.result;
+          allPredictions[idx].finalScore = data.homeGoals+' - '+data.awayGoals;
+          allPredictions[idx].won = (
+            (pred.verdict.includes('Draw') && data.result==='X') ||
+            (pred.verdict.toLowerCase().includes(pred.homeTeam.toLowerCase()) && data.result==='1') ||
+            (pred.verdict.toLowerCase().includes(pred.awayTeam.toLowerCase()) && data.result==='2')
+          );
+          updated = true;
+        }
+        var dIdx = DEMO_DATA.findIndex(function(p){ return p.fixtureId===pred.fixtureId; });
+        if(dIdx>=0){
+          DEMO_DATA[dIdx].settled = true;
+          DEMO_DATA[dIdx].result = data.result;
+          DEMO_DATA[dIdx].finalScore = data.homeGoals+' - '+data.awayGoals;
+          DEMO_DATA[dIdx].won = allPredictions[allPredictions.findIndex(function(p){ return p.fixtureId===pred.fixtureId; })].won;
+        }
       }
     }catch(e){ /* skip */ }
   }
-  if(updated){ renderStats(); renderPredictions(); }
+  if(updated){ renderStats(); renderPredictions(); renderWeeklyChart(); }
+}
+
+/* ═══════════════════════════════════════
+   WEEKLY PERFORMANCE CHART
+═══════════════════════════════════════ */
+function renderWeeklyChart(){
+  var settled = allPredictions.filter(function(p){ return p.settled; });
+  if(settled.length < 2){ 
+    var ws = document.getElementById('weeklySection');
+    if(ws) ws.style.display='none'; 
+    return; 
+  }
+
+  var weeks = {};
+  settled.forEach(function(p){
+    var d = new Date(p.kickoff);
+    var weekKey = d.toLocaleDateString('en-GB',{day:'numeric',month:'short'});
+    if(!weeks[weekKey]) weeks[weekKey]={correct:0,total:0};
+    weeks[weekKey].total++;
+    if(p.won) weeks[weekKey].correct++;
+  });
+
+  var labels = Object.keys(weeks);
+  var data = labels.map(function(w){ return Math.round((weeks[w].correct/weeks[w].total)*100); });
+  var maxVal = Math.max.apply(null, data) || 100;
+
+  var bars = labels.map(function(label, i){
+    var pct = data[i];
+    var color = pct >= 60 ? '#39FF7A' : pct >= 40 ? '#FF9D2E' : '#ff5c7a';
+    return '<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px">'+
+      '<div style="font-size:11px;font-weight:700;color:'+color+'">'+pct+'%</div>'+
+      '<div style="width:100%;background:rgba(255,255,255,.05);border-radius:6px;overflow:hidden;height:80px;display:flex;align-items:flex-end">'+
+        '<div style="width:100%;height:'+(pct/maxVal*100)+'%;background:'+color+';border-radius:6px 6px 0 0;transition:height .8s cubic-bezier(.16,1,.3,1)"></div>'+
+      '</div>'+
+      '<div style="font-size:10px;color:var(--text-dim);text-align:center">'+label+'</div>'+
+      '<div style="font-size:9px;color:var(--text-dim)">'+weeks[label].correct+'/'+weeks[label].total+'</div>'+
+    '</div>';
+  }).join('');
+
+  var ws = document.getElementById('weeklySection');
+  if(ws){
+    ws.style.display='block';
+    var wc = document.getElementById('weeklyChart');
+    if(wc) wc.innerHTML = '<div style="display:flex;gap:8px;align-items:flex-end;padding:16px">'+bars+'</div>';
+  }
 }
 
 loadPredictions();
-autoSettleDemoData();
 </script>
 </body>
 </html>
