@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>STRATOS AI | Staking</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#05070a;color:#e8feff;font-family:'Inter',system-ui,-apple-system,sans-serif;overflow-x:hidden;min-height:100vh;}
+a{text-decoration:none;color:inherit;}
+button{cursor:pointer;font-family:inherit;border:none;background:none;}
+
+:root{
+  --blue:#00E5FF;--green:#39FF7A;--orange:#FF9D2E;
+  --bg2:rgba(255,255,255,.03);--border:rgba(255,255,255,.07);
+  --text-muted:#6fa9b2;--text-dim:#4f7780;
+  --radius:10px;--radius-lg:14px;
+}
+
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+.grid-bg{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.15;
+  background-image:linear-gradient(rgba(0,229,255,.06) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(0,229,255,.06) 1px,transparent 1px);
+  background-size:48px 48px;}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(5,7,10,.95);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,229,255,.1);height:56px;}
+.nav-inner{max-width:1100px;margin:0 auto;padding:0 18px;height:100%;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{display:flex;align-items:center;gap:8px;font-size:17px;font-weight:800;letter-spacing:.1em;text-shadow:0 0 10px var(--blue);}
+.nav-links{display:flex;align-items:center;gap:12px;}
+.nav-link{font-size:13px;font-weight:600;color:var(--text-muted);transition:color .2s;}
+.nav-link:hover{color:#fff;}
+.nav-link.active{color:var(--orange);}
+.nav-cta{padding:7px 14px;border-radius:999px;font-size:12px;font-weight:700;background:linear-gradient(135deg,#00E5FF,#00a8c4);color:#000;}
+
+/* PAGE */
+.page{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:72px 16px 60px;}
+
+/* COMING SOON BANNER */
+.cs-banner{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  padding:12px 20px;border-radius:12px;margin-bottom:28px;
+  background:rgba(255,157,46,.06);border:1px solid rgba(255,157,46,.3);
+  font-size:13px;font-weight:700;color:var(--orange);
+  animation:pulse 2.4s ease-in-out infinite;
+}
+
+/* HERO */
+.hero{text-align:center;padding:32px 0 36px;}
+.hero-icon{font-size:3rem;margin-bottom:16px;animation:float 3s ease-in-out infinite;}
+.hero h1{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:900;margin-bottom:10px;}
+.hero p{font-size:14px;color:var(--text-muted);max-width:460px;margin:0 auto;line-height:1.7;}
+
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:24px;}
+@media(min-width:600px){.stats-grid{grid-template-columns:repeat(4,1fr);}}
+.stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px 14px;text-align:center;position:relative;overflow:hidden;}
+.stat-card::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.4);}
+.stat-val{font-size:1.6rem;font-weight:900;line-height:1;margin-bottom:6px;color:#fff;}
+.stat-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-dim);}
+.stat-cs{position:absolute;inset:0;z-index:1;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:var(--orange);letter-spacing:.1em;text-transform:uppercase;}
+
+/* POOLS */
+.pools-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:24px;}
+@media(min-width:640px){.pools-grid{grid-template-columns:repeat(3,1fr);}}
+.pool-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:22px;position:relative;overflow:hidden;transition:border-color .2s;}
+.pool-card:hover{border-color:rgba(255,157,46,.2);}
+.pool-card.featured{border-color:rgba(255,157,46,.3);background:rgba(255,157,46,.03);}
+.pool-featured-badge{position:absolute;top:12px;right:12px;font-size:9px;font-weight:800;padding:2px 8px;border-radius:999px;background:rgba(255,157,46,.15);color:var(--orange);border:1px solid rgba(255,157,46,.3);}
+.pool-duration{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-dim);margin-bottom:8px;}
+.pool-apy{font-size:2rem;font-weight:900;color:var(--orange);margin-bottom:4px;}
+.pool-apy-lbl{font-size:11px;color:var(--text-dim);margin-bottom:14px;}
+.pool-divider{height:1px;background:rgba(255,255,255,.06);margin-bottom:14px;}
+.pool-row{display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px;}
+.pool-row-lbl{color:var(--text-dim);}
+.pool-row-val{font-weight:700;color:#fff;}
+.pool-btn{width:100%;margin-top:14px;padding:11px;border-radius:10px;font-size:13px;font-weight:700;background:rgba(255,157,46,.08);border:1px solid rgba(255,157,46,.25);color:var(--orange);position:relative;overflow:hidden;}
+.pool-btn::after{content:'🔜 Coming Soon';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(5,7,10,.85);font-size:12px;font-weight:800;color:var(--orange);}
+
+/* MY STAKING */
+.my-staking{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:22px;margin-bottom:24px;position:relative;overflow:hidden;}
+.my-staking::after{content:'Coming Soon After Presale';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:var(--orange);background:rgba(5,7,10,.85);letter-spacing:.05em;}
+.my-staking-title{font-size:13px;font-weight:700;color:#fff;margin-bottom:16px;}
+.my-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.my-card{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:var(--radius);padding:14px;text-align:center;}
+.my-val{font-size:1.2rem;font-weight:900;color:var(--green);margin-bottom:4px;}
+.my-lbl{font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.06em;}
+
+/* HOW IT WORKS */
+.how-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:24px;}
+@media(min-width:600px){.how-grid{grid-template-columns:repeat(4,1fr);}}
+.how-step{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px;text-align:center;}
+.how-icon{font-size:1.4rem;margin-bottom:10px;}
+.how-title{font-size:13px;font-weight:700;color:#fff;margin-bottom:6px;}
+.how-desc{font-size:11px;color:var(--text-muted);line-height:1.5;}
+
+/* NOTIFY */
+.notify-box{background:rgba(0,229,255,.03);border:1px solid rgba(0,229,255,.15);border-radius:var(--radius-lg);padding:28px 24px;text-align:center;}
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00E5FF" stroke-width="2" style="filter:drop-shadow(0 0 6px #00E5FF)"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>
+      STRATOS<span style="color:#00E5FF">AI</span>
+    </a>
+    <div class="nav-links">
+      <a href="predictions.html" class="nav-link">Sportsbook</a>
+      <a href="airdrop.html" class="nav-link">Airdrop</a>
+      <a href="staking.html" class="nav-link active">Staking</a>
+      <a href="index.html" class="nav-cta">← Home</a>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE -->
+<div class="page">
+
+  <!-- COMING SOON BANNER -->
+  <div class="cs-banner">
+    🔜 Staking launches after $STRAT Presale — Q4 2026
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-icon">🔒</div>
+    <h1>Stake <span style="color:#FF9D2E;text-shadow:0 0 20px rgba(255,157,46,.5)">$STRAT</span><br>Earn Rewards</h1>
+    <p>Lock your $STRAT tokens and earn passive rewards. The longer you stake, the higher your APY. Launching Q4 2026 after presale.</p>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-val">0</div>
+      <div class="stat-lbl">Total Staked</div>
+      <div class="stat-cs">Coming Soon</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val">0%</div>
+      <div class="stat-lbl">Avg APY</div>
+      <div class="stat-cs">Coming Soon</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val">0</div>
+      <div class="stat-lbl">Stakers</div>
+      <div class="stat-cs">Coming Soon</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val">$0</div>
+      <div class="stat-lbl">Rewards Paid</div>
+      <div class="stat-cs">Coming Soon</div>
+    </div>
+  </div>
+
+  <!-- POOLS -->
+  <div style="font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:700;color:var(--orange);margin-bottom:12px;">Staking Pools</div>
+  <div class="pools-grid">
+    <div class="pool-card">
+      <div class="pool-duration">30 Days</div>
+      <div class="pool-apy">80%</div>
+      <div class="pool-apy-lbl">APY</div>
+      <div class="pool-divider"></div>
+      <div class="pool-row"><span class="pool-row-lbl">Min Stake</span><span class="pool-row-val">1,000 STRAT</span></div>
+      <div class="pool-row"><span class="pool-row-lbl">Lock Period</span><span class="pool-row-val">30 Days</span></div>
+      <div class="pool-row"><span class="pool-row-lbl">Total Staked</span><span class="pool-row-val">0 STRAT</span></div>
+      <button class="pool-btn">Stake Now</button>
+    </div>
+    <div class="pool-card featured">
+      <div class="pool-featured-badge">⭐ BEST</div>
+      <div class="pool-duration">90 Days</div>
+      <div class="pool-apy">180%</div>
+      <div class="pool-apy-lbl">APY</div>
+      <div class="pool-divider"></div>
+      <div class="pool-row"><span class="pool-row-lbl">Min Stake</span><span class="pool-row-val">5,000 STRAT</span></div>
+      <div class="pool-row"><span class="pool-row-lbl">Lock Period</span><span class="pool-row-val">90 Days</span></div>
+      <div class="pool-row"><span class="pool-row-lbl">Total Staked</span><span class="pool-row-val">0 STRAT</span></div>
+      <button class="pool-btn">Stake Now</button>
+    </div>
+    <div class="pool-card">
+      <div class="pool-duration">180 Days</div>
+      <div class="pool-apy">280%</div>
+      <div class="pool-apy-lbl">APY</div>
+      <div class="pool-divider"></div>
+      <div class="pool-row"><span class="pool-row-lbl">Min Stake</span><span class="pool-row-val">10,000 STRAT</span></div>
+      <div class="pool-row"><span class="pool-row-lbl">Lock Period</span><span class="pool-row-val">180 Days</span></div>
+      <div class="pool-row"><span class="pool-row-lbl">Total Staked</span><span class="pool-row-val">0 STRAT</span></div>
+      <button class="pool-btn">Stake Now</button>
+    </div>
+  </div>
+
+  <!-- MY STAKING -->
+  <div style="font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:700;color:var(--orange);margin-bottom:12px;">My Staking</div>
+  <div class="my-staking">
+    <div class="my-staking-title">Your Staking Dashboard</div>
+    <div class="my-grid">
+      <div class="my-card"><div class="my-val">0</div><div class="my-lbl">Staked</div></div>
+      <div class="my-card"><div class="my-val">0</div><div class="my-lbl">Rewards</div></div>
+      <div class="my-card"><div class="my-val">—</div><div class="my-lbl">Unlock Date</div></div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div style="font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:700;color:var(--orange);margin-bottom:12px;">How It Works</div>
+  <div class="how-grid">
+    <div class="how-step">
+      <div class="how-icon">🔗</div>
+      <div class="how-title">Connect Wallet</div>
+      <div class="how-desc">Connect your MetaMask with $STRAT tokens after presale.</div>
+    </div>
+    <div class="how-step">
+      <div class="how-icon">🎯</div>
+      <div class="how-title">Choose Pool</div>
+      <div class="how-desc">Pick 30, 90, or 180 day lock — higher lock = higher APY.</div>
+    </div>
+    <div class="how-step">
+      <div class="how-icon">🔒</div>
+      <div class="how-title">Stake & Lock</div>
+      <div class="how-desc">Tokens locked in smart contract — fully transparent on-chain.</div>
+    </div>
+    <div class="how-step">
+      <div class="how-icon">💰</div>
+      <div class="how-title">Earn Rewards</div>
+      <div class="how-desc">Rewards accrue daily. Claim or restake anytime after unlock.</div>
+    </div>
+  </div>
+
+  <!-- NOTIFY -->
+  <div class="notify-box">
+    <div style="font-size:1.6rem;margin-bottom:14px">🔔</div>
+    <h2 style="font-size:1.3rem;font-weight:900;color:#fff;margin-bottom:8px">Get Notified When Staking Launches</h2>
+    <p style="font-size:13px;color:var(--text-muted);margin-bottom:20px;max-width:400px;margin-left:auto;margin-right:auto;line-height:1.6">Join the whitelist and be the first to stake $STRAT when it launches Q4 2026.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center">
+      <a href="airdrop.html" style="display:inline-flex;align-items:center;gap:7px;padding:12px 22px;border-radius:12px;font-weight:700;font-size:13px;background:linear-gradient(135deg,#FF9D2E,#e67e00);color:#000;box-shadow:0 0 18px rgba(255,157,46,.3)">
+        🎁 Join Airdrop First
+      </a>
+      <a href="index.html" style="display:inline-flex;align-items:center;gap:7px;padding:12px 22px;border-radius:12px;font-weight:700;font-size:13px;border:1px solid rgba(0,229,255,.25);color:var(--blue);background:rgba(0,229,255,.05)">
+        📋 Read Whitepaper
+      </a>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
