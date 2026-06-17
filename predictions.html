@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
 <title>STRATOS AI | Sportsbook</title>
 <meta name="theme-color" content="#000000"/>
 <style>
@@ -308,6 +308,74 @@ input{font-family:inherit;}
 .toast-body{font-size:13px;color:#8fc6cf;line-height:1.6;margin-bottom:8px;}
 .toast-note{font-size:11px;color:var(--text-dim);margin-bottom:18px;}
 .toast-close{display:inline-block;padding:11px 28px;border-radius:12px;font-weight:700;font-size:14px;background:linear-gradient(135deg,#00E5FF,#00a8c4);color:#000;cursor:pointer;}
+
+/* ══ MOBILE OVERRIDES ══ */
+@media(max-width:919px){
+  /* Nav improvements */
+  .nav-inner{padding:0 12px;}
+  .coming-soon-badge span:last-child{display:none;}
+  
+  /* Page layout for mobile */
+  .page{padding-top:64px;padding-bottom:140px;gap:12px;}
+
+  /* Match list tighter */
+  .match-head{padding:10px 10px;gap:6px;}
+  .match-league{max-width:52px;font-size:8px;}
+  .match-team-name{font-size:12px;}
+  .match-vs{padding:0 2px;font-size:8px;}
+  .match-time{font-size:10px;}
+  .odds-row{padding:0 10px 9px;gap:4px;}
+  .odd-btn{padding:7px 3px;}
+  .odd-val{font-size:13px;}
+  .odd-label{font-size:8px;}
+  
+  /* Stats in detail panel */
+  .stats-grid{gap:6px;}
+  .stat-box{padding:8px;}
+  .stat-lbl{font-size:9px;}
+  .stat-v{font-size:10px;}
+  .stat-team{font-size:10px;}
+
+  /* AI box */
+  .ai-text{font-size:11px;}
+  .ai-tip{font-size:10px;}
+
+  /* Betslip fixed bar - improved */
+  .betslip-wrap{position:fixed;bottom:0;left:0;right:0;z-index:40;padding-bottom:env(safe-area-inset-bottom);}
+  .betslip{border-radius:16px 16px 0 0;border-bottom:none;background:rgba(8,10,14,.98);}
+  .betslip-wrap:not(.mob-open) .bs-panel{display:none!important;}
+  .betslip-wrap.mob-open .betslip{max-height:78vh;overflow-y:auto;}
+
+  /* Mobile bar improved */
+  .bs-mob-bar{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;cursor:pointer;background:rgba(0,229,255,.05);border-bottom:1px solid rgba(0,229,255,.1);}
+  .bs-mob-label{font-size:13px;font-weight:700;color:#e8feff;display:flex;align-items:center;gap:8px;}
+  .bs-mob-arrow{color:#4f7780;transition:transform .22s;}
+  .betslip-wrap.mob-open .bs-mob-arrow{transform:rotate(180deg);}
+
+  /* Sec head */
+  .sec-head{padding:8px 12px;}
+  .sec-title{font-size:10px;}
+
+  /* Demo badge */
+  .demo-badge{font-size:9px;}
+}
+
+
+/* Predictions nav mobile */
+@media(max-width:600px){
+  #walletBadge{display:none;}
+  #backBtn{display:none;}
+}
+
+@media(max-width:480px){
+  .match-team-name{font-size:11px;}
+  .match-time{font-size:9px;}
+  .odd-val{font-size:12px;}
+  
+  /* Toast full width */
+  .toast-box{border-radius:16px 16px 0 0;position:fixed;bottom:0;left:0;right:0;max-width:100%;}
+}
+
 </style>
 </head>
 <body>
@@ -322,7 +390,7 @@ input{font-family:inherit;}
       STRATOS<span style="color:#00E5FF">AI</span>
     </a>
     <div class="nav-right">
-      <div class="coming-soon-badge">
+      <div class="coming-soon-badge" id="walletBadge">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4z"/></svg>
         Wallet · Coming Soon
       </div>
@@ -330,7 +398,7 @@ input{font-family:inherit;}
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l1.9 5.8L19.5 10l-5.6 1.2L12 17l-1.9-5.8L4.5 10l5.6-1.2z"/></svg>
         AI History
       </a>
-      <a href="index.html" class="nav-back">
+      <a href="index.html" class="nav-back" id="backBtn">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
         Back
       </a>
@@ -377,6 +445,7 @@ input{font-family:inherit;}
         <div class="bs-tabs">
           <div class="bs-tab active" onclick="switchTab('slip')" id="tab-slip">Bet Slip</div>
           <div class="bs-tab" onclick="switchTab('bets')" id="tab-bets">My Bets</div>
+          <div class="bs-tab" onclick="switchTab('leaders')" id="tab-leaders">Top</div>
         </div>
         <div class="bs-panel" id="panel-slip">
           <div id="slipContent">
@@ -388,6 +457,9 @@ input{font-family:inherit;}
         </div>
         <div class="bs-panel hidden" id="panel-bets">
           <div id="betsContent"></div>
+        </div>
+        <div class="bs-panel hidden" id="panel-leaders">
+          <div id="leadersContent"></div>
         </div>
       </div>
     </div>
@@ -401,7 +473,7 @@ input{font-family:inherit;}
     <div class="toast-icon">
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#39FF7A" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
     </div>
-    <div class="toast-title">Bet Placed! 🎉</div>
+    <div class="toast-title">Bet Placed</div>
     <div class="toast-body" id="toastBody"></div>
     <div class="toast-note">Demo mode · No real $STRAT used</div>
     <button class="toast-close" onclick="closeToast()">Got it!</button>
@@ -651,7 +723,7 @@ function renderDetail(id,m,ai){
     var shareVerdict = ai.verdict.replace(/'/g,'');
     var shareHome = m.home.replace(/'/g,'');
     var shareAway = m.away.replace(/'/g,'');
-    aiHtml='<div class="ai-box"><div class="ai-head"><div class="ai-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#00E5FF" stroke-width="2"><path d="M12 3l1.9 5.8L19.5 10l-5.6 1.2L12 17l-1.9-5.8L4.5 10l5.6-1.2z"/></svg></div><span class="ai-title">STRATOS AI</span><span style="margin-left:auto;font-size:10px;font-weight:700;padding:2px 7px;border-radius:999px;color:'+cc+';border:1px solid '+cc+'40;background:'+cc+'12">'+ai.confidence+'</span></div><p class="ai-text">'+ai.analysis+'</p><div class="ai-tip">💡 '+ai.tip+'</div><div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px;flex-wrap:wrap;gap:8px"><div class="ai-verdict"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Prediction: <strong>'+ai.verdict+'</strong></div><button onclick="shareOnX(\''+shareHome+'\',\''+shareAway+'\',\''+shareVerdict+'\',\''+ai.confidence+'\')" style="display:inline-flex;align-items:center;gap:5px;padding:5px 10px;border-radius:999px;font-size:10px;font-weight:700;border:1px solid rgba(255,255,255,.15);color:#e8feff;background:rgba(255,255,255,.05);cursor:pointer"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.843L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>Share on X</button></div><a href="history.html" style="display:inline-flex;align-items:center;gap:4px;margin-top:8px;font-size:10px;color:var(--text-dim);text-decoration:none">View all predictions →</a></div>';
+    aiHtml='<div class="ai-box"><div class="ai-head"><div class="ai-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#00E5FF" stroke-width="2"><path d="M12 3l1.9 5.8L19.5 10l-5.6 1.2L12 17l-1.9-5.8L4.5 10l5.6-1.2z"/></svg></div><span class="ai-title">STRATOS AI</span><span style="margin-left:auto;font-size:10px;font-weight:700;padding:2px 7px;border-radius:999px;color:'+cc+';border:1px solid '+cc+'40;background:'+cc+'12">'+ai.confidence+'</span></div><p class="ai-text">'+ai.analysis+'</p><div class="ai-tip">'+ai.tip+'</div><div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px;flex-wrap:wrap;gap:8px"><div class="ai-verdict"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Prediction: <strong>'+ai.verdict+'</strong></div><button onclick="shareOnX(\''+shareHome+'\',\''+shareAway+'\',\''+shareVerdict+'\',\''+ai.confidence+'\')" style="display:inline-flex;align-items:center;gap:5px;padding:5px 10px;border-radius:999px;font-size:10px;font-weight:700;border:1px solid rgba(255,255,255,.15);color:#e8feff;background:rgba(255,255,255,.05);cursor:pointer"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.843L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>Share on X</button></div><a href="history.html" style="display:inline-flex;align-items:center;gap:4px;margin-top:8px;font-size:10px;color:var(--text-dim);text-decoration:none">View all predictions →</a></div>';
     // Save prediction to localStorage for history page
     savePredictionToHistory(m, ai);
   } else {
@@ -821,7 +893,8 @@ function renderMyBets(){
 
   var betsHtml=bets.map(function(b){
     var statusClass=b.settled?(b.won?'bhi-won':'bhi-lost'):'bhi-pending';
-    var statusText=b.settled?(b.won?'✅ Won':'❌ Lost'):'⏳ Pending';
+    var statusText=b.settled?(b.won?'Won':'Lost'):'Pending';
+    var statusDot=b.settled?(b.won?'#39FF7A':'#ff5c7a'):'#FF9D2E';
     var score=b.finalScore?' · '+b.finalScore:'';
     return '<div class="bet-history-item">'+
       '<div class="bhi-match">'+b.match+'</div>'+
@@ -843,9 +916,12 @@ function switchTab(tab){
   S.activeTab=tab;
   document.getElementById('tab-slip').classList.toggle('active',tab==='slip');
   document.getElementById('tab-bets').classList.toggle('active',tab==='bets');
+  document.getElementById('tab-leaders').classList.toggle('active',tab==='leaders');
   document.getElementById('panel-slip').classList.toggle('hidden',tab!=='slip');
   document.getElementById('panel-bets').classList.toggle('hidden',tab!=='bets');
+  document.getElementById('panel-leaders').classList.toggle('hidden',tab!=='leaders');
   if(tab==='bets') renderMyBets();
+  if(tab==='leaders') renderLeaderboard();
 }
 
 /* ═══════════════════════════════════════
@@ -884,12 +960,12 @@ function savePredictionToHistory(m, ai){
    SHARE ON X
 ═══════════════════════════════════════ */
 function shareMatchOnX(home, away){
-  var text = '⚽ '+home+' vs '+away+'\n\n🤖 STRATOS AI just analyzed this match!\nCheck the AI prediction & odds 👇\nstratosa.netlify.app/predictions\n\n#WorldCup2026 #SportsBetting #Web3 $STRAT';
+  var text = home+' vs '+away+'\n\nSTRATOS AI just analyzed this match.\nAI prediction & odds:\nstratosa.netlify.app/predictions\n\n#WorldCup2026 #SportsBetting #Web3 $STRAT';
   window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(text),'_blank');
 }
 
 function shareOnX(home, away, verdict, confidence){
-  var text = '🤖 STRATOS AI Prediction\n\n⚽ '+home+' vs '+away+'\n🎯 Verdict: '+verdict+'\n💡 Confidence: '+confidence+'\n\nTry the AI predictions yourself 👇\n stratosa.netlify.app/predictions\n\n#WorldCup2026 #SportsBetting #Web3 #STRAT';
+  var text = 'STRATOS AI Prediction\n\n'+home+' vs '+away+'\nVerdict: '+verdict+' ('+confidence+' confidence)\n\nstratosa.netlify.app/predictions\n\n#WorldCup2026 #SportsBetting #Web3 $STRAT';
   var url = 'https://twitter.com/intent/tweet?text='+encodeURIComponent(text);
   window.open(url, '_blank');
 }
@@ -899,6 +975,51 @@ function shareOnX(home, away, verdict, confidence){
 ═══════════════════════════════════════ */
 function toggleMobileBetslip(){
   document.getElementById('betslipWrap').classList.toggle('mob-open');
+}
+
+/* ═══════════════════════════════════════
+   LEADERBOARD (from Supabase)
+═══════════════════════════════════════ */
+var LB_URL = 'https://eodmgkcjytkhilxfyvrr.supabase.co';
+var LB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVvZG1na2NqeXRraGlseGZ5dnJyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE2MTE3MzYsImV4cCI6MjA5NzE4NzczNn0.-nNJ1LLZOatrkaanyfd07ZTJ7IYiBXUA1jiUfaeXs3I';
+var lbCache = null;
+
+async function renderLeaderboard(){
+  var el = document.getElementById('leadersContent');
+  if(lbCache){ el.innerHTML = lbCache; return; }
+  el.innerHTML = '<div style="text-align:center;padding:24px 0;color:var(--text-dim);font-size:13px"><span class="spinner"></span></div>';
+  try{
+    var res = await fetch(LB_URL+'/rest/v1/users?select=username,first_name,points&order=points.desc&limit=10',{
+      headers:{'apikey':LB_KEY,'Authorization':'Bearer '+LB_KEY}
+    });
+    var users = await res.json();
+    if(!users || !users.length){
+      el.innerHTML = '<div style="text-align:center;padding:24px 0;color:var(--text-dim);font-size:12px">No entries yet.<br><a href="airdrop.html" style="color:var(--blue);font-weight:700">Join the airdrop</a></div>';
+      return;
+    }
+    var rankColors = ['#FFD700','#C0C0C0','#CD7F32'];
+    var rows = users.map(function(u,i){
+      var name = u.username ? '@'+u.username : (u.first_name||'Anonymous');
+      var rankStr = i < 3
+        ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="'+rankColors[i]+'" style="margin-bottom:-2px"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>'
+        : '<span style="font-size:11px;font-weight:900;color:var(--text-dim)">'+(i+1)+'</span>';
+      var isTop = i < 3;
+      return '<div style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid rgba(255,255,255,.03);'+(isTop?'background:rgba(255,255,255,.015)':'')+'">' +
+        '<div style="width:24px;text-align:center;flex-shrink:0">'+rankStr+'</div>'+
+        '<div style="flex:1;font-size:12px;font-weight:600;color:#e8feff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+name+'</div>'+
+        '<div style="font-size:12px;font-weight:900;color:var(--green);flex-shrink:0">'+u.points.toLocaleString()+' pts</div>'+
+      '</div>';
+    }).join('');
+    var html = '<div style="border-bottom:1px solid var(--border);padding:9px 14px;display:flex;align-items:center;justify-content:space-between">'+
+      '<span style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--blue)">Airdrop Leaderboard</span>'+
+      '<a href="airdrop.html" style="font-size:10px;color:var(--text-muted);font-weight:600">View All →</a></div>'+
+      rows+
+      '<div style="padding:10px 14px;text-align:center"><a href="airdrop.html" style="font-size:11px;font-weight:700;color:var(--blue);text-decoration:none">Join to claim your spot →</a></div>';
+    lbCache = html;
+    el.innerHTML = html;
+  }catch(e){
+    el.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-dim);font-size:12px">Could not load leaderboard.</div>';
+  }
 }
 
 /* ═══════════════════════════════════════
