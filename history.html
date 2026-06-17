@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
 <title>STRATOS AI | Prediction History</title>
 <meta name="theme-color" content="#000000"/>
 <style>
@@ -141,6 +141,64 @@ button{cursor:pointer;font-family:inherit;border:none;background:none;}
 .conf-bar-wrap{flex:1;height:8px;border-radius:4px;background:rgba(255,255,255,.05);overflow:hidden;}
 .conf-bar{height:100%;border-radius:4px;animation:barGrow .7s cubic-bezier(.16,1,.3,1);}
 .conf-stat{font-size:11px;color:var(--text-muted);width:60px;text-align:right;flex-shrink:0;}
+
+/* ══ MOBILE OVERRIDES ══ */
+.hamburger{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:36px;height:36px;border-radius:8px;border:1px solid rgba(0,229,255,.25);background:rgba(0,229,255,.05);}
+@media(min-width:768px){.hamburger{display:none;}}
+.ham-line{width:16px;height:2px;background:#00E5FF;border-radius:2px;transition:all .25s;}
+.hamburger.open .ham-line:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open .ham-line:nth-child(2){opacity:0;}
+.hamburger.open .ham-line:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mob-drawer{display:none;position:fixed;top:56px;left:0;right:0;z-index:49;background:rgba(2,4,8,.98);border-bottom:1px solid rgba(0,229,255,.12);padding:12px 16px 20px;}
+.mob-drawer.open{display:block;}
+.mob-item{display:flex;align-items:center;width:100%;padding:12px 14px;border-radius:10px;color:#8fc6cf;font-size:14px;font-weight:600;margin-bottom:4px;background:transparent;border:1px solid transparent;text-align:left;transition:all .2s;text-decoration:none;}
+.mob-item:hover,.mob-item:active{background:rgba(0,229,255,.06);border-color:rgba(0,229,255,.18);color:#fff;}
+.mob-item.blue{color:var(--blue);border-color:rgba(0,229,255,.2);background:rgba(0,229,255,.04);}
+.mob-item.cta{background:#00E5FF;color:#000;border-color:#00E5FF;font-weight:800;justify-content:center;margin-top:8px;}
+
+@media(max-width:767px){
+  .nav-inner{padding:0 14px;}
+  .nav-links{display:none !important;}
+  .page{padding:64px 14px 48px;}
+  
+  /* Hero */
+  .page-hero{padding:24px 0 20px;}
+  .page-hero h1{font-size:clamp(1.4rem,6vw,2rem);}
+  .page-hero p{font-size:13px;}
+  
+  /* Accuracy grid - 2 col on small screens */
+  .accuracy-grid{grid-template-columns:repeat(2,1fr);}
+  .acc-val{font-size:1.6rem;}
+  
+  /* Ring */
+  .accuracy-ring{width:130px;height:130px;}
+  .accuracy-ring svg{width:130px;height:130px;}
+  .accuracy-ring-pct{font-size:1.6rem;}
+  
+  /* Filters - scroll horizontally */
+  .filters{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px;}
+  .filters::-webkit-scrollbar{display:none;}
+  .filter-btn{white-space:nowrap;flex-shrink:0;}
+  
+  /* Pred cards */
+  .pred-card{padding:12px;}
+  .pred-top{gap:6px;margin-bottom:8px;}
+  .pred-team-name{font-size:13px;}
+  .pred-score{font-size:1.1rem;min-width:48px;}
+  .pred-ai{flex-wrap:wrap;gap:6px;padding:8px 10px;}
+  .pred-ai-verdict{font-size:11px;}
+  
+  /* Conf section */
+  .conf-section{padding:14px;}
+  .conf-label{width:50px;font-size:11px;}
+  .conf-stat{width:50px;font-size:10px;}
+}
+
+@media(max-width:400px){
+  .acc-val{font-size:1.4rem;}
+  .pred-team-name{font-size:12px;}
+}
+
 </style>
 </head>
 <body>
@@ -241,9 +299,9 @@ button{cursor:pointer;font-family:inherit;border:none;background:none;}
   <div class="filters">
     <span class="filter-label">Filter:</span>
     <button class="filter-btn active" onclick="setFilter('all')" id="f-all">All</button>
-    <button class="filter-btn" onclick="setFilter('correct')" id="f-correct">✅ Correct</button>
-    <button class="filter-btn" onclick="setFilter('wrong')" id="f-wrong">❌ Wrong</button>
-    <button class="filter-btn" onclick="setFilter('pending')" id="f-pending">⏳ Pending</button>
+    <button class="filter-btn" onclick="setFilter('correct')" id="f-correct">Correct</button>
+    <button class="filter-btn" onclick="setFilter('wrong')" id="f-wrong">Wrong</button>
+    <button class="filter-btn" onclick="setFilter('pending')" id="f-pending">Pending</button>
     <button class="filter-btn" onclick="setFilter('high')" id="f-high">High Confidence</button>
   </div>
 
@@ -463,13 +521,13 @@ function renderPredictions(){
     var kickoff = new Date(p.kickoff);
     var timeStr = kickoff.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
     var statusClass = p.settled ? (p.won?'won':'lost') : 'pending';
-    var statusText = p.settled ? (p.won ? '✅ Correct' : '❌ Wrong') : '⏳ Pending';
+    var statusText = p.settled ? (p.won ? 'Correct' : 'Wrong') : 'Pending';
     var scoreHtml = p.settled && p.finalScore
       ? '<div class="pred-score">'+p.finalScore+'</div>'
       : '<div class="pred-score pending">vs</div>';
     var confColor = p.confidence==='High'?'#39FF7A':p.confidence==='Medium'?'#FF9D2E':'#8fc6cf';
     var aiResultClass = p.settled ? (p.won?'correct':'wrong') : 'pending';
-    var aiResultText = p.settled ? (p.won?'✓ Correct':'✗ Wrong') : 'Pending';
+    var aiResultText = p.settled ? (p.won?'Correct':'Wrong') : 'Pending';
 
     return '<div class="pred-card '+statusClass+'">'+
       '<div class="pred-top">'+
@@ -596,6 +654,15 @@ function renderWeeklyChart(){
 }
 
 loadPredictions();
+
+function toggleDraw(){
+  var h=document.getElementById('ham'),d=document.getElementById('mobDraw');
+  h.classList.toggle('open'); d.classList.toggle('open');
+}
+window.addEventListener('scroll',function(){
+  document.getElementById('ham').classList.remove('open');
+  document.getElementById('mobDraw').classList.remove('open');
+},{passive:true});
 </script>
 </body>
 </html>
