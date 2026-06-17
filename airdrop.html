@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>STRATOS AI | Airdrop</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#05070a;color:#e8feff;font-family:'Inter',system-ui,-apple-system,sans-serif;overflow-x:hidden;min-height:100vh;}
+a{text-decoration:none;color:inherit;}
+button{cursor:pointer;font-family:inherit;border:none;background:none;}
+input{font-family:inherit;}
+
+:root{
+  --blue:#00E5FF;--green:#39FF7A;--orange:#FF9D2E;--red:#ff5c7a;
+  --bg2:rgba(255,255,255,.03);--border:rgba(255,255,255,.07);
+  --text-muted:#6fa9b2;--text-dim:#4f7780;
+  --radius:10px;--radius-lg:14px;
+}
+
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes countUp{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
+
+.grid-bg{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.15;
+  background-image:linear-gradient(rgba(0,229,255,.06) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(0,229,255,.06) 1px,transparent 1px);
+  background-size:48px 48px;}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(5,7,10,.95);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,229,255,.1);height:56px;}
+.nav-inner{max-width:1100px;margin:0 auto;padding:0 18px;height:100%;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{display:flex;align-items:center;gap:8px;font-size:17px;font-weight:800;letter-spacing:.1em;text-shadow:0 0 10px var(--blue);}
+.nav-links{display:flex;align-items:center;gap:12px;}
+.nav-link{font-size:13px;font-weight:600;color:var(--text-muted);transition:color .2s;}
+.nav-link:hover{color:#fff;}
+.nav-link.active{color:var(--green);}
+.nav-cta{padding:7px 14px;border-radius:999px;font-size:12px;font-weight:700;background:linear-gradient(135deg,#00E5FF,#00a8c4);color:#000;}
+
+/* PAGE */
+.page{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:72px 16px 60px;}
+
+/* HERO */
+.hero{text-align:center;padding:36px 0 40px;}
+.hero-badge{display:inline-flex;align-items:center;gap:7px;padding:5px 16px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.08em;border:1px solid rgba(57,255,122,.35);color:var(--green);background:rgba(57,255,122,.06);margin-bottom:20px;animation:pulse 2.4s ease-in-out infinite;}
+.hero h1{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;line-height:1.2;margin-bottom:12px;}
+.hero p{font-size:14px;color:var(--text-muted);max-width:480px;margin:0 auto 28px;line-height:1.7;}
+.hero-btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:12px;font-weight:800;font-size:15px;background:linear-gradient(135deg,#39FF7A,#00c853);color:#000;box-shadow:0 0 22px rgba(57,255,122,.4);transition:transform .2s;}
+.hero-btn:hover{transform:scale(1.03);}
+
+/* STATS GRID */
+.stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:24px;}
+@media(min-width:600px){.stats-grid{grid-template-columns:repeat(4,1fr);}}
+.stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px 16px;text-align:center;transition:border-color .2s;}
+.stat-card:hover{border-color:rgba(57,255,122,.25);}
+.stat-val{font-size:clamp(1.4rem,3vw,2rem);font-weight:900;line-height:1;margin-bottom:6px;animation:countUp .5s ease-out;}
+.stat-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-dim);}
+
+/* HOW TO JOIN */
+.how-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:24px;}
+@media(min-width:600px){.how-grid{grid-template-columns:repeat(3,1fr);}}
+.how-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px;position:relative;overflow:hidden;transition:border-color .2s;}
+.how-card:hover{border-color:rgba(57,255,122,.2);}
+.how-card::before{content:attr(data-n);position:absolute;top:8px;right:12px;font-size:2.5rem;font-weight:900;color:rgba(57,255,122,.06);}
+.how-icon{font-size:1.6rem;margin-bottom:10px;}
+.how-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:6px;}
+.how-desc{font-size:12px;color:var(--text-muted);line-height:1.6;margin-bottom:12px;}
+.how-pts{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:700;background:rgba(57,255,122,.08);border:1px solid rgba(57,255,122,.25);color:var(--green);}
+.how-btn{display:block;width:100%;margin-top:10px;padding:9px;border-radius:10px;font-size:12px;font-weight:700;text-align:center;border:1px solid rgba(0,229,255,.25);color:var(--blue);background:rgba(0,229,255,.05);transition:all .2s;}
+.how-btn:hover{background:rgba(0,229,255,.1);}
+
+/* MY RANK */
+.rank-section{background:var(--bg2);border:1px solid rgba(57,255,122,.15);border-radius:var(--radius-lg);padding:22px;margin-bottom:24px;}
+.rank-title{font-size:13px;font-weight:700;color:#fff;margin-bottom:14px;}
+.rank-input-row{display:flex;gap:8px;}
+.rank-input{flex:1;padding:10px 14px;border-radius:var(--radius);background:rgba(255,255,255,.04);border:1px solid var(--border);color:#fff;font-size:14px;outline:none;transition:border-color .2s;}
+.rank-input:focus{border-color:var(--blue);}
+.rank-btn{padding:10px 18px;border-radius:var(--radius);font-size:13px;font-weight:700;background:linear-gradient(135deg,#00E5FF,#00a8c4);color:#000;}
+.rank-result{margin-top:14px;display:none;}
+.rank-result.show{display:block;animation:fadeUp .3s ease-out;}
+.rank-card{background:rgba(57,255,122,.04);border:1px solid rgba(57,255,122,.2);border-radius:var(--radius);padding:14px;}
+
+/* LEADERBOARD */
+.lb-section{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:24px;}
+.lb-header{padding:16px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.lb-title{font-size:13px;font-weight:700;color:#fff;}
+.lb-badge{font-size:10px;color:var(--text-dim);background:rgba(255,255,255,.04);padding:3px 8px;border-radius:999px;border:1px solid var(--border);}
+.lb-row{display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid rgba(255,255,255,.03);transition:background .2s;}
+.lb-row:hover{background:rgba(255,255,255,.02);}
+.lb-row:last-child{border-bottom:none;}
+.lb-rank{font-size:13px;font-weight:900;width:28px;text-align:center;flex-shrink:0;}
+.lb-name{flex:1;font-size:13px;font-weight:600;color:#e8feff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.lb-pts{font-size:13px;font-weight:900;color:var(--green);flex-shrink:0;}
+.lb-tasks{font-size:10px;color:var(--text-dim);flex-shrink:0;}
+
+/* Spinner */
+.spinner{width:18px;height:18px;border:2px solid rgba(0,229,255,.15);border-top-color:var(--blue);border-radius:50%;animation:spin .7s linear infinite;display:inline-block;vertical-align:middle;margin-right:6px;}
+
+/* Medals */
+.medal-1{color:#FFD700;}
+.medal-2{color:#C0C0C0;}
+.medal-3{color:#CD7F32;}
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00E5FF" stroke-width="2" style="filter:drop-shadow(0 0 6px #00E5FF)"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>
+      STRATOS<span style="color:#00E5FF">AI</span>
+    </a>
+    <div class="nav-links">
+      <a href="predictions.html" class="nav-link">Sportsbook</a>
+      <a href="history.html" class="nav-link">AI History</a>
+      <a href="airdrop.html" class="nav-link active">Airdrop</a>
+      <a href="https://t.me/StratosAidrop_Bot" target="_blank" class="nav-cta">Join Bot</a>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE -->
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badge">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l1.9 5.8L19.5 10l-5.6 1.2L12 17l-1.9-5.8L4.5 10l5.6-1.2z"/></svg>
+      $STRAT AIRDROP · Q4 2026
+    </div>
+    <h1>Earn <span style="color:#39FF7A;text-shadow:0 0 20px rgba(57,255,122,.5)">$STRAT</span><br>Before the Presale</h1>
+    <p>Complete simple tasks, refer friends, and climb the leaderboard. Top holders get guaranteed presale allocation.</p>
+    <a href="https://t.me/StratosAidrop_Bot" target="_blank" class="hero-btn">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Join Airdrop Bot
+    </a>
+  </div>
+
+  <!-- LIVE STATS -->
+  <div class="stats-grid" id="statsGrid">
+    <div class="stat-card">
+      <div class="stat-val" style="color:#39FF7A" id="statMembers"><span class="spinner"></span></div>
+      <div class="stat-lbl">Total Members</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val" style="color:#00E5FF" id="statPoints"><span class="spinner"></span></div>
+      <div class="stat-lbl">Points Distributed</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val" style="color:#FF9D2E" id="statTasks"><span class="spinner"></span></div>
+      <div class="stat-lbl">Tasks Completed</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val" style="color:#ff5c7a" id="statReferrals"><span class="spinner"></span></div>
+      <div class="stat-lbl">Referrals</div>
+    </div>
+  </div>
+
+  <!-- HOW TO JOIN -->
+  <div style="font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:700;color:var(--green);margin-bottom:12px;">How to Earn</div>
+  <div class="how-grid">
+    <div class="how-card" data-n="01">
+      <div class="how-icon">📢</div>
+      <div class="how-title">Join Channel</div>
+      <div class="how-desc">Join our official Telegram channel to stay updated on all STRATOS AI news.</div>
+      <div class="how-pts">+100 $STRAT pts</div>
+      <a href="https://t.me/stratosAi_official" target="_blank" class="how-btn">Join Channel →</a>
+    </div>
+    <div class="how-card" data-n="02">
+      <div class="how-icon">🐦</div>
+      <div class="how-title">Follow on X</div>
+      <div class="how-desc">Follow @stratosaig on X/Twitter to earn points and stay connected with the community.</div>
+      <div class="how-pts">+100 $STRAT pts</div>
+      <a href="https://x.com/stratosaig" target="_blank" class="how-btn">Follow on X →</a>
+    </div>
+    <div class="how-card" data-n="03">
+      <div class="how-icon">⚽</div>
+      <div class="how-title">Try Predictions</div>
+      <div class="how-desc">Visit the live sportsbook, explore AI predictions, and place a demo bet.</div>
+      <div class="how-pts">+50 $STRAT pts</div>
+      <a href="predictions.html" class="how-btn">Try Now →</a>
+    </div>
+  </div>
+
+  <!-- REFERRAL BOX -->
+  <div style="background:rgba(0,229,255,.03);border:1px solid rgba(0,229,255,.15);border-radius:var(--radius-lg);padding:20px;margin-bottom:24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+    <div style="font-size:1.8rem">👥</div>
+    <div style="flex:1;min-width:200px">
+      <div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:4px">Refer Friends — Earn More</div>
+      <div style="font-size:12px;color:var(--text-muted)">Get <strong style="color:#00E5FF">+200 $STRAT points</strong> for every friend you invite via the bot.</div>
+    </div>
+    <a href="https://t.me/StratosAidrop_Bot" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:10px;font-size:13px;font-weight:700;background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.25);color:var(--blue);">Get Referral Link →</a>
+  </div>
+
+  <!-- MY RANK -->
+  <div class="rank-section">
+    <div class="rank-title">🔍 Check Your Rank</div>
+    <div class="rank-input-row">
+      <input class="rank-input" id="rankInput" type="number" placeholder="Enter your Telegram ID">
+      <button class="rank-btn" onclick="checkRank()">Check</button>
+    </div>
+    <div class="rank-result" id="rankResult"></div>
+  </div>
+
+  <!-- LEADERBOARD -->
+  <div class="lb-section">
+    <div class="lb-header">
+      <div class="lb-title">🏆 Leaderboard</div>
+      <div class="lb-badge" id="lbBadge">Loading…</div>
+    </div>
+    <div id="leaderboard">
+      <div style="padding:24px;text-align:center;color:var(--text-dim);font-size:13px">
+        <span class="spinner"></span>Loading leaderboard…
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOM CTA -->
+  <div style="text-align:center;padding:32px 0">
+    <div style="font-size:12px;color:var(--text-dim);margin-bottom:16px">Already in the bot? Share with friends to climb the ranks!</div>
+    <a href="https://t.me/StratosAidrop_Bot" target="_blank" class="hero-btn" style="font-size:13px;padding:11px 22px;">
+      Open Airdrop Bot 🚀
+    </a>
+  </div>
+
+</div>
+
+<script>
+var SUPABASE_URL = 'https://eodmgkcjytkhilxfyvrr.supabase.co';
+var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVvZG1na2NqeXRraGlseGZ5dnJyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE2MTE3MzYsImV4cCI6MjA5NzE4NzczNn0.-nNJ1LLZOatrkaanyfd07ZTJ7IYiBXUA1jiUfaeXs3I';
+
+async function supaFetch(path){
+  var res = await fetch(SUPABASE_URL+'/rest/v1/'+path, {
+    headers:{
+      'apikey': SUPABASE_KEY,
+      'Authorization': 'Bearer '+SUPABASE_KEY,
+      'Content-Type': 'application/json'
+    }
+  });
+  return res.json();
+}
+
+/* LOAD STATS */
+async function loadStats(){
+  try{
+    var users = await supaFetch('users?select=points,task_joined_channel,task_followed_twitter,task_visited_website');
+    var referrals = await supaFetch('referrals?select=id');
+
+    var totalMembers = users.length;
+    var totalPoints = users.reduce(function(s,u){ return s+(u.points||0); }, 0);
+    var totalTasks = users.reduce(function(s,u){
+      return s+(u.task_joined_channel?1:0)+(u.task_followed_twitter?1:0)+(u.task_visited_website?1:0);
+    }, 0);
+    var totalReferrals = referrals.length;
+
+    document.getElementById('statMembers').textContent = totalMembers.toLocaleString();
+    document.getElementById('statPoints').textContent = totalPoints.toLocaleString();
+    document.getElementById('statTasks').textContent = totalTasks.toLocaleString();
+    document.getElementById('statReferrals').textContent = totalReferrals.toLocaleString();
+  }catch(e){
+    ['statMembers','statPoints','statTasks','statReferrals'].forEach(function(id){
+      document.getElementById(id).textContent = '—';
+    });
+  }
+}
+
+/* LOAD LEADERBOARD */
+async function loadLeaderboard(){
+  try{
+    var users = await supaFetch('users?select=telegram_id,username,first_name,points,task_joined_channel,task_followed_twitter,task_visited_website&order=points.desc&limit=20');
+
+    document.getElementById('lbBadge').textContent = 'Top '+users.length+' users';
+
+    if(!users.length){
+      document.getElementById('leaderboard').innerHTML = '<div style="padding:24px;text-align:center;color:var(--text-dim);font-size:13px">No users yet. Be the first!</div>';
+      return;
+    }
+
+    var medals = ['🥇','🥈','🥉'];
+    var rows = users.map(function(u, i){
+      var name = u.username ? '@'+u.username : (u.first_name || 'Anonymous');
+      var medal = i < 3 ? medals[i] : (i+1)+'.';
+      var medalClass = i===0?'medal-1':i===1?'medal-2':i===2?'medal-3':'';
+      var tasks = (u.task_joined_channel?1:0)+(u.task_followed_twitter?1:0)+(u.task_visited_website?1:0);
+      return '<div class="lb-row">'+
+        '<div class="lb-rank '+medalClass+'">'+medal+'</div>'+
+        '<div class="lb-name">'+name+'</div>'+
+        '<div class="lb-tasks">'+tasks+'/3 tasks</div>'+
+        '<div class="lb-pts">'+u.points.toLocaleString()+' pts</div>'+
+      '</div>';
+    }).join('');
+
+    document.getElementById('leaderboard').innerHTML = rows;
+  }catch(e){
+    document.getElementById('leaderboard').innerHTML = '<div style="padding:24px;text-align:center;color:var(--text-dim);font-size:13px">Could not load leaderboard.</div>';
+  }
+}
+
+/* CHECK MY RANK */
+async function checkRank(){
+  var tid = document.getElementById('rankInput').value.trim();
+  if(!tid){ return; }
+
+  var el = document.getElementById('rankResult');
+  el.innerHTML = '<span class="spinner"></span> Checking…';
+  el.classList.add('show');
+
+  try{
+    var user = await supaFetch('users?select=*&telegram_id=eq.'+tid);
+    if(!user || !user.length){
+      el.innerHTML = '<div class="rank-card" style="border-color:rgba(255,92,122,.3);background:rgba(255,92,122,.04)"><div style="font-size:13px;color:#ff5c7a">User not found. Join the bot first!</div><a href="https://t.me/StratosAidrop_Bot" target="_blank" style="display:inline-block;margin-top:10px;padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.2);color:var(--blue)">Join Bot →</a></div>';
+      return;
+    }
+    var u = user[0];
+
+    // Get rank
+    var allUsers = await supaFetch('users?select=telegram_id,points&order=points.desc');
+    var rank = allUsers.findIndex(function(x){ return x.telegram_id == tid; }) + 1;
+    var tasks = (u.task_joined_channel?1:0)+(u.task_followed_twitter?1:0)+(u.task_visited_website?1:0);
+
+    el.innerHTML = '<div class="rank-card">'+
+      '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px">'+
+        '<div style="text-align:center"><div style="font-size:1.4rem;font-weight:900;color:#39FF7A">'+u.points+'</div><div style="font-size:10px;color:var(--text-dim)">Points</div></div>'+
+        '<div style="text-align:center"><div style="font-size:1.4rem;font-weight:900;color:#00E5FF">#'+rank+'</div><div style="font-size:10px;color:var(--text-dim)">Rank</div></div>'+
+        '<div style="text-align:center"><div style="font-size:1.4rem;font-weight:900;color:#FF9D2E">'+tasks+'/3</div><div style="font-size:10px;color:var(--text-dim)">Tasks</div></div>'+
+      '</div>'+
+      '<div style="font-size:12px;color:var(--text-muted)">Welcome, <strong style="color:#fff">'+(u.first_name||'User')+'</strong>! Your referral code: <strong style="color:#00E5FF">'+u.referral_code+'</strong></div>'+
+    '</div>';
+  }catch(e){
+    el.innerHTML = '<div class="rank-card" style="border-color:rgba(255,92,122,.3)"><div style="font-size:13px;color:#ff5c7a">Error loading data.</div></div>';
+  }
+}
+
+// Enter key for rank check
+document.getElementById('rankInput').addEventListener('keypress', function(e){
+  if(e.key === 'Enter') checkRank();
+});
+
+// Init
+loadStats();
+loadLeaderboard();
+</script>
+</body>
+</html>
