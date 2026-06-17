@@ -555,10 +555,13 @@ function renderMatches(matches){
     var odds = calcOdds(m);
     var kickoff = new Date(m.kickoff);
     var timeStr = kickoff.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'})+' · '+kickoff.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+    var leagueColor = m.league && m.league.toLowerCase().includes('world') ? '#FF9D2E' :
+                      m.league && m.league.toLowerCase().includes('premier') ? '#39FF7A' :
+                      m.league && m.league.toLowerCase().includes('champions') ? '#00E5FF' : '#6fa9b2';
     return(
       '<div class="match-row" id="mr-'+m.id+'">'+
         '<div class="match-head" onclick="toggleMatch('+m.id+')">'+
-          '<span class="match-league">'+m.league+'</span>'+
+          '<span class="match-league" style="color:'+leagueColor+'">'+m.league+'</span>'+
           '<div class="match-teams">'+
             '<div class="match-team">'+
               (m.homeLogo?'<img src="'+m.homeLogo+'" onerror="this.style.display=\'none\'">':'')+
@@ -643,7 +646,7 @@ function renderDetail(id,m,ai){
   var aiHtml;
   if(ai){
     var cc=ai.confidence==='High'?'#39FF7A':ai.confidence==='Medium'?'#FF9D2E':'#8fc6cf';
-    aiHtml='<div class="ai-box"><div class="ai-head"><div class="ai-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#00E5FF" stroke-width="2"><path d="M12 3l1.9 5.8L19.5 10l-5.6 1.2L12 17l-1.9-5.8L4.5 10l5.6-1.2z"/></svg></div><span class="ai-title">STRATOS AI</span><span style="margin-left:auto;font-size:10px;font-weight:700;padding:2px 7px;border-radius:999px;color:'+cc+';border:1px solid '+cc+'40;background:'+cc+'12">'+ai.confidence+'</span></div><p class="ai-text">'+ai.analysis+'</p><div class="ai-tip">💡 '+ai.tip+'</div><div class="ai-verdict"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Prediction: <strong>'+ai.verdict+'</strong></div><a href="history.html" style="display:inline-flex;align-items:center;gap:4px;margin-top:8px;font-size:10px;color:var(--text-dim);text-decoration:none">View all predictions →</a></div>';
+    aiHtml='<div class="ai-box"><div class="ai-head"><div class="ai-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#00E5FF" stroke-width="2"><path d="M12 3l1.9 5.8L19.5 10l-5.6 1.2L12 17l-1.9-5.8L4.5 10l5.6-1.2z"/></svg></div><span class="ai-title">STRATOS AI</span><span style="margin-left:auto;font-size:10px;font-weight:700;padding:2px 7px;border-radius:999px;color:'+cc+';border:1px solid '+cc+'40;background:'+cc+'12">'+ai.confidence+'</span></div><p class="ai-text">'+ai.analysis+'</p><div class="ai-tip">💡 '+ai.tip+'</div><div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px;flex-wrap:wrap;gap:8px"><div class="ai-verdict"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Prediction: <strong>'+ai.verdict+'</strong></div><button onclick="shareOnX(\''+m.home+'\',\''+m.away+'\',\''+ai.verdict+'\',\''+ai.confidence+'\')" style="display:inline-flex;align-items:center;gap:5px;padding:5px 10px;border-radius:999px;font-size:10px;font-weight:700;border:1px solid rgba(255,255,255,.15);color:#e8feff;background:rgba(255,255,255,.05);cursor:pointer;transition:all .2s" onmouseover="this.style.background=\'rgba(255,255,255,.1)\'" onmouseout="this.style.background=\'rgba(255,255,255,.05)\'"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.843L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>Share on X</button></div><a href="history.html" style="display:inline-flex;align-items:center;gap:4px;margin-top:8px;font-size:10px;color:var(--text-dim);text-decoration:none">View all predictions →</a></div>';
     // Save prediction to localStorage for history page
     savePredictionToHistory(m, ai);
   } else {
@@ -870,6 +873,15 @@ function savePredictionToHistory(m, ai){
     });
     localStorage.setItem('stratos_predictions', JSON.stringify(preds.slice(0,200)));
   }catch(e){}
+}
+
+/* ═══════════════════════════════════════
+   SHARE ON X
+═══════════════════════════════════════ */
+function shareOnX(home, away, verdict, confidence){
+  var text = '🤖 STRATOS AI Prediction\n\n⚽ '+home+' vs '+away+'\n🎯 Verdict: '+verdict+'\n💡 Confidence: '+confidence+'\n\nTry the AI predictions yourself 👇\n stratosa.netlify.app/predictions\n\n#WorldCup2026 #SportsBetting #Web3 #STRAT';
+  var url = 'https://twitter.com/intent/tweet?text='+encodeURIComponent(text);
+  window.open(url, '_blank');
 }
 
 /* ═══════════════════════════════════════
