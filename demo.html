@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
 <title>STRATOS AI | How It Works</title>
 <meta name="theme-color" content="#000000"/>
 <style>
@@ -145,6 +145,49 @@ button{cursor:pointer;font-family:inherit;border:none;background:none;}
 
 /* Spinner */
 .spinner{width:16px;height:16px;border:2px solid rgba(0,229,255,.15);border-top-color:var(--blue);border-radius:50%;animation:spin .7s linear infinite;display:inline-block;vertical-align:middle;margin-right:6px;}
+
+/* ══ MOBILE OVERRIDES ══ */
+.hamburger{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:36px;height:36px;border-radius:8px;border:1px solid rgba(0,229,255,.25);background:rgba(0,229,255,.05);}
+@media(min-width:768px){.hamburger{display:none;}}
+.ham-line{width:16px;height:2px;background:#00E5FF;border-radius:2px;transition:all .25s;}
+.hamburger.open .ham-line:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open .ham-line:nth-child(2){opacity:0;}
+.hamburger.open .ham-line:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mob-drawer{display:none;position:fixed;top:56px;left:0;right:0;z-index:49;background:rgba(2,4,8,.98);border-bottom:1px solid rgba(0,229,255,.12);padding:12px 16px 20px;}
+.mob-drawer.open{display:block;}
+.mob-item{display:flex;align-items:center;width:100%;padding:12px 14px;border-radius:10px;color:#8fc6cf;font-size:14px;font-weight:600;margin-bottom:4px;background:transparent;border:1px solid transparent;text-align:left;transition:all .2s;text-decoration:none;}
+.mob-item:hover,.mob-item:active{background:rgba(0,229,255,.06);border-color:rgba(0,229,255,.18);color:#fff;}
+.mob-item.cta-mob{background:#00E5FF;color:#000;border-color:#00E5FF;font-weight:800;justify-content:center;margin-top:8px;}
+
+@media(max-width:767px){
+  .nav-links{display:none !important;}
+  .nav-inner{padding:0 14px;}
+  .page{padding:64px 14px 48px;}
+  
+  /* Hero */
+  .hero{padding:28px 0 32px;}
+  
+  /* Oracle diagram - scroll horizontal */
+  .oracle-diagram{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:8px;}
+  .oracle-diagram::-webkit-scrollbar{height:3px;}
+  .oracle-diagram::-webkit-scrollbar-thumb{background:rgba(0,229,255,.3);}
+  
+  /* Step selector - make scrollable */
+  .step-selector{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px;}
+  .step-selector::-webkit-scrollbar{display:none;}
+  .step-btn{white-space:nowrap;flex-shrink:0;font-size:12px;padding:6px 12px;}
+  
+  /* Betting flow */
+  .betting-flow{grid-template-columns:1fr !important;}
+  
+  /* Tech cards */
+  .tech-grid{grid-template-columns:1fr !important;}
+  
+  /* CTA buttons */
+  .cta-buttons{flex-direction:column;align-items:stretch;}
+  .btn-primary,.btn-secondary{text-align:center;justify-content:center;}
+}
+
 </style>
 </head>
 <body>
@@ -163,8 +206,19 @@ button{cursor:pointer;font-family:inherit;border:none;background:none;}
       <a href="history.html" class="nav-link">AI History</a>
       <a href="predictions.html" class="nav-link cta">Try Demo →</a>
     </div>
+    <button class="hamburger" id="ham" onclick="toggleDraw()" aria-label="Menu">
+      <span class="ham-line"></span><span class="ham-line"></span><span class="ham-line"></span>
+    </button>
   </div>
 </nav>
+<div class="mob-drawer" id="mobDraw">
+  <a href="index.html" class="mob-item">Home</a>
+  <a href="predictions.html" class="mob-item">Sportsbook</a>
+  <a href="history.html" class="mob-item">AI History</a>
+  <a href="airdrop.html" class="mob-item">Airdrop</a>
+  <a href="staking.html" class="mob-item">Staking</a>
+  <a href="predictions.html" class="mob-item cta-mob">Try Demo →</a>
+</div>
 
 <!-- PAGE -->
 <div class="page">
@@ -260,13 +314,13 @@ button{cursor:pointer;font-family:inherit;border:none;background:none;}
         </div>
         <div class="oracle-arrow">→</div>
         <div class="oracle-node" id="oNode1">
-          <div class="oracle-node-icon">🔗</div>
+          <div class="oracle-node-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div>
           <div class="oracle-node-title">Chainlink Oracle</div>
           <div class="oracle-node-sub">Industry-standard decentralized oracle network — trusted by $50B+ in DeFi</div>
         </div>
         <div class="oracle-arrow">→</div>
         <div class="oracle-node" id="oNode2">
-          <div class="oracle-node-icon">✅</div>
+          <div class="oracle-node-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
           <div class="oracle-node-title">Verified Data</div>
           <div class="oracle-node-sub">Match result cross-validated and signed on-chain</div>
         </div>
@@ -286,7 +340,7 @@ button{cursor:pointer;font-family:inherit;border:none;background:none;}
 
       <!-- Phase 3 note -->
       <div style="margin-top:16px;padding:10px 14px;border-radius:10px;background:rgba(255,157,46,.05);border:1px solid rgba(255,157,46,.2);font-size:12px;color:#FF9D2E;">
-        🗺️ <strong>Phase 3 Roadmap:</strong> STRATOS AI will develop its own proprietary oracle network to replace Chainlink — giving full control, lower fees, and sports-specific validation.
+        <strong>Phase 3 Roadmap:</strong> STRATOS AI will develop its own proprietary oracle network to replace Chainlink — giving full control, lower fees, and sports-specific validation.
       </div>
 
       <button onclick="animateOracle()" style="margin-top:16px;padding:10px 20px;border-radius:10px;font-size:13px;font-weight:700;border:1px solid var(--border-blue);color:var(--blue);background:rgba(0,229,255,.05);">
@@ -306,25 +360,25 @@ button{cursor:pointer;font-family:inherit;border:none;background:none;}
 
     <div class="betting-steps">
       <div class="betting-step" data-n="01">
-        <div class="betting-step-icon">🔗</div>
+        <div class="betting-step-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div>
         <div class="betting-step-title">Connect Wallet</div>
         <div class="betting-step-desc">User connects MetaMask or any Web3 wallet. No KYC, no email, no registration.</div>
         <span class="betting-step-tag" style="background:rgba(0,229,255,.1);color:var(--blue);border:1px solid rgba(0,229,255,.2)">No KYC</span>
       </div>
       <div class="betting-step" data-n="02">
-        <div class="betting-step-icon">⚽</div>
+        <div class="betting-step-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></svg></div>
         <div class="betting-step-title">Pick a Match & Outcome</div>
         <div class="betting-step-desc">Browse AI-analyzed matches. See confidence scores, xG, form data. Select 1 / X / 2.</div>
         <span class="betting-step-tag" style="background:rgba(57,255,122,.08);color:var(--green);border:1px solid rgba(57,255,122,.2)">AI Powered</span>
       </div>
       <div class="betting-step" data-n="03">
-        <div class="betting-step-icon">🔒</div>
+        <div class="betting-step-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
         <div class="betting-step-title">Stake $STRAT</div>
         <div class="betting-step-desc">Tokens are locked in the smart contract. Funds are visible on-chain — no one can touch them.</div>
         <span class="betting-step-tag" style="background:rgba(255,157,46,.08);color:var(--orange);border:1px solid rgba(255,157,46,.2)">On-Chain Escrow</span>
       </div>
       <div class="betting-step" data-n="04">
-        <div class="betting-step-icon">🏆</div>
+        <div class="betting-step-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
         <div class="betting-step-title">Auto Settlement</div>
         <div class="betting-step-desc">Oracle confirms result. Smart contract releases winnings instantly. No human approval needed.</div>
         <span class="betting-step-tag" style="background:rgba(57,255,122,.08);color:var(--green);border:1px solid rgba(57,255,122,.2)">Trustless</span>
@@ -346,12 +400,12 @@ button{cursor:pointer;font-family:inherit;border:none;background:none;}
         <div class="tech-card-desc">Low fees, fast confirmation, EVM-compatible. Industry standard for DeFi.</div>
       </div>
       <div class="tech-card">
-        <div class="tech-card-icon">🤖</div>
+        <div class="tech-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l1.9 5.8L19.5 10l-5.6 1.2L12 17l-1.9-5.8L4.5 10l5.6-1.2z"/></svg></div>
         <div class="tech-card-title">Claude AI (Anthropic)</div>
         <div class="tech-card-desc">State-of-the-art LLM for natural language match analysis and prediction reasoning.</div>
       </div>
       <div class="tech-card">
-        <div class="tech-card-icon">📊</div>
+        <div class="tech-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
         <div class="tech-card-title">Poisson Distribution</div>
         <div class="tech-card-desc">Industry-standard statistical model used by professional sports analysts worldwide.</div>
       </div>
@@ -379,8 +433,8 @@ button{cursor:pointer;font-family:inherit;border:none;background:none;}
     <h2 style="font-size:1.6rem;font-weight:900;color:#fff;margin-bottom:10px">See It In Action</h2>
     <p style="color:var(--text-muted);font-size:14px;margin-bottom:22px;max-width:440px;margin-left:auto;margin-right:auto">The demo is live — real World Cup 2026 matches, real AI analysis, real odds.</p>
     <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center">
-      <a href="predictions.html" class="btn-primary">⚽ Open Live Sportsbook</a>
-      <a href="history.html" class="btn-secondary">📊 View AI Track Record</a>
+      <a href="predictions.html" class="btn-primary">Open Live Sportsbook</a>
+      <a href="history.html" class="btn-secondary">View AI Track Record</a>
     </div>
   </div>
 
@@ -460,17 +514,17 @@ async function runAnalysis(){
   var m = MATCHES[selectedMatch];
 
   // Step 0 — Fetch data
-  await activateStep(0, '⏳ Fetching…', 600);
+  await activateStep(0, 'Fetching…', 600);
   setStep(0, m.hFlag+' '+m.home+': '+m.hGs+' goals/game, form: '+m.hForm+'<br>'+m.aFlag+' '+m.away+': '+m.aGs+' goals/game, form: '+m.aForm, true);
 
   // Step 1 — xG
-  await activateStep(1, '⏳ Calculating…', 700);
+  await activateStep(1, 'Calculating…', 700);
   var hxg = Math.max(0.2, ((m.hGs+m.aGc)/2)*1.12);
   var axg = Math.max(0.2, ((m.aGs+m.hGc)/2)*0.96);
   setStep(1, m.hFlag+' xG: <strong style="color:#00E5FF">'+hxg.toFixed(2)+'</strong><br>'+m.aFlag+' xG: <strong style="color:#FF9D2E">'+axg.toFixed(2)+'</strong>', true);
 
   // Step 2 — Poisson
-  await activateStep(2, '⏳ Running model…', 900);
+  await activateStep(2, 'Running model…', 900);
   var pH=0,pD=0,pA=0;
   for(var i=0;i<=8;i++) for(var j=0;j<=8;j++){
     var p=pois(i,hxg)*pois(j,axg);
@@ -480,7 +534,7 @@ async function runAnalysis(){
   setStep(2, m.home+' Win: <strong style="color:#00E5FF">'+(pH*100).toFixed(1)+'%</strong><br>Draw: <strong>'+(pD*100).toFixed(1)+'%</strong><br>'+m.away+' Win: <strong style="color:#FF9D2E">'+(pA*100).toFixed(1)+'%</strong>', true);
 
   // Step 3 — Verdict
-  await activateStep(3, '⏳ Generating verdict…', 800);
+  await activateStep(3, 'Generating verdict…', 800);
   var confColor = m.confidence==='High'?'#39FF7A':'#FF9D2E';
   setStep(3, '<strong style="color:'+confColor+'">'+m.verdict+'</strong><br><span style="font-size:10px">Confidence: '+m.confidence+'</span>', true);
 
@@ -535,7 +589,7 @@ function showResult(m, pH, pD, pA, hxg, axg){
         '<span style="font-size:11px;font-weight:800;color:#00E5FF;text-transform:uppercase;letter-spacing:.08em">STRATOS AI Analysis</span>'+
       '</div>'+
       '<p style="font-size:12px;color:#8fc6cf;line-height:1.7;margin-bottom:8px">'+m.analysis+'</p>'+
-      '<div style="font-size:11px;color:#6fa9b2;padding:7px 10px;border-radius:7px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06)">💡 '+m.tip+'</div>'+
+      '<div style="font-size:11px;color:#6fa9b2;padding:7px 10px;border-radius:7px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06)">'+m.tip+'</div>'+
       '<div class="ai-verdict">✓ Prediction: <strong>'+m.verdict+'</strong></div>'+
     '</div>';
   document.getElementById('aiResult').classList.add('show');
@@ -547,13 +601,13 @@ function showResult(m, pH, pD, pA, hxg, axg){
 var oracleRunning = false;
 var oracleLogs = [
   '📡 Fetching live match data from API-Football…',
-  '🔗 Node 1 (Singapore) confirmed: FT 2-1',
-  '🔗 Node 2 (Frankfurt) confirmed: FT 2-1',
-  '🔗 Node 3 (New York) confirmed: FT 2-1',
+  'Node 1 (Singapore) confirmed: FT 2-1',
+  'Node 2 (Frankfurt) confirmed: FT 2-1',
+  'Node 3 (New York) confirmed: FT 2-1',
   '⛓️ BFT consensus reached — 3/3 nodes agree',
   '📜 Result recorded on BNB Chain (Block #39847201)',
   '💰 Smart contract triggered — paying out winners…',
-  '✅ 847 $STRAT sent to winning wallets. Done.'
+  '847 $STRAT sent to winning wallets.'
 ];
 
 async function animateOracle(){
@@ -592,6 +646,15 @@ if('IntersectionObserver' in window){
 } else {
   document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
 }
+
+function toggleDraw(){
+  var h=document.getElementById('ham'),d=document.getElementById('mobDraw');
+  h.classList.toggle('open'); d.classList.toggle('open');
+}
+window.addEventListener('scroll',function(){
+  document.getElementById('ham').classList.remove('open');
+  document.getElementById('mobDraw').classList.remove('open');
+},{passive:true});
 </script>
 </body>
 </html>
