@@ -114,6 +114,8 @@ button{cursor:pointer;font-family:inherit;border:none;background:none;}
 .mob-item.orange{color:#FF9D2E;border-color:rgba(255,157,46,.2);background:rgba(255,157,46,.04);}
 .mob-item.cta-mob{background:#00E5FF;color:#000;border-color:#00E5FF;font-weight:800;justify-content:center;margin-top:8px;}
 
+.home-link-desk{display:none;}
+@media(min-width:768px){.home-link-desk{display:inline-flex;}}
 @media(max-width:767px){
   .nav-links{display:none !important;}
   .nav-inner{padding:0 14px;}
@@ -136,17 +138,15 @@ button{cursor:pointer;font-family:inherit;border:none;background:none;}
 <!-- NAV -->
 <nav class="nav">
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo">
+    <a href="https://stratosa.netlify.app" class="nav-logo">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00E5FF" stroke-width="2" style="filter:drop-shadow(0 0 6px #00E5FF)"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>
       STRATOS<span style="color:#00E5FF">AI</span>
     </a>
     <div class="nav-links">
-      <a href="predictions.html" class="nav-link">Sportsbook</a>
-      <a href="airdrop.html" class="nav-link">Airdrop</a>
       <a href="staking.html" class="nav-link active">Staking</a>
     </div>
     <div style="display:flex;align-items:center;gap:8px;">
-      <a href="index.html" class="nav-cta" style="display:none" id="homeLinkDesktop">← Home</a>
+      <a href="https://stratosa.netlify.app" class="nav-cta home-link-desk" style="background:transparent;border:1px solid rgba(0,229,255,.3);color:#00E5FF;box-shadow:none;">← Home</a>
       <button class="hamburger" id="ham" onclick="toggleDraw()" aria-label="Menu">
         <span class="ham-line"></span><span class="ham-line"></span><span class="ham-line"></span>
       </button>
@@ -154,12 +154,9 @@ button{cursor:pointer;font-family:inherit;border:none;background:none;}
   </div>
 </nav>
 <div class="mob-drawer" id="mobDraw">
-  <a href="index.html" class="mob-item">Home</a>
-  <a href="predictions.html" class="mob-item">Sportsbook</a>
-  <a href="history.html" class="mob-item">AI History</a>
-  <a href="airdrop.html" class="mob-item">Airdrop</a>
   <a href="staking.html" class="mob-item orange">Staking</a>
-  <a href="https://t.me/StratosAidrop_Bot" target="_blank" class="mob-item cta-mob">Join Airdrop Bot</a>
+  <a href="airdrop.html" class="mob-item">Airdrop →</a>
+  <a href="https://stratosa.netlify.app" class="mob-item cta-mob">← Back to Main Site</a>
 </div>
 
 <!-- PAGE -->
@@ -282,7 +279,7 @@ button{cursor:pointer;font-family:inherit;border:none;background:none;}
       <a href="airdrop.html" style="display:inline-flex;align-items:center;gap:7px;padding:12px 22px;border-radius:12px;font-weight:700;font-size:13px;background:linear-gradient(135deg,#FF9D2E,#e67e00);color:#000;box-shadow:0 0 18px rgba(255,157,46,.3)">
         Join Airdrop First
       </a>
-      <a href="index.html" style="display:inline-flex;align-items:center;gap:7px;padding:12px 22px;border-radius:12px;font-weight:700;font-size:13px;border:1px solid rgba(0,229,255,.25);color:var(--blue);background:rgba(0,229,255,.05)">
+      <a href="https://stratosa.netlify.app" style="display:inline-flex;align-items:center;gap:7px;padding:12px 22px;border-radius:12px;font-weight:700;font-size:13px;border:1px solid rgba(0,229,255,.25);color:var(--blue);background:rgba(0,229,255,.05)">
         📋 Read Whitepaper
       </a>
     </div>
